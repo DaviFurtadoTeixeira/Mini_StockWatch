@@ -37,7 +37,7 @@ public class LoginController {
     		Stage janela = (Stage) ((Node)
     				event.getSource()).getScene().getWindow();
     		janela.setScene(scene);
-    		janela.setTitle("Tela cadastro");
+    		janela.setTitle("Tela login");
     		janela.centerOnScreen();
     		janela.show();
     	}catch(Exception e) {
