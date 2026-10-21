@@ -1,207 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1"
-            prefWidth="1000.0"
-            prefHeight="650.0"
-            style="-fx-background-color: #101512;"
-            stylesheets="@style.css"
-            fx:controller="application.LoginController">
+<AnchorPane prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #101512;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
 
     <children>
-        <HBox spacing="0"
-              AnchorPane.topAnchor="0.0"
-              AnchorPane.bottomAnchor="0.0"
-              AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0">
+        <HBox spacing="0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
             <!-- PAINEL LATERAL -->
-            <VBox alignment="CENTER"
-                  spacing="22.0"
-                  prefWidth="390.0"
-                  minWidth="390.0"
-                  style="-fx-background-color: #17231c;">
+            <VBox alignment="CENTER" minWidth="390.0" prefWidth="390.0" spacing="22.0" style="-fx-background-color: #17231c;">
 
                 <padding>
-                    <Insets top="40" right="35"
-                            bottom="40" left="35"/>
+                    <Insets bottom="40" left="35" right="35" top="40" />
                 </padding>
 
-                <Region VBox.vgrow="ALWAYS"/>
+                <Region VBox.vgrow="ALWAYS" />
 
-                <Label text="StockWatch"
-                       textFill="#42e878">
+                <Label text="StockWatch" textFill="#42e878">
                     <font>
-                        <Font name="System Bold" size="34"/>
+                        <Font name="System Bold" size="34" />
                     </font>
                 </Label>
 
-                <Label text="CONTROLE INTELIGENTE DE ESTOQUE"
-                       textFill="#a2b5a7"
-                       wrapText="true"
-                       alignment="CENTER">
+                <Label alignment="CENTER" text="CONTROLE INTELIGENTE DE ESTOQUE" textFill="#a2b5a7" wrapText="true">
                     <font>
-                        <Font size="12"/>
+                        <Font size="12" />
                     </font>
                 </Label>
 
-                <Region prefHeight="10.0"/>
+                <Region prefHeight="10.0" />
 
-                <Label text="Seu estoque, sob controle."
-                       textFill="#ffffff"
-                       wrapText="true"
-                       alignment="CENTER">
+                <Label alignment="CENTER" text="Seu estoque, sob controle." textFill="#ffffff" wrapText="true">
                     <font>
-                        <Font name="System Bold" size="22"/>
+                        <Font name="System Bold" size="22" />
                     </font>
                 </Label>
 
-                <Label text="Acompanhe produtos, monitore validades\n e organize suas operações em um só lugar."
-                       textFill="#a2b5a7"
-                       wrapText="true"
-                       alignment="CENTER"
-                       textAlignment="CENTER"
-                       lineSpacing="6.0">
+                <Label alignment="CENTER" lineSpacing="6.0" text="Acompanhe produtos, monitore validades e organize suas operações em um só lugar." textAlignment="CENTER" textFill="#a2b5a7" wrapText="true">
                     <font>
-                        <Font size="14"/>
+                        <Font size="14" />
                     </font>
                 </Label>
 
-                <Region VBox.vgrow="ALWAYS"/>
+                <Region VBox.vgrow="ALWAYS" />
 
-                <Label text="STOCKWATCH • GESTÃO DE ESTOQUE"
-                       textFill="#607568">
+                <Label text="STOCKWATCH • GESTÃO DE ESTOQUE" textFill="#607568">
                     <font>
-                        <Font size="10"/>
+                        <Font size="10" />
                     </font>
                 </Label>
             </VBox>
 
             <!-- FORMULÁRIO DE LOGIN -->
-            <VBox alignment="CENTER"
-                  spacing="20.0"
-                  HBox.hgrow="ALWAYS">
+            <VBox alignment="CENTER" spacing="20.0" HBox.hgrow="ALWAYS">
 
                 <padding>
-                    <Insets top="45" right="65"
-                            bottom="45" left="65"/>
+                    <Insets bottom="45" left="65" right="65" top="45" />
                 </padding>
 
-                <VBox spacing="8.0"
-                      maxWidth="420.0"
-                      alignment="CENTER_LEFT">
+                <VBox alignment="CENTER_LEFT" maxWidth="420.0" spacing="8.0">
 
-                    <Label text="Bem-vindo de volta!"
-                           textFill="#ffffff">
+                    <Label text="Bem-vindo de volta!" textFill="#ffffff">
                         <font>
-                            <Font name="System Bold" size="30"/>
+                            <Font name="System Bold" size="30" />
                         </font>
                     </Label>
 
-                    <Label text="Entre com seus dados para continuar."
-                           textFill="#9ba89e">
+                    <Label text="Entre com seus dados para continuar." textFill="#9ba89e">
                         <font>
-                            <Font size="14"/>
+                            <Font size="14" />
                         </font>
                     </Label>
                 </VBox>
 
-                <Region prefHeight="10.0"/>
+                <Region prefHeight="10.0" />
 
                 <!-- E-MAIL OU USUÁRIO -->
-                <VBox spacing="8.0" maxWidth="420.0">
-                    <Label text="E-mail ou usuário"
-                           textFill="#dce7df">
+                <VBox maxWidth="420.0" spacing="8.0">
+                    <Label text="E-mail ou usuário" textFill="#dce7df">
                         <font>
-                            <Font name="System Bold" size="13"/>
+                            <Font name="System Bold" size="13" />
                         </font>
                     </Label>
 
-                    <TextField fx:id="txtUsuario"
-                               promptText="Digite seu e-mail ou usuário"
-                               prefHeight="46.0"
-                               maxWidth="420.0"
-                               style="-fx-background-color: #1b251f;
-                                      -fx-text-fill: white;
-                                      -fx-prompt-text-fill: #718077;
-                                      -fx-border-color: #35453a;
-                                      -fx-border-radius: 6;
-                                      -fx-background-radius: 6;
-                                      -fx-padding: 0 12;"/>
+                    <TextField fx:id="txtUsuario" maxWidth="420.0" prefHeight="46.0" promptText="Digite seu e-mail ou usuário" style="-fx-background-color: #1b251f;                                       -fx-text-fill: white;                                       -fx-prompt-text-fill: #718077;                                       -fx-border-color: #35453a;                                       -fx-border-radius: 6;                                       -fx-background-radius: 6;                                       -fx-padding: 0 12;" />
                 </VBox>
 
                 <!-- SENHA -->
-                <VBox spacing="8.0" maxWidth="420.0">
-                    <Label text="Senha"
-                           textFill="#dce7df">
+                <VBox maxWidth="420.0" spacing="8.0">
+                    <Label text="Senha" textFill="#dce7df">
                         <font>
-                            <Font name="System Bold" size="13"/>
+                            <Font name="System Bold" size="13" />
                         </font>
                     </Label>
 
-                    <PasswordField fx:id="txtSenha"
-                                   promptText="Digite sua senha"
-                                   prefHeight="46.0"
-                                   maxWidth="420.0"
-                                   style="-fx-background-color: #1b251f;
-                                          -fx-text-fill: white;
-                                          -fx-prompt-text-fill: #718077;
-                                          -fx-border-color: #35453a;
-                                          -fx-border-radius: 6;
-                                          -fx-background-radius: 6;
-                                          -fx-padding: 0 12;"/>
+                    <PasswordField fx:id="txtSenha" maxWidth="420.0" prefHeight="46.0" promptText="Digite sua senha" style="-fx-background-color: #1b251f;                                           -fx-text-fill: white;                                           -fx-prompt-text-fill: #718077;                                           -fx-border-color: #35453a;                                           -fx-border-radius: 6;                                           -fx-background-radius: 6;                                           -fx-padding: 0 12;" />
                 </VBox>
 
                 <!-- LEMBRAR E RECUPERAR SENHA -->
-                <HBox alignment="CENTER_LEFT"
-                      spacing="5.0"
-                      maxWidth="420.0">
+                <HBox alignment="CENTER_LEFT" maxWidth="420.0" spacing="5.0">
 
-                    <CheckBox fx:id="chkLembrar"
-                              text="Lembrar de mim"
-                              minWidth="170.0"
-                              prefWidth="200.0"
-                              textFill="#aab8ad"/>
+                    <Region HBox.hgrow="ALWAYS" />
 
-                    <Region HBox.hgrow="ALWAYS"/>
-
-                    <Hyperlink text="Esqueci a senha"
-                               fx:id="linkRecuperarSenha"
-                               onAction="#recuperarSenha"
-                               style="-fx-text-fill: #42e878;
-                                      -fx-border-color: transparent;
-                                      -fx-padding: 3 0 3 0;"/>
+                    <Hyperlink fx:id="linkRecuperarSenha" onAction="#recuperarSenha" style="-fx-text-fill: #42e878;                                       -fx-border-color: transparent;                                       -fx-padding: 3 0 3 0;" text="Esqueci a senha" />
                 </HBox>
 
                 <!-- BOTÃO ENTRAR -->
-                <Button fx:id="btnEntrar"
-                        text="ENTRAR"
-                        onAction="#entrar"
-                        maxWidth="420.0"
-                        prefHeight="48.0"
-                        style="-fx-background-color: #42e878;
-                               -fx-text-fill: #101512;
-                               -fx-font-weight: bold;
-                               -fx-font-size: 14px;
-                               -fx-background-radius: 6;
-                               -fx-cursor: hand;"
-                        HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnEntrar" maxWidth="420.0" onAction="#entrar" prefHeight="48.0" style="-fx-background-color: #42e878;                                -fx-text-fill: #101512;                                -fx-font-weight: bold;                                -fx-font-size: 14px;                                -fx-background-radius: 6;                                -fx-cursor: hand;" text="ENTRAR" HBox.hgrow="ALWAYS" />
 
                 <!-- LINK PARA CADASTRO -->
                 <HBox alignment="CENTER" spacing="5.0">
-                    <Label text="Ainda não tem uma conta?"
-                           textFill="#9ba89e"/>
+                    <Label text="Ainda não tem uma conta?" textFill="#9ba89e" />
 
-                    <Hyperlink text="Cadastre-se"
-                               fx:id="linkCadastro"
-                               onAction="#abrirCadastro"
-                               style="-fx-text-fill: #42e878;
-                                      -fx-border-color: transparent;"/>
+                    <Hyperlink fx:id="linkCadastro" onAction="#abrirCadastro" style="-fx-text-fill: #42e878;                                       -fx-border-color: transparent;" text="Cadastre-se" />
                 </HBox>
 
             </VBox>

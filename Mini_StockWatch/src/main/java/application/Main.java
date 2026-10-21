@@ -16,7 +16,7 @@ public class Main extends Application {
 		janelaprincipal
 		.setTitle("Tela principal");
 		janelaprincipal.setResizable(false);
-		janelaprincipal.setMaximized(false);
+		janelaprincipal.setMaximized(true);
 		janelaprincipal.show();
 		
 	}

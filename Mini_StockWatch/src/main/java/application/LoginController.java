@@ -38,6 +38,7 @@ public class LoginController {
     				event.getSource()).getScene().getWindow();
     		janela.setScene(scene);
     		janela.setTitle("Tela login");
+    		janela.setMaximized(true);
     		janela.centerOnScreen();
     		janela.show();
     	}catch(Exception e) {

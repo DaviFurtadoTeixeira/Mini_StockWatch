@@ -53,7 +53,7 @@ public class CadastroController {
     				event.getSource()).getScene().getWindow();
     		janela.setScene(scene);
     		janela.setTitle("Tela cadastro");
-    		janela.centerOnScreen();
+    		janela.setMaximized(true);
     		janela.show();
     	}catch(Exception e) {
     		e.getMessage();
