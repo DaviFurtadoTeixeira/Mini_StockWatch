@@ -86,8 +86,8 @@
                 <Region prefHeight="2.0" />
 
                 <VBox maxWidth="420.0" spacing="6.0">
-                    <Label text="Nome completo" textFill="#dce7df" />
-                    <TextField fx:id="txtNome" prefHeight="43.0" promptText="Digite seu nome completo" style="-fx-background-color: #1b251f;                                       -fx-text-fill: white;                                       -fx-prompt-text-fill: #718077;                                       -fx-border-color: #35453a;                                       -fx-border-radius: 6;                                       -fx-background-radius: 6;                                       -fx-padding: 0 12;" />
+                    <Label text="Nome de usuário" textFill="#dce7df" />
+                    <TextField fx:id="txtUsuario" prefHeight="43.0" promptText="Escolha um usuário" style="-fx-background-color: #1b251f;                                       -fx-text-fill: white;                                       -fx-prompt-text-fill: #718077;                                       -fx-border-color: #35453a;                                       -fx-border-radius: 6;                                       -fx-background-radius: 6;                                       -fx-padding: 0 12;" />
                 </VBox>
 
                 <VBox maxWidth="420.0" spacing="6.0">
@@ -95,10 +95,7 @@
                     <TextField fx:id="txtEmail" prefHeight="43.0" promptText="exemplo@email.com" style="-fx-background-color: #1b251f;                                       -fx-text-fill: white;                                       -fx-prompt-text-fill: #718077;                                       -fx-border-color: #35453a;                                       -fx-border-radius: 6;                                       -fx-background-radius: 6;                                       -fx-padding: 0 12;" />
                 </VBox>
 
-                <VBox maxWidth="420.0" spacing="6.0">
-                    <Label text="Nome de usuário" textFill="#dce7df" />
-                    <TextField fx:id="txtUsuario" prefHeight="43.0" promptText="Escolha um usuário" style="-fx-background-color: #1b251f;                                       -fx-text-fill: white;                                       -fx-prompt-text-fill: #718077;                                       -fx-border-color: #35453a;                                       -fx-border-radius: 6;                                       -fx-background-radius: 6;                                       -fx-padding: 0 12;" />
-                </VBox>
+                <VBox maxWidth="420.0" spacing="6.0" />
 
                 <HBox maxWidth="420.0" spacing="12.0">
                     <VBox spacing="6.0" HBox.hgrow="ALWAYS">
