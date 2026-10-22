@@ -8,11 +8,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import application.AlertPersonalizado;
 
 public class CadastroController {
 
@@ -51,20 +51,20 @@ public class CadastroController {
     	String senha = txtSenha.getText().strip();
     	String confirmarsenha = txtConfirmarSenha.getText().strip();
     	if(email.isEmpty() || usuario.isEmpty()|| senha.isEmpty() || confirmarsenha.isEmpty()) {
-    		exibirAlerta((Alert.AlertType.INFORMATION), "Erro","Campo vazio!","Por favor preencha todos os campos");
+    		AlertPersonalizado.mostrar(Alert.AlertType.WARNING,"Erro ao cadastrar","Nenhum campo pode ser deixado vazio!");
     		return;
     	}
     	if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
-    	    exibirAlerta(Alert.AlertType.ERROR, "Erro", "E-mail inválido!", "Por favor, insira um e-mail válido.");
+    		AlertPersonalizado.mostrar(Alert.AlertType.ERROR, "E-mail inválido!", "Por favor, insira um e-mail válido.");
     	    return;
     	}
     	if (!validarSenhaSegura(senha)) {
     		System.out.println(validarSenhaSegura(senha));
-    	    exibirAlerta(Alert.AlertType.ERROR, "Erro", "Senha inválida!", "A senha deve conter letras, números, pelo menos 1 letra maiúscula e caracteres especiais.");
+    		AlertPersonalizado.mostrar(Alert.AlertType.ERROR, "Senha inválida!", "A senha deve conter letras, números, pelo menos 1 letra maiúscula e caracteres especiais.");
     	    return;
     	}
     	if (!senha.equals(confirmarsenha)) {
-    	    exibirAlerta(Alert.AlertType.ERROR, "Erro", "Erro nas senhas", "As senhas digitadas devem ser iguais.");
+    		AlertPersonalizado.mostrar(Alert.AlertType.WARNING, "Erro nas senhas", "As senhas digitadas devem ser iguais.");
     	    return;
     	}
     }
@@ -84,11 +84,6 @@ public class CadastroController {
     		e.getMessage();
     }
     }
-	private void exibirAlerta(Alert.AlertType tipo, String titulo, String cabecalho, String conteudo) {
-	    Alert alerta = new Alert(tipo);
-	    alerta.setTitle(titulo);
-	    alerta.setHeaderText(cabecalho);
-	    alerta.setContentText(conteudo);
-	    alerta.showAndWait();
+
 }
-}
+
