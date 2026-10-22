@@ -3,19 +3,17 @@ package application;
 import java.sql.Date;
 
 public class Produto {
-    // 1. Definição dos 6 campos do banco de dados
+	// Campos do banco de dados
     private int id;
     private String nome;
     private String fornecedor;
     private String tipo;
     private int quantidade;
-    private Date validade; // Campo opcional (aceita null no banco e no Java)
+    private Date validade;
 
-    // 2. Construtor padrão (obrigatório)
     public Produto() {
     }
 
-    // 3. Construtor com todos os campos (facilita na hora de criar testes)
     public Produto(int id, String nome, String fornecedor, String tipo, int quantidade, Date validade) {
         this.id = id;
         this.nome = nome;
@@ -25,7 +23,6 @@ public class Produto {
         this.validade = validade;
     }
 
-    // 4. Métodos Getters e Setters (o TableView usa os 'getters' para ler os dados)
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
