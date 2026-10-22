@@ -33,7 +33,7 @@ public class LoginController {
     void abrirCadastro(ActionEvent event) {
     	try {
     		Parent root = FXMLLoader.load(getClass().getResource("/application/telacad.fxml"));
-    		Scene scene = new Scene(root);
+    		Scene scene = new Scene(root,1920,1080);
     		Stage janela = (Stage) ((Node)
     				event.getSource()).getScene().getWindow();
     		janela.setScene(scene);

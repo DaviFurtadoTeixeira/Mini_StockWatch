@@ -48,7 +48,7 @@ public class CadastroController {
     void voltarLogin(ActionEvent event) {
       	try {
     		Parent root = FXMLLoader.load(getClass().getResource("/application/telalogin.fxml"));
-    		Scene scene = new Scene(root);
+    		Scene scene = new Scene(root,1920,1080);
     		Stage janela = (Stage) ((Node)
     				event.getSource()).getScene().getWindow();
     		janela.setScene(scene);
