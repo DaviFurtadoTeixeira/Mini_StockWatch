@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="anchor_produto" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="background_cadastro_produto" fitHeight="1091.0" fitWidth="1926.0" layoutX="-6.0" layoutY="-6.0" style="-fx-image: #0000000;">
+         <image>
+            <Image url="@../imagens/background_cadastro_produtos.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../imagens/Logo%20moderno%20StockWatch.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="label_titulo" layoutX="702.0" layoutY="59.0" prefHeight="83.0" prefWidth="511.0" style="-fx-background-color: #06A110; -fx-border-color: #000000;" text=" Cadastro Produtos" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="55.0" />
+         </font>
+      </Label>
+      <Label layoutX="98.0" layoutY="239.0" prefHeight="60.0" prefWidth="64.0" style="-fx-background-color: #06A110; -fx-border-color: #000000;" text=" ID" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="40.0" />
+         </font>
+      </Label>
+      <Label layoutX="98.0" layoutY="381.0" prefHeight="60.0" prefWidth="140.0" style="-fx-background-color: #06A110; -fx-border-color: #000000;" text=" Nome" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="40.0" />
+         </font>
+      </Label>
+      <Label layoutX="98.0" layoutY="524.0" prefHeight="60.0" prefWidth="240.0" style="-fx-background-color: #06A110; -fx-border-color: #000000;" text=" Fornecedor" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="40.0" />
+         </font>
+      </Label>
+      <Label layoutX="98.0" layoutY="662.0" prefHeight="60.0" prefWidth="108.0" style="-fx-background-color: #06A110; -fx-border-color: #000000;" text=" Tipo" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="40.0" />
+         </font>
+      </Label>
+      <TextField layoutX="98.0" layoutY="310.0" prefHeight="44.0" prefWidth="384.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" />
+      <TextField layoutX="98.0" layoutY="454.0" prefHeight="44.0" prefWidth="384.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" />
+      <TextField layoutX="98.0" layoutY="596.0" prefHeight="44.0" prefWidth="384.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" />
+      <TextField layoutX="98.0" layoutY="737.0" prefHeight="44.0" prefWidth="384.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" />
+   </children>
+</AnchorPane>

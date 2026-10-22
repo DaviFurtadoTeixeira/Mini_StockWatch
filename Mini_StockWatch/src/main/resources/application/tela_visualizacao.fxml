@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:id="anchor01" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tela_controle_visualizacao">
+<AnchorPane fx:id="anchor_visualizacao" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tela_controle_visualizacao">
    <children>
       <ImageView fx:id="imagem_background" fitHeight="1080.0" fitWidth="1920.0">
          <image>
@@ -21,16 +20,25 @@
             <Image url="@../imagens/tela_preta.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="label_titulo" layoutX="744.0" layoutY="49.0" prefHeight="81.0" prefWidth="464.0" style="-fx-background-color: #000000;" text=" Tela Visualização" textFill="WHITE">
+      <Label fx:id="label_titulo" layoutX="744.0" layoutY="49.0" prefHeight="81.0" prefWidth="464.0" style="-fx-background-color: #06A110; -fx-border-color: #000000;" text=" Tela Visualização" textFill="WHITE">
          <font>
             <Font name="System Bold" size="55.0" />
          </font>
       </Label>
-      <TableView fx:id="table_view" layoutX="310.0" layoutY="240.0" prefHeight="600.0" prefWidth="1300.0">
+      <TableView fx:id="table_view" layoutX="310.0" layoutY="240.0" prefHeight="600.0" prefWidth="1300.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="column_id" prefWidth="216.0" text="ID" />
+          <TableColumn fx:id="column_nome" prefWidth="216.0" text="Nome" />
+            <TableColumn fx:id="column_fornecedor" prefWidth="216.0" text="Fornecedor" />
+            <TableColumn fx:id="column_tipo" prefWidth="216.0" text="Tipo" />
+            <TableColumn fx:id="column_quantidade" minWidth="0.0" prefWidth="216.0" text="Quantidade" />
+            <TableColumn fx:id="column_validade" prefWidth="219.0" text="Validade" />
         </columns>
       </TableView>
+      <ImageView fx:id="logo_stockwatch" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../imagens/Logo%20moderno%20StockWatch.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
