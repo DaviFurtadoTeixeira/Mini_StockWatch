@@ -8,12 +8,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="anchor_produto" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="background_cadastro_produto" fitHeight="1091.0" fitWidth="1926.0" layoutX="-6.0" layoutY="-6.0" style="-fx-image: #0000000;">
+      <ImageView fx:id="background_tela_produto" fitHeight="1080.0" fitWidth="1920.0" layoutX="-2.0">
          <image>
-            <Image url="@../imagens/background_cadastro_produtos.png" />
+            <Image url="@../imagens/background_tela_cadastro_produto.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="logo_stockwatch" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
@@ -21,47 +20,47 @@
             <Image url="@../imagens/Logo%20moderno%20StockWatch.png" />
          </image>
       </ImageView>
-      <Label fx:id="label_titulo" layoutX="702.0" layoutY="59.0" prefHeight="83.0" prefWidth="511.0" style="-fx-background-color: #06A110; -fx-border-color: #000000;" text=" Cadastro Produtos" textFill="WHITE">
+      <Label fx:id="label_titulo" layoutX="702.0" layoutY="59.0" prefHeight="83.0" prefWidth="511.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF;" text=" Cadastro Produtos" textFill="WHITE">
          <font>
             <Font name="System Bold" size="55.0" />
          </font>
       </Label>
-      <Label fx:id="label_id" layoutX="140.0" layoutY="239.0" prefHeight="60.0" prefWidth="64.0" style="-fx-background-color: #06A110; -fx-border-color: #000000;" text=" ID" textFill="WHITE">
+      <Label fx:id="label_id" layoutX="140.0" layoutY="239.0" prefHeight="60.0" prefWidth="64.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF;" text=" ID" textFill="WHITE">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <Label fx:id="label_nome" layoutX="140.0" layoutY="381.0" prefHeight="60.0" prefWidth="140.0" style="-fx-background-color: #06A110; -fx-border-color: #000000;" text=" Nome" textFill="WHITE">
+      <Label fx:id="label_nome" layoutX="140.0" layoutY="381.0" prefHeight="60.0" prefWidth="140.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF;" text=" Nome" textFill="WHITE">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <Label fx:id="label_fornecedor" layoutX="140.0" layoutY="524.0" prefHeight="60.0" prefWidth="240.0" style="-fx-background-color: #06A110; -fx-border-color: #000000;" text=" Fornecedor" textFill="WHITE">
+      <Label fx:id="label_fornecedor" layoutX="140.0" layoutY="524.0" prefHeight="60.0" prefWidth="240.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF;" text=" Fornecedor" textFill="WHITE">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <Label fx:id="label_tipo" layoutX="140.0" layoutY="662.0" prefHeight="60.0" prefWidth="108.0" style="-fx-background-color: #06A110; -fx-border-color: #000000;" text=" Tipo" textFill="WHITE">
+      <Label fx:id="label_tipo" layoutX="140.0" layoutY="662.0" prefHeight="60.0" prefWidth="108.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF;" text=" Tipo" textFill="WHITE">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <TextField fx:id="campo_id" layoutX="140.0" layoutY="310.0" prefHeight="44.0" prefWidth="490.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" />
-      <TextField fx:id="campo_nome" layoutX="140.0" layoutY="454.0" prefHeight="44.0" prefWidth="490.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" />
-      <TextField fx:id="campo_fornecedor" layoutX="140.0" layoutY="596.0" prefHeight="44.0" prefWidth="490.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" />
-      <TextField fx:id="campo_tipo" layoutX="140.0" layoutY="737.0" prefHeight="44.0" prefWidth="490.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" />
-      <Label fx:id="label_quantidade" layoutX="1050.0" layoutY="239.0" prefHeight="60.0" prefWidth="248.0" style="-fx-background-color: #06A110; -fx-border-color: #000000;" text=" Quantidade" textFill="WHITE">
+      <TextField fx:id="campo_id" layoutX="140.0" layoutY="310.0" prefHeight="44.0" prefWidth="490.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #06A110;" />
+      <TextField fx:id="campo_nome" layoutX="140.0" layoutY="454.0" prefHeight="44.0" prefWidth="490.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #06A110;" />
+      <TextField fx:id="campo_fornecedor" layoutX="140.0" layoutY="596.0" prefHeight="44.0" prefWidth="490.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #06A110;" />
+      <TextField fx:id="campo_tipo" layoutX="140.0" layoutY="737.0" prefHeight="44.0" prefWidth="490.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #06A110;" />
+      <Label fx:id="label_quantidade" layoutX="1050.0" layoutY="239.0" prefHeight="60.0" prefWidth="248.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF;" text=" Quantidade" textFill="WHITE">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <TextField fx:id="campo_quantidade" layoutX="1050.0" layoutY="310.0" prefHeight="44.0" prefWidth="490.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" />
-      <Label fx:id="label_validade" layoutX="1050.0" layoutY="381.0" prefHeight="60.0" prefWidth="191.0" style="-fx-background-color: #06A110; -fx-border-color: #000000;" text=" Validade" textFill="WHITE">
+      <TextField fx:id="campo_quantidade" layoutX="1050.0" layoutY="310.0" prefHeight="44.0" prefWidth="490.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #06A110;" />
+      <Label fx:id="label_validade" layoutX="1050.0" layoutY="381.0" prefHeight="60.0" prefWidth="191.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF;" text=" Validade" textFill="WHITE">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <TextField fx:id="campo_validade" layoutX="1050.0" layoutY="454.0" prefHeight="44.0" prefWidth="490.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" />
+      <TextField fx:id="campo_validade" layoutX="1050.0" layoutY="454.0" prefHeight="44.0" prefWidth="490.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #06A110;" />
       <Button fx:id="button_cadastrar" layoutX="1367.0" layoutY="511.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="173.0" style="-fx-background-color: #000000; -fx-border-color: #06A110;" text="Cadastrar" textFill="WHITE">
          <font>
             <Font name="System Bold" size="28.0" />
