@@ -67,6 +67,11 @@ public class CadastroController {
     		AlertPersonalizado.mostrar(Alert.AlertType.WARNING, "Erro nas senhas", "As senhas digitadas devem ser iguais.");
     	    return;
     	}
+    	AlertPersonalizado.mostrar(Alert.AlertType.INFORMATION,"Cadastro realizado!","Cadastro realizado com sucesso!");
+    	txtEmail.clear();
+    	txtUsuario.clear();
+    	txtSenha.clear();
+    	txtConfirmarSenha.clear();
     }
 
     @FXML
