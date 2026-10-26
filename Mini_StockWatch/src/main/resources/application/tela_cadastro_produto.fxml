@@ -15,7 +15,7 @@
             <Image url="@../imagens/background_tela_cadastro_produto.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="logo_stockwatch1" fitHeight="522.0" fitWidth="578.0" layoutX="701.0" layoutY="270.0" opacity="0.64" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="logo_stockwatch1" fitHeight="522.0" fitWidth="578.0" layoutX="701.0" layoutY="270.0" opacity="0.85" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../imagens/Logo%20moderno%20StockWatch.png" />
          </image>
