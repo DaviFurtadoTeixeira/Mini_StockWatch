@@ -1,10 +1,12 @@
 package application;
 
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
@@ -88,6 +91,31 @@ public class tela_controle_cadastro_produto {
         if (campo_validade != null) campo_validade.clear();
     }
     
+    public void initialize(URL location, ResourceBundle resources) {
+        aplicarMascaraData();
+    }
+    
+    private void aplicarMascaraData() {
+        TextFormatter<String> mascaraFiltro = new TextFormatter<>(change -> {
+            String novoTexto = change.getControlNewText();
+            if (novoTexto.length() < change.getControlText().length()) {
+                return change;
+            }
+            if (novoTexto.length() > 10) {
+                return null;
+            }
+            if (!change.getText().matches("[0-9]*")) {
+                return null;
+            }
+            if (novoTexto.length() == 2 || novoTexto.length() == 5) {
+                change.setText(change.getText() + "/");
+                change.setCaretPosition(novoTexto.length() + 1);
+            }
+            return change;
+        });
+        campo_validade.setTextFormatter(mascaraFiltro);
+    }
+    
     @FXML
     void CadastrarProduto(ActionEvent event) {
         if (campo_nome.getText().trim().isEmpty() || campo_quantidade.getText().trim().isEmpty()) {
@@ -100,11 +128,14 @@ public class tela_controle_cadastro_produto {
             String tipo = campo_tipo.getText();
             int quantidade = Integer.parseInt(campo_quantidade.getText());
             Date validade = null;
-            if (!campo_validade.getText().trim().isEmpty()) {
+            String textoValidade = campo_validade.getText().trim();
+            if (!textoValidade.isEmpty()) {
                 try {
-                    validade = Date.valueOf(campo_validade.getText().trim());
-                } catch (IllegalArgumentException e) {
-                    exibirAlerta("Erro de Formato", "A validade deve estar no formato AAAA-MM-DD (ex: 2026-12-31).", Alert.AlertType.ERROR);
+                    java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    java.time.LocalDate localDate = java.time.LocalDate.parse(textoValidade, formatter);
+                    validade = Date.valueOf(localDate);
+                } catch (java.time.format.DateTimeParseException e) {
+                    exibirAlerta("Erro de Formato", "A validade deve estar completa no formato DD/MM/AAAA (ex: 15/08/2026).", Alert.AlertType.ERROR);
                     return;
                 }
             }
