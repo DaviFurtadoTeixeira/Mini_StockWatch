@@ -35,7 +35,7 @@
             <TableColumn fx:id="column_validade" prefWidth="219.0" text="Validade" />
         </columns>
       </TableView>
-      <ImageView fx:id="logo_stockwatch" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-focus-traversable: 100;">
+      <ImageView fx:id="logo_stockwatch" fitHeight="150.0" fitWidth="200.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../imagens/Logo%20moderno%20StockWatch.png" />
          </image>
