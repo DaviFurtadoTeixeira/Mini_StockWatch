@@ -1,7 +1,6 @@
 package application;
 
 import java.sql.Date;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,8 +13,8 @@ import javafx.scene.layout.AnchorPane;
 
 public class tela_controle_visualizacao {
 
-    @FXML
-    private AnchorPane anchor01;
+	@FXML
+    private AnchorPane anchor_visualizacao;
 
     @FXML
     private TableColumn<Produto, String> column_fornecedor;
@@ -39,13 +38,16 @@ public class tela_controle_visualizacao {
     private ImageView imagem_background;
 
     @FXML
-    private ImageView imagem_escurecida;
-
-    @FXML
     private Label label_titulo;
 
     @FXML
+    private ImageView logo_stockwatch;
+
+    @FXML
     private TableView<Produto> table_view;
+
+    @FXML
+    private ImageView tela_escurecida;
 
     @FXML
     public void initialize() {
