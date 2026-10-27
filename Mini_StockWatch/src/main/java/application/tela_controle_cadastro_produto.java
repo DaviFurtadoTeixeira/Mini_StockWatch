@@ -171,7 +171,9 @@ public class tela_controle_cadastro_produto implements Initializable {
                     return;
                 }
             }
-            String url = "jdbc:mysql://192.168.192.1:3306/stockwatch";
+            
+            // IP atualizado para o endereço correto da rede do seu colega
+            String url = "jdbc:mysql://10.0.30.179:3306/stockwatch";
             String user = "stockwatch_user";
             String password = "senha123";
             
