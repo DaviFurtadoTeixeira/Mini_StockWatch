@@ -7,20 +7,24 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.UUID;
+import java.util.function.UnaryOperator;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
-public class tela_controle_cadastro_produto {
+public class tela_controle_cadastro_produto implements Initializable {
 
-    @FXML
+	@FXML
     private AnchorPane anchor_produto;
 
     @FXML
@@ -33,25 +37,19 @@ public class tela_controle_cadastro_produto {
     private TextField campo_fornecedor;
 
     @FXML
-    private TextField campo_id;
-
-    @FXML
     private TextField campo_nome;
 
     @FXML
     private TextField campo_quantidade;
 
     @FXML
-    private TextField campo_tipo;
-
-    @FXML
     private TextField campo_validade;
 
     @FXML
-    private Label label_fornecedor;
+    private ComboBox<String> combobox_tipo_produto;
 
     @FXML
-    private Label label_id;
+    private Label label_fornecedor;
 
     @FXML
     private Label label_nome;
@@ -83,39 +81,64 @@ public class tela_controle_cadastro_produto {
     }
 
     private void limparCampos() {
-        if (campo_id != null) campo_id.clear();
         if (campo_nome != null) campo_nome.clear();
         if (campo_fornecedor != null) campo_fornecedor.clear();
-        if (campo_tipo != null) campo_tipo.clear();
+        if (combobox_tipo_produto != null) combobox_tipo_produto.setValue(null);
         if (campo_quantidade != null) campo_quantidade.clear();
         if (campo_validade != null) campo_validade.clear();
     }
-    
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         aplicarMascaraData();
+        if (combobox_tipo_produto != null) {
+        	combobox_tipo_produto.getItems().addAll(
+        		    "Biscoitos",
+        		    "Bolachas",
+        		    "Massas e Macarrão",
+        		    "Arroz e Feijão",
+        		    "Farinhas e Fubá",
+        		    "Açúcar e Adoçantes",
+        		    "Café e Chás",
+        		    "Óleos e Vinagres",
+        		    "Molhos e Condimentos",
+        		    "Conservas e Enlatados",
+        		    "Temperos e Especiarias",
+        		    "Cereais e Granola",
+        		    "Salgadinhos e Snacks",
+        		    "Doces e Guloseimas",
+        		    "Chocolates e Bombons",
+        		    "Bebidas Não Alcoólicas",
+        		    "Produtos de Limpeza",
+        		    "Higiene Pessoal",
+        		    "Utensílios Domésticos",
+        		    "Papelaria e Descartáveis"
+        		);
+        }
     }
-    
+
     private void aplicarMascaraData() {
-        TextFormatter<String> mascaraFiltro = new TextFormatter<>(change -> {
-            String novoTexto = change.getControlNewText();
-            if (novoTexto.length() < change.getControlText().length()) {
-                return change;
+        UnaryOperator<TextFormatter.Change> filtro = change -> {
+            String novoTexto = change.getControlNewText().replaceAll("[^0-9]", "");
+            if (novoTexto.length() > 8) {
+                novoTexto = novoTexto.substring(0, 8);
             }
-            if (novoTexto.length() > 10) {
-                return null;
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < novoTexto.length(); i++) {
+                if (i == 2 || i == 4) {
+                    sb.append('/');
+                }
+                sb.append(novoTexto.charAt(i));
             }
-            if (!change.getText().matches("[0-9]*")) {
-                return null;
-            }
-            if (novoTexto.length() == 2 || novoTexto.length() == 5) {
-                change.setText(change.getText() + "/");
-                change.setCaretPosition(novoTexto.length() + 1);
-            }
+            String formatado = sb.toString();
+            change.setRange(0, change.getControlText().length());
+            change.setText(formatado);
+            change.selectRange(formatado.length(), formatado.length());
             return change;
-        });
-        campo_validade.setTextFormatter(mascaraFiltro);
+        };
+        campo_validade.setTextFormatter(new TextFormatter<>(filtro));
     }
-    
+
     @FXML
     void CadastrarProduto(ActionEvent event) {
         if (campo_nome.getText().trim().isEmpty() || campo_quantidade.getText().trim().isEmpty()) {
@@ -123,33 +146,47 @@ public class tela_controle_cadastro_produto {
             return;
         }
         try {
+            String idAleatorio = UUID.randomUUID().toString();
             String nome = campo_nome.getText();
             String fornecedor = campo_fornecedor.getText();
-            String tipo = campo_tipo.getText();
-            int quantidade = Integer.parseInt(campo_quantidade.getText());
+            String tipo = (combobox_tipo_produto.getValue() != null) ? combobox_tipo_produto.getValue() : "";
+            int quantidade = Integer.parseInt(campo_quantidade.getText().trim());
             Date validade = null;
             String textoValidade = campo_validade.getText().trim();
             if (!textoValidade.isEmpty()) {
                 try {
-                    java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter
+                            .ofPattern("dd/MM/uuuu")
+                            .withResolverStyle(java.time.format.ResolverStyle.STRICT);
                     java.time.LocalDate localDate = java.time.LocalDate.parse(textoValidade, formatter);
+                    
+                    if (localDate.isBefore(java.time.LocalDate.now())) {
+                        exibirAlerta("Data Inválida", "A data de validade não pode ser anterior ao dia de hoje!", Alert.AlertType.ERROR);
+                        return;
+                    }
+                    
                     validade = Date.valueOf(localDate);
                 } catch (java.time.format.DateTimeParseException e) {
-                    exibirAlerta("Erro de Formato", "A validade deve estar completa no formato DD/MM/AAAA (ex: 15/08/2026).", Alert.AlertType.ERROR);
+                    exibirAlerta("Erro de Formato", "A validade deve ser uma data válida no formato DD/MM/AAAA (ex: 15/08/2026).", Alert.AlertType.ERROR);
                     return;
                 }
             }
-            String url = "jdbc:mysql://localhost:3306/stockwatch";
-            String user = "root";
-            String password = "sua_senha";
-            String sql = "INSERT INTO produtos (nome, fornecedor, tipo, quantidade, validade) VALUES (?, ?, ?, ?, ?)";
+            String url = "jdbc:mysql://192.168.192.1:3306/stockwatch";
+            String user = "stockwatch_user";
+            String password = "senha123";
+            
+            String sql = "INSERT INTO produtos (id, nome, fornecedor, tipo, quantidade, validade) VALUES (?, ?, ?, ?, ?, ?)";
+            
             try (Connection conn = DriverManager.getConnection(url, user, password);
                  PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setString(1, nome);
-                stmt.setString(2, fornecedor);
-                stmt.setString(3, tipo);
-                stmt.setInt(4, quantidade);
-                stmt.setDate(5, validade);
+                
+                stmt.setString(1, idAleatorio);
+                stmt.setString(2, nome);
+                stmt.setString(3, fornecedor);
+                stmt.setString(4, tipo);
+                stmt.setInt(5, quantidade);
+                stmt.setDate(6, validade);
+                
                 stmt.executeUpdate();
                 exibirAlerta("Sucesso", "Produto cadastrado com sucesso!", Alert.AlertType.INFORMATION);
                 limparCampos();
