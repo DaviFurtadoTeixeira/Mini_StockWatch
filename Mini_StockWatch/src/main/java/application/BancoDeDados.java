@@ -74,4 +74,5 @@ public class BancoDeDados {
 			desconectar(); // Garante que a conexão será fechada
 		}
 	}
+	
 }
