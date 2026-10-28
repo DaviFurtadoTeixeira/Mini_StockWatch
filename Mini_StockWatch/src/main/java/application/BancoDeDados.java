@@ -2,7 +2,9 @@ package application;
 
 import java.io.FileInputStream;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
@@ -15,7 +17,6 @@ public class BancoDeDados {
 	public void conectar () {
 		Properties props = new Properties();
 		try {
-		
 			FileInputStream file = new FileInputStream("db.properties");
 			props.load(file);
 			
@@ -45,5 +46,32 @@ public class BancoDeDados {
 			System.out.println("Erro ao desconectar: " + e.getMessage());
 		}
 	}
-	//teste
+
+	// NOVO MÉTODO PARA CADASTRAR O PRODUTO
+	public boolean inserirProduto(String id, String nome, String fornecedor, String tipo, int quantidade, Date validade) {
+		String sql = "INSERT INTO produtos (id, nome, fornecedor, tipo, quantidade, validade) VALUES (?, ?, ?, ?, ?, ?)";
+		
+		conectar(); // Abre a conexão usando o db.properties
+		
+		if (!estaConectado()) {
+			return false;
+		}
+		
+		try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
+			stmt.setString(1, id);
+			stmt.setString(2, nome);
+			stmt.setString(3, fornecedor);
+			stmt.setString(4, tipo);
+			stmt.setInt(5, quantidade);
+			stmt.setDate(6, validade);
+			
+			stmt.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			System.out.println("Erro ao inserir produto: " + e.getMessage());
+			return false;
+		} finally {
+			desconectar(); // Garante que a conexão será fechada
+		}
+	}
 }

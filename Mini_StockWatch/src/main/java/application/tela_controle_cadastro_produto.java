@@ -145,6 +145,7 @@ public class tela_controle_cadastro_produto implements Initializable {
             exibirAlerta("Atenção", "Preencha pelo menos o Nome e a Quantidade do produto!", Alert.AlertType.WARNING);
             return;
         }
+        
         try {
             String idAleatorio = UUID.randomUUID().toString();
             String nome = campo_nome.getText();
@@ -153,6 +154,7 @@ public class tela_controle_cadastro_produto implements Initializable {
             int quantidade = Integer.parseInt(campo_quantidade.getText().trim());
             Date validade = null;
             String textoValidade = campo_validade.getText().trim();
+            
             if (!textoValidade.isEmpty()) {
                 try {
                     java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter
@@ -172,30 +174,17 @@ public class tela_controle_cadastro_produto implements Initializable {
                 }
             }
             
-            // IP atualizado para o endereço correto da rede do seu colega
-            String url = "jdbc:mysql://10.0.30.179:3306/stockwatch";
-            String user = "stockwatch_user";
-            String password = "senha123";
+            // Chama a classe BancoDeDados para fazer o cadastro de forma limpa
+            BancoDeDados db = new BancoDeDados();
+            boolean sucesso = db.inserirProduto(idAleatorio, nome, fornecedor, tipo, quantidade, validade);
             
-            String sql = "INSERT INTO produtos (id, nome, fornecedor, tipo, quantidade, validade) VALUES (?, ?, ?, ?, ?, ?)";
-            
-            try (Connection conn = DriverManager.getConnection(url, user, password);
-                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-                
-                stmt.setString(1, idAleatorio);
-                stmt.setString(2, nome);
-                stmt.setString(3, fornecedor);
-                stmt.setString(4, tipo);
-                stmt.setInt(5, quantidade);
-                stmt.setDate(6, validade);
-                
-                stmt.executeUpdate();
+            if (sucesso) {
                 exibirAlerta("Sucesso", "Produto cadastrado com sucesso!", Alert.AlertType.INFORMATION);
                 limparCampos();
-            } catch (SQLException e) {
-                e.printStackTrace();
-                exibirAlerta("Erro de Banco de Dados", "Não foi possível salvar no banco: " + e.getMessage(), Alert.AlertType.ERROR);
+            } else {
+                exibirAlerta("Erro de Banco de Dados", "Não foi possível salvar o produto. Verifique a conexão com o servidor.", Alert.AlertType.ERROR);
             }
+            
         } catch (NumberFormatException e) {
             exibirAlerta("Erro de Formato", "O campo Quantidade deve conter apenas números inteiros.", Alert.AlertType.ERROR);
         }
