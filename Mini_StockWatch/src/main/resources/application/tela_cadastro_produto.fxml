@@ -26,7 +26,7 @@
             <Font name="System Bold" size="55.0" />
          </font>
       </Label>
-      <Label fx:id="label_nome" layoutX="140.0" layoutY="240.0" prefHeight="60.0" prefWidth="140.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF; -fx-background-radius: 30; -fx-border-radius: 30;" text=" Nome" textFill="WHITE">
+      <Label fx:id="label_nome" layoutX="140.0" layoutY="240.0" prefHeight="60.0" prefWidth="308.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF; -fx-background-radius: 30; -fx-border-radius: 30;" text=" Nome Produto" textFill="WHITE">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
@@ -41,7 +41,7 @@
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <TextField fx:id="campo_nome" layoutX="140.0" layoutY="310.0" prefHeight="44.0" prefWidth="490.0" promptText="Ex: Roberto Carlos" style="-fx-background-color: #FFFFFF; -fx-border-color: #06A110; -fx-background-radius: 15; -fx-border-radius: 15;">
+      <TextField fx:id="campo_nome" layoutX="140.0" layoutY="310.0" prefHeight="44.0" prefWidth="490.0" promptText="Ex: Bolacha Maria" style="-fx-background-color: #FFFFFF; -fx-border-color: #06A110; -fx-background-radius: 15; -fx-border-radius: 15;">
          <font>
             <Font size="15.0" />
          </font></TextField>

@@ -51,12 +51,10 @@ public class BancoDeDados {
 			System.out.println("Erro ao desconectar: " + e.getMessage());
 		}
 	}
-
-	// NOVO MÉTODO PARA CADASTRAR O PRODUTO
 	public boolean inserirProduto(String id, String nome, String fornecedor, String tipo, int quantidade, Date validade) {
 		String sql = "INSERT INTO produtos (id, nome, fornecedor, tipo, quantidade, validade) VALUES (?, ?, ?, ?, ?, ?)";
 		
-		conectar(); // Abre a conexão usando o db.properties
+		conectar();
 		
 		if (!estaConectado()) {
 			return false;
@@ -76,7 +74,7 @@ public class BancoDeDados {
 			System.out.println("Erro ao inserir produto: " + e.getMessage());
 			return false;
 		} finally {
-			desconectar(); // Garante que a conexão será fechada
+			desconectar();
 		}
 	}
 	
