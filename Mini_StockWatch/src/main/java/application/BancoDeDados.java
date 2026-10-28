@@ -1,6 +1,6 @@
 package application;
 
-import java.io.FileInputStream;
+import java.io.InputStream; // IMPORTANTE: Mudar de FileInputStream para InputStream
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -16,8 +16,14 @@ public class BancoDeDados {
 	
 	public void conectar () {
 		Properties props = new Properties();
-		try {
-			FileInputStream file = new FileInputStream("db.properties");
+		// Usando o ClassLoader para ler de src/main/resources/db.properties
+		try (InputStream file = BancoDeDados.class.getClassLoader().getResourceAsStream("db.properties")) {
+			
+			if (file == null) {
+				System.out.println("Erro ao conectar: O arquivo db.properties não foi encontrado no classpath.");
+				return;
+			}
+			
 			props.load(file);
 			
 			String servidor = props.getProperty("db.servidor");
