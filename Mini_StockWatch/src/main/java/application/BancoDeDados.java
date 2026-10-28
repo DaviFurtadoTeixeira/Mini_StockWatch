@@ -1,6 +1,6 @@
 package application;
 
-import java.io.InputStream; // IMPORTANTE: Mudar de FileInputStream para InputStream
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -16,7 +16,6 @@ public class BancoDeDados {
 	
 	public void conectar () {
 		Properties props = new Properties();
-		// Usando o ClassLoader para ler de src/main/resources/db.properties
 		try (InputStream file = BancoDeDados.class.getClassLoader().getResourceAsStream("db.properties")) {
 			
 			if (file == null) {
