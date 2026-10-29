@@ -54,6 +54,10 @@ public class CadastroController {
     		AlertPersonalizado.mostrar(Alert.AlertType.WARNING,"Erro ao cadastrar","Nenhum campo pode ser deixado vazio!");
     		return;
     	}
+    	if (usuario.length() < 4 || usuario.matches("[0-9]+") || !usuario.matches("[a-zA-Z0-9_]+")) {
+    	    AlertPersonalizado.mostrar(Alert.AlertType.ERROR,"Usuário inválido","Use no mínimo 4 caracteres, com letras, números ou _ e não apenas números.");
+    	    return;
+    	}
     	if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
     		AlertPersonalizado.mostrar(Alert.AlertType.ERROR, "E-mail inválido!", "Por favor, insira um e-mail válido.");
     	    return;
