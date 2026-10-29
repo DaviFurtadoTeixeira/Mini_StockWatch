@@ -49,6 +49,7 @@ public class LoginController {
 
     @FXML
     void entrar(ActionEvent event) {
+    	
     	try {
     		Parent root = FXMLLoader.load(getClass().getResource("/application/tela_visualizacao.fxml"));
     		Scene scene = new Scene(root,1920,1080);
