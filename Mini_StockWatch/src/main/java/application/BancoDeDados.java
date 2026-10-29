@@ -77,5 +77,29 @@ public class BancoDeDados {
 			desconectar();
 		}
 	}
+	public boolean inserirUsuario(String nome, String email, String senha) {
+		String sql = "INSERT INTO usuario (nome, email, senha) VALUES (?, ?, ?)";
+		
+		conectar();
+		
+		if (!estaConectado()) {
+			return false;
+		}
+		
+		try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
+			stmt.setString(1, nome);
+			stmt.setString(2, email);
+			stmt.setString(3, senha);
+			
+			
+			stmt.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			System.out.println("Erro ao inserir produto: " + e.getMessage());
+			return false;
+		} finally {
+			desconectar();
+		}
+	}
 	
 }
