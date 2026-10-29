@@ -1,6 +1,6 @@
 package application;
 
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -16,8 +16,13 @@ public class BancoDeDados {
 	
 	public void conectar () {
 		Properties props = new Properties();
-		try {
-			FileInputStream file = new FileInputStream("db.properties");
+		try (InputStream file = BancoDeDados.class.getClassLoader().getResourceAsStream("db.properties")) {
+			
+			if (file == null) {
+				System.out.println("Erro ao conectar: O arquivo db.properties não foi encontrado no classpath.");
+				return;
+			}
+			
 			props.load(file);
 			
 			String servidor = props.getProperty("db.servidor");
@@ -46,12 +51,10 @@ public class BancoDeDados {
 			System.out.println("Erro ao desconectar: " + e.getMessage());
 		}
 	}
-
-	// NOVO MÉTODO PARA CADASTRAR O PRODUTO
 	public boolean inserirProduto(String id, String nome, String fornecedor, String tipo, int quantidade, Date validade) {
 		String sql = "INSERT INTO produtos (id, nome, fornecedor, tipo, quantidade, validade) VALUES (?, ?, ?, ?, ?, ?)";
 		
-		conectar(); // Abre a conexão usando o db.properties
+		conectar();
 		
 		if (!estaConectado()) {
 			return false;
@@ -71,7 +74,32 @@ public class BancoDeDados {
 			System.out.println("Erro ao inserir produto: " + e.getMessage());
 			return false;
 		} finally {
-			desconectar(); // Garante que a conexão será fechada
+			desconectar();
 		}
 	}
+	public boolean inserirUsuario(String nome, String email, String senha) {
+		String sql = "INSERT INTO usuario (nome, email, senha) VALUES (?, ?, ?)";
+		
+		conectar();
+		
+		if (!estaConectado()) {
+			return false;
+		}
+		
+		try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
+			stmt.setString(1, nome);
+			stmt.setString(2, email);
+			stmt.setString(3, senha);
+			
+			
+			stmt.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			System.out.println("Erro ao inserir produto: " + e.getMessage());
+			return false;
+		} finally {
+			desconectar();
+		}
+	}
+	
 }

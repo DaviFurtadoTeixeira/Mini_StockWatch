@@ -174,16 +174,9 @@ public class tela_controle_cadastro_produto implements Initializable {
                 }
             }
             
-
-            // IP atualizado para o endereço correto da rede
-            String url = "jdbc:mysql://10.0.30.179:3306/stockwatch";
-            String user = "stockwatch_user";
-            String password = "senha123";
-
             // Chama a classe BancoDeDados para fazer o cadastro de forma limpa
             BancoDeDados db = new BancoDeDados();
             boolean sucesso = db.inserirProduto(idAleatorio, nome, fornecedor, tipo, quantidade, validade);
-
             
             if (sucesso) {
                 exibirAlerta("Sucesso", "Produto cadastrado com sucesso!", Alert.AlertType.INFORMATION);
