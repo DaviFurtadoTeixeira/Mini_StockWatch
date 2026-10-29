@@ -49,7 +49,19 @@ public class LoginController {
 
     @FXML
     void entrar(ActionEvent event) {
-
+    	try {
+    		Parent root = FXMLLoader.load(getClass().getResource("/application/tela_visualizacao.fxml"));
+    		Scene scene = new Scene(root,1920,1080);
+    		Stage janela = (Stage) ((Node)
+    				event.getSource()).getScene().getWindow();
+    		janela.setScene(scene);
+    		janela.setTitle("Tela login");
+    		janela.setMaximized(true);
+    		janela.centerOnScreen();
+    		janela.show();
+    	}catch(Exception e) {
+    		e.getMessage();
+    }
     }
 
     @FXML
