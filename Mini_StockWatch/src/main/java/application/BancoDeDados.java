@@ -78,28 +78,63 @@ public class BancoDeDados {
 		}
 	}
 	public boolean inserirUsuario(String nome, String email, String senha) {
-		String sql = "INSERT INTO usuario (nome, email, senha) VALUES (?, ?, ?)";
-		
-		conectar();
-		
-		if (!estaConectado()) {
-			return false;
-		}
-		
-		try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
-			stmt.setString(1, nome);
-			stmt.setString(2, email);
-			stmt.setString(3, senha);
-			
-			
-			stmt.executeUpdate();
-			return true;
-		} catch (Exception e) {
-			System.out.println("Erro ao inserir produto: " + e.getMessage());
-			return false;
-		} finally {
-			desconectar();
-		}
+	    String sql = "INSERT INTO usuario (nome, email, senha) VALUES (?, ?, ?)";
+
+	    conectar();
+
+	    if (!estaConectado()) {
+	        desconectar();
+	        return false;
+	    }
+
+	    try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
+	        stmt.setString(1, nome.trim());
+	        stmt.setString(2, email.trim().toLowerCase());
+	        stmt.setString(3, SenhaUtil.gerarHash(senha));
+
+	        return stmt.executeUpdate() == 1;
+
+	    } catch (Exception e) {
+	        System.out.println("Erro ao inserir usuário: " + e.getMessage());
+	        return false;
+
+	    } finally {
+	        desconectar();
+	    }
 	}
-	
+	public boolean autenticarUsuario(String usuario, String senha) {
+	    String sql = """
+	        SELECT senha
+	        FROM usuario
+	        WHERE email = ? OR nome = ?
+	        """;
+
+	    conectar();
+
+	    if (!estaConectado()) {
+	        desconectar();
+	        return false;
+	    }
+
+	    try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
+	        stmt.setString(1, usuario.trim().toLowerCase());
+	        stmt.setString(2, usuario.trim());
+
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            if (rs.next()) {
+	                String hash = rs.getString("senha");
+	                return SenhaUtil.verificar(senha, hash);
+	            }
+
+	            return false;
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("Erro ao autenticar usuário: " + e.getMessage());
+	        return false;
+
+	    } finally {
+	        desconectar();
+	    }
+	}
 }

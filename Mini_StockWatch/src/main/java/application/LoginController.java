@@ -6,11 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import application.AlertPersonalizado;
 
 public class LoginController {
 
@@ -49,21 +51,37 @@ public class LoginController {
 
     @FXML
     void entrar(ActionEvent event) {
+    	 String usuario = txtUsuario.getText().trim();
+    	    String senha = txtSenha.getText();
+
+    	    if (usuario.isBlank() || senha.isBlank()) {
+    	        AlertPersonalizado.mostrar(AlertType.WARNING,"Campo Vazio!","Preencha o e-mail e a senha.");
+    	        return;
+    	    }
+
+    	    BancoDeDados bd = new BancoDeDados();
+
+    	    if (bd.autenticarUsuario(usuario, senha)) {
+    	    	AlertPersonalizado.mostrar(AlertType.INFORMATION,"Suceesso","Login realizado com sucesso!");
+    	        try {
+    	    		Parent root = FXMLLoader.load(getClass().getResource("/application/tela_cadastro_produto.fxml"));
+    	    		Scene scene = new Scene(root,1920,1080);
+    	    		Stage janela = (Stage) ((Node)
+    	    				event.getSource()).getScene().getWindow();
+    	    		janela.setScene(scene);
+    	    		janela.setTitle("Tela login");
+    	    		janela.setMaximized(true);
+    	    		janela.centerOnScreen();
+    	    		janela.show();
+    	    	}catch(Exception e) {
+    	    		e.getMessage();
+    	    }
+    	    } else {
+    	    	AlertPersonalizado.mostrar(AlertType.ERROR,"ERRO","E-mail ou senha incorretos.");
+    	    }
+    	}
     	
-    	try {
-    		Parent root = FXMLLoader.load(getClass().getResource("/application/tela_visualizacao.fxml"));
-    		Scene scene = new Scene(root,1920,1080);
-    		Stage janela = (Stage) ((Node)
-    				event.getSource()).getScene().getWindow();
-    		janela.setScene(scene);
-    		janela.setTitle("Tela login");
-    		janela.setMaximized(true);
-    		janela.centerOnScreen();
-    		janela.show();
-    	}catch(Exception e) {
-    		e.getMessage();
-    }
-    }
+    
 
     @FXML
     void recuperarSenha(ActionEvent event) {
