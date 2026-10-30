@@ -13,12 +13,7 @@
    <children>
       <ImageView fx:id="background_tela_produto" fitHeight="1080.0" fitWidth="1928.0" layoutX="-2.0">
          <image>
-            <Image url="@../imagens/background_tela_cadastro_produto.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="logo_stockwatch1" fitHeight="522.0" fitWidth="578.0" layoutX="701.0" layoutY="270.0" opacity="0.75" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../imagens/Logo%20moderno%20StockWatch.png" />
+            <Image url="@../imagens/Logo%20Stock%20Watch%20em%20Fundo%20Escuro.png" />
          </image>
       </ImageView>
       <Label fx:id="label_titulo" layoutX="702.0" layoutY="59.0" prefHeight="83.0" prefWidth="511.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF; -fx-border-radius: 15; -fx-background-radius: 15;" text=" Cadastro Produtos" textFill="WHITE">

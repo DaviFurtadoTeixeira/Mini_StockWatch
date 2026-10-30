@@ -14,6 +14,9 @@ import java.util.ResourceBundle;
 import java.util.UUID;
 import java.util.function.UnaryOperator;
 
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -78,6 +81,17 @@ public class tela_controle_cadastro_produto implements Initializable {
 
     // Flag para evitar loop infinito ao atualizar o texto programaticamente no listener
     private boolean formatandoData = false;
+    
+    // Lista base de tipos para o autocompletar
+    private final ObservableList<String> listaTipos = FXCollections.observableArrayList(
+        "Biscoitos", "Bolachas", "Massas e Macarrão", "Arroz e Feijão",
+        "Farinhas e Fubá", "Açúcar e Adoçantes", "Café e Chás",
+        "Óleos e Vinagres", "Molhos e Condimentos", "Conservas e Enlatados",
+        "Temperos e Especiarias", "Cereais e Granola", "Salgadinhos e Snacks",
+        "Doces e Guloseimas", "Chocolates e Bombons", "Bebidas Não Alcoólicas",
+        "Produtos de Limpeza", "Higiene Pessoal", "Utensílios Domésticos",
+        "Papelaria e Descartáveis"
+    );
 
     private void exibirAlerta(String titulo, String mensagem, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
@@ -98,7 +112,8 @@ public class tela_controle_cadastro_produto implements Initializable {
         }
         if (combobox_tipo_produto != null) {
             combobox_tipo_produto.setValue(null);
-            combobox_tipo_produto.setStyle("");
+            combobox_tipo_produto.getItems().setAll(listaTipos);
+            aplicarEstiloCombo("");
         }
         if (campo_quantidade != null) {
             campo_quantidade.clear();
@@ -110,49 +125,99 @@ public class tela_controle_cadastro_produto implements Initializable {
         }
     }
 
+    // Método centralizado para aplicar o estilo unificado (fundo, bordas arredondadas e setinha transparente)
+    private void aplicarEstiloCombo(String corBorda) {
+        String estiloBase = "-fx-background-radius: 15px; -fx-border-radius: 15px; -fx-background-color: white;";
+        if (!corBorda.isEmpty()) {
+            combobox_tipo_produto.setStyle(estiloBase + " -fx-border-color: " + corBorda + "; -fx-border-width: 2px;");
+        } else {
+            combobox_tipo_produto.setStyle(estiloBase);
+        }
+        
+        if (combobox_tipo_produto.getEditor() != null) {
+            combobox_tipo_produto.getEditor().setStyle("-fx-background-color: transparent;");
+        }
+        
+        // Força a setinha a acompanhar o arredondamento perfeito sem sobras quadradas
+        SetNodeStyleInline(combobox_tipo_produto, ".arrow-button", "-fx-background-color: transparent; -fx-background-radius: 0 15px 15px 0;");
+    }
+
+    private void SetNodeStyleInline(ComboBox<?> combo, String selector, String style) {
+        javafx.scene.Node node = combo.lookup(selector);
+        if (node != null) {
+            node.setStyle(style);
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         aplicarFiltrosEspeciais();
         configurarValidadoresVisuais();
         
+        // Retira o foco automático do campo nome ao iniciar a tela
+        Platform.runLater(() -> {
+            if (anchor_produto != null) {
+                anchor_produto.requestFocus();
+            }
+        });
+        
         if (combobox_tipo_produto != null) {
-        	combobox_tipo_produto.getItems().addAll(
-        		    "Biscoitos",
-        		    "Bolachas",
-        		    "Massas e Macarrão",
-        		    "Arroz e Feijão",
-        		    "Farinhas e Fubá",
-        		    "Açúcar e Adoçantes",
-        		    "Café e Chás",
-        		    "Óleos e Vinagres",
-        		    "Molhos e Condimentos",
-        		    "Conservas e Enlatados",
-        		    "Temperos e Especiarias",
-        		    "Cereais e Granola",
-        		    "Salgadinhos e Snacks",
-        		    "Doces e Guloseimas",
-        		    "Chocolates e Bombons",
-        		    "Bebidas Não Alcoólicas",
-        		    "Produtos de Limpeza",
-        		    "Higiene Pessoal",
-        		    "Utensílios Domésticos",
-        		    "Papelaria e Descartáveis"
-        		);
+            combobox_tipo_produto.setEditable(true);
+            combobox_tipo_produto.getItems().addAll(listaTipos);
+
+            // Aplica o estilo limpo imediatamente ao iniciar a tela
+            Platform.runLater(() -> aplicarEstiloCombo(""));
+
+            // Lógica de Autocompletar (Filtra enquanto digita)
+            combobox_tipo_produto.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+                Platform.runLater(() -> {
+                    String corAtual = (combobox_tipo_produto.getValue() != null && !combobox_tipo_produto.getValue().trim().isEmpty()) ? "#2ecc71" : (combobox_tipo_produto.isFocused() ? "red" : "");
+                    aplicarEstiloCombo(corAtual);
+                    
+                    if (newValue == null || newValue.isEmpty()) {
+                        combobox_tipo_produto.getItems().setAll(listaTipos);
+                        return;
+                    }
+                    
+                    String filtro = newValue.toLowerCase();
+                    ObservableList<String> filtrados = FXCollections.observableArrayList();
+                    for (String tipo : listaTipos) {
+                        if (tipo.toLowerCase().contains(filtro)) {
+                            filtrados.add(tipo);
+                        }
+                    }
+                    
+                    combobox_tipo_produto.getItems().setAll(filtrados);
+                    if (!combobox_tipo_produto.isShowing() && !filtrados.isEmpty()) {
+                        combobox_tipo_produto.show();
+                    }
+                });
+            });
         }
     }
 
     private void aplicarFiltrosEspeciais() {
-        // 1. FILTRO DO NOME: Apenas letras, espaços e hífens
+        // 1. FILTRO DO NOME: Apenas letras, espaços, hífens e limite máximo de 255 caracteres
         UnaryOperator<TextFormatter.Change> filtroNome = change -> {
             String texto = change.getControlNewText();
-            if (texto.matches("[\\p{L}\\s\\-]*")) {
+            if (texto.length() <= 255 && texto.matches("[\\p{L}\\s\\-]*")) {
                 return change;
             }
             return null;
         };
         campo_nome.setTextFormatter(new TextFormatter<>(filtroNome));
 
-        // 2. FILTRO DA QUANTIDADE: Apenas números inteiros
+        // 2. FILTRO DO FORNECEDOR: Limite máximo de 255 caracteres
+        UnaryOperator<TextFormatter.Change> filtroFornecedor = change -> {
+            String texto = change.getControlNewText();
+            if (texto.length() <= 255) {
+                return change;
+            }
+            return null;
+        };
+        campo_fornecedor.setTextFormatter(new TextFormatter<>(filtroFornecedor));
+
+        // 3. FILTRO DA QUANTIDADE: Apenas números inteiros
         UnaryOperator<TextFormatter.Change> filtroQuantidade = change -> {
             String texto = change.getControlNewText();
             if (texto.matches("\\d*")) {
@@ -164,27 +229,93 @@ public class tela_controle_cadastro_produto implements Initializable {
     }
 
     private void configurarValidadoresVisuais() {
+        // --- 1. CAMPO NOME ---
+        campo_nome.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                if (campo_nome.getText().trim().isEmpty()) {
+                    campo_nome.setStyle("-fx-border-color: red; -fx-border-width: 2px; -fx-border-radius: 4px;");
+                }
+            } else {
+                if (campo_nome.getText().trim().isEmpty()) {
+                    campo_nome.setStyle("");
+                }
+            }
+        });
         campo_nome.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.trim().isEmpty()) {
+            if (!newValue.trim().isEmpty()) {
+                campo_nome.setStyle("-fx-border-color: #2ecc71; -fx-border-width: 2px; -fx-border-radius: 4px;");
+            } else if (campo_nome.isFocused()) {
                 campo_nome.setStyle("-fx-border-color: red; -fx-border-width: 2px; -fx-border-radius: 4px;");
             } else {
-                campo_nome.setStyle("-fx-border-color: #2ecc71; -fx-border-width: 2px; -fx-border-radius: 4px;");
+                campo_nome.setStyle("");
             }
         });
 
+        // --- 2. CAMPO FORNECEDOR ---
+        campo_fornecedor.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                if (campo_fornecedor.getText().trim().isEmpty()) {
+                    campo_fornecedor.setStyle("-fx-border-color: red; -fx-border-width: 2px; -fx-border-radius: 4px;");
+                }
+            } else {
+                if (campo_fornecedor.getText().trim().isEmpty()) {
+                    campo_fornecedor.setStyle("");
+                }
+            }
+        });
+        campo_fornecedor.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.trim().isEmpty()) {
+                campo_fornecedor.setStyle("-fx-border-color: #2ecc71; -fx-border-width: 2px; -fx-border-radius: 4px;");
+            } else if (campo_fornecedor.isFocused()) {
+                campo_fornecedor.setStyle("-fx-border-color: red; -fx-border-width: 2px; -fx-border-radius: 4px;");
+            } else {
+                campo_fornecedor.setStyle("");
+            }
+        });
+
+        // --- 3. CAMPO QUANTIDADE ---
+        campo_quantidade.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                if (campo_quantidade.getText().trim().isEmpty() || !campo_quantidade.getText().matches("\\d+")) {
+                    campo_quantidade.setStyle("-fx-border-color: red; -fx-border-width: 2px; -fx-border-radius: 4px;");
+                }
+            } else {
+                if (campo_quantidade.getText().trim().isEmpty()) {
+                    campo_quantidade.setStyle("");
+                }
+            }
+        });
         campo_quantidade.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.trim().isEmpty() || !newValue.matches("\\d+")) {
+            if (!newValue.trim().isEmpty() && newValue.matches("\\d+")) {
+                campo_quantidade.setStyle("-fx-border-color: #2ecc71; -fx-border-width: 2px; -fx-border-radius: 4px;");
+            } else if (campo_quantidade.isFocused()) {
                 campo_quantidade.setStyle("-fx-border-color: red; -fx-border-width: 2px; -fx-border-radius: 4px;");
             } else {
-                campo_quantidade.setStyle("-fx-border-color: #2ecc71; -fx-border-width: 2px; -fx-border-radius: 4px;");
+                campo_quantidade.setStyle("");
             }
         });
 
-        // 3. MÁSCARA E VALIDAÇÃO DA VALIDADE VIA LISTENER (Permite clicar e editar em qualquer lugar livremente)
+        // --- 4. CAMPO VALIDADE ---
+        campo_validade.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                if (campo_validade.getText() == null || campo_validade.getText().trim().length() < 10) {
+                    campo_validade.setStyle("-fx-border-color: red; -fx-border-width: 2px; -fx-border-radius: 4px;");
+                }
+            } else {
+                if (campo_validade.getText() == null || campo_validade.getText().trim().isEmpty()) {
+                    campo_validade.setStyle("");
+                }
+            }
+        });
+        
         campo_validade.textProperty().addListener((observable, oldValue, newValue) -> {
             if (formatandoData) return;
             if (newValue == null || newValue.isEmpty()) {
-                campo_validade.setStyle("");
+                if (campo_validade.isFocused()) {
+                    campo_validade.setStyle("-fx-border-color: red; -fx-border-width: 2px; -fx-border-radius: 4px;");
+                } else {
+                    campo_validade.setStyle("");
+                }
                 return;
             }
 
@@ -209,15 +340,12 @@ public class tela_controle_cadastro_produto implements Initializable {
                 formatandoData = true;
                 int posicaoCursor = campo_validade.getCaretPosition();
                 campo_validade.setText(formatado);
-                // Restaura a posição do cursor para que o usuário possa editar onde quiser
                 campo_validade.positionCaret(Math.min(posicaoCursor, formatado.length()));
                 formatandoData = false;
             }
 
-            // Validação visual da borda (Vermelho se incompleto/passado, Verde se correto)
-            if (formatado.length() < 10) {
-                campo_validade.setStyle("-fx-border-color: red; -fx-border-width: 2px; -fx-border-radius: 4px;");
-            } else {
+            // Validação visual da borda
+            if (formatado.length() == 10) {
                 try {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
                     LocalDate localDate = LocalDate.parse(formatado, formatter);
@@ -229,7 +357,36 @@ public class tela_controle_cadastro_produto implements Initializable {
                 } catch (Exception e) {
                     campo_validade.setStyle("-fx-border-color: red; -fx-border-width: 2px; -fx-border-radius: 4px;");
                 }
+            } else if (campo_validade.isFocused()) {
+                campo_validade.setStyle("-fx-border-color: red; -fx-border-width: 2px; -fx-border-radius: 4px;");
             }
+        });
+
+        // --- 5. COMBOBOX TIPO DE PRODUTO ---
+        combobox_tipo_produto.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            Platform.runLater(() -> {
+                if (newValue) {
+                    if (combobox_tipo_produto.getValue() == null || combobox_tipo_produto.getValue().trim().isEmpty()) {
+                        aplicarEstiloCombo("red");
+                    }
+                } else {
+                    if (combobox_tipo_produto.getValue() == null || combobox_tipo_produto.getValue().trim().isEmpty()) {
+                        aplicarEstiloCombo("");
+                    }
+                }
+            });
+        });
+
+        combobox_tipo_produto.valueProperty().addListener((observable, oldValue, newValue) -> {
+            Platform.runLater(() -> {
+                if (newValue != null && !newValue.trim().isEmpty()) {
+                    aplicarEstiloCombo("#2ecc71");
+                } else if (combobox_tipo_produto.isFocused()) {
+                    aplicarEstiloCombo("red");
+                } else {
+                    aplicarEstiloCombo("");
+                }
+            });
         });
     }
 
