@@ -457,75 +457,120 @@ public class tela_controle_cadastro_produto implements Initializable {
         });
     }
 
-    @FXML
-    void CadastrarProduto(ActionEvent event) {
-        if (campo_nome.getText().trim().isEmpty() || campo_quantidade.getText().trim().isEmpty()) {
-            exibirAlerta("Atenção", "Preencha corretamente os campos obrigatórios (Nome e Quantidade)!", Alert.AlertType.WARNING);
-            return;
-        }
-        
-        try {
-            String idAleatorio = UUID.randomUUID().toString();
-            String nome = campo_nome.getText().trim();
-            String fornecedor = campo_fornecedor.getText() != null ? campo_fornecedor.getText().trim() : "";
-            String tipo = (combobox_tipo_produto.getValue() != null) ? combobox_tipo_produto.getValue() : "";
-            int quantidade = Integer.parseInt(campo_quantidade.getText().trim());
-            Date validade = null;
-            String textoValidade = campo_validade.getText().trim();
-            
-            if (!textoValidade.isEmpty()) {
-                if (textoValidade.length() < 10) {
-                    exibirAlerta("Data Incompleta", "Por favor, preencha a data de validade inteira no formato DD/MM/AAAA.", Alert.AlertType.ERROR);
+
+@FXML
+void CadastrarProduto(ActionEvent event) {
+
+    if (campo_nome.getText().trim().isEmpty() ||
+        campo_quantidade.getText().trim().isEmpty()) {
+
+        exibirAlerta(
+            "Atenção",
+            "Preencha corretamente os campos obrigatórios (Nome e Quantidade)!",
+            Alert.AlertType.WARNING
+        );
+        return;
+    }
+
+    try {
+        String idAleatorio = UUID.randomUUID().toString();
+
+        String nome = campo_nome.getText().trim();
+
+        String fornecedor = campo_fornecedor.getText() != null
+                ? campo_fornecedor.getText().trim() : "";
+
+        String tipo = combobox_tipo_produto.getValue() != null
+                ? combobox_tipo_produto.getValue().trim() : "";
+
+        int quantidade = Integer.parseInt(
+            campo_quantidade.getText().trim()
+        );
+
+        Date validade = null;
+
+        String textoValidade = campo_validade.getText().trim();
+
+        // Validação da data de validade
+        if (!textoValidade.isEmpty()) {
+
+            if (textoValidade.length() < 10) {
+                exibirAlerta(
+                    "Data Incompleta",
+                    "Preencha a data inteira no formato DD/MM/AAAA.",
+                    Alert.AlertType.ERROR
+                );
+                return;
+            }
+
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter
+                    .ofPattern("dd/MM/uuuu")
+                    .withResolverStyle(ResolverStyle.STRICT);
+
+                LocalDate localDate = LocalDate.parse(
+                    textoValidade, formatter
+                );
+
+                if (localDate.isBefore(LocalDate.now())) {
+                    exibirAlerta(
+                        "Data Inválida",
+                        "A data de validade não pode ser anterior ao dia de hoje!",
+                        Alert.AlertType.ERROR
+                    );
                     return;
                 }
 
-                try {
-                    DateTimeFormatter formatter = DateTimeFormatter
-                            .ofPattern("dd/MM/uuuu")
-                            .withResolverStyle(ResolverStyle.STRICT);
-                    
-                    LocalDate localDate = LocalDate.parse(textoValidade, formatter);
-                    
-                    if (localDate.isBefore(LocalDate.now())) {
-                        exibirAlerta("Data Inválida", "A data de validade não pode ser anterior ao dia de hoje!", Alert.AlertType.ERROR);
-                        return;
-                    }
-                    
-                    validade = Date.valueOf(localDate);
-                } catch (DateTimeParseException e) {
-                    exibirAlerta("Data Inválida", "A data informada não existe no calendário (verifique dias e meses).", Alert.AlertType.ERROR);
-                    return;
-                }
+                validade = Date.valueOf(localDate);
+
+            } catch (DateTimeParseException e) {
+                exibirAlerta(
+                    "Data Inválida",
+                    "A data informada não existe no calendário.",
+                    Alert.AlertType.ERROR
+                );
+                return;
             }
-            
-            String url = "jdbc:mysql://10.0.30.179:3306/stockwatch";
-            String user = "stockwatch_user";
-            String password = "senha123";
-            
-            String sql = "INSERT INTO produtos (id, nome, fornecedor, tipo, quantidade, validade) VALUES (?, ?, ?, ?, ?, ?)";
-            
-            try (Connection conn = DriverManager.getConnection(url, user, password);
-                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-                
-                stmt.setString(1, idAleatorio);
-                stmt.setString(2, nome);
-                stmt.setString(3, fornecedor);
-                stmt.setString(4, tipo);
-                stmt.setInt(5, quantidade);
-                stmt.setDate(6, validade);
-                
-                stmt.executeUpdate();
-                exibirAlerta("Sucesso", "Produto cadastrado com sucesso!", Alert.AlertType.INFORMATION);
-                limparCampos();
-            } catch (SQLException e) {
-                e.printStackTrace();
-                exibirAlerta("Erro de Banco de Dados", "Não foi possível salvar no banco: " + e.getMessage(), Alert.AlertType.ERROR);
-            }
-            
-        } catch (NumberFormatException e) {
-            exibirAlerta("Erro de Formato", "O campo Quantidade deve conter apenas números inteiros.", Alert.AlertType.ERROR);
         }
+
+        // Utiliza a classe BancoDeDados para cadastrar o produto
+        BancoDeDados banco = new BancoDeDados();
+
+        boolean sucesso = banco.inserirProduto(
+            idAleatorio,
+            nome,
+            fornecedor,
+            tipo,
+            quantidade,
+            validade
+        );
+
+        if (sucesso) {
+            exibirAlerta(
+                "Sucesso",
+                "Produto cadastrado com sucesso!",
+                Alert.AlertType.INFORMATION
+            );
+
+            limparCampos();
+
+        } else {
+            exibirAlerta(
+                "Erro de Banco de Dados",
+                "Não foi possível cadastrar o produto. Verifique a conexão com o banco de dados.",
+                Alert.AlertType.ERROR
+            );
+        }
+
+    } catch (NumberFormatException e) {
+        exibirAlerta(
+            "Erro de Formato",
+            "O campo Quantidade deve conter apenas números inteiros.",
+            Alert.AlertType.ERROR
+        );
     }
+}
+
 
     @FXML
     void VisualizarEstoque(ActionEvent event) {
