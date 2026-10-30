@@ -8,11 +8,14 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -20,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -62,7 +66,11 @@ public class tela_controle_visualizacao implements Initializable {
     @FXML
     private ImageView tela_escurecida;
 
+    @FXML
+    private TextField txt_pesquisa;
+
     private final ObservableList<Produto> listaProdutos = FXCollections.observableArrayList();
+    private FilteredList<Produto> filtroProdutos;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -111,6 +119,25 @@ public class tela_controle_visualizacao implements Initializable {
         column_quantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
         column_validade.setCellValueFactory(new PropertyValueFactory<>("validade"));
         
+        // Bloqueia a alteração de posição (arrastar) de todas as colunas
+        column_id.setReorderable(false);
+        column_nome.setReorderable(false);
+        column_fornecedor.setReorderable(false);
+        column_tipo.setReorderable(false);
+        column_quantidade.setReorderable(false);
+        column_validade.setReorderable(false);
+
+        // Corrige a ordenação cronológica da coluna de Validade
+        column_validade.setComparator(new Comparator<Date>() {
+            @Override
+            public int compare(Date d1, Date d2) {
+                if (d1 == null && d2 == null) return 0;
+                if (d1 == null) return 1; // Itens sem validade vão para o final
+                if (d2 == null) return -1;
+                return d1.compareTo(d2);
+            }
+        });
+
         // Formata a data para o padrão brasileiro (DD/MM/AAAA)
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         column_validade.setCellFactory(column -> new TableCell<Produto, Date>() {
@@ -127,6 +154,38 @@ public class tela_controle_visualizacao implements Initializable {
         });
 
         carregarProdutosDoBanco();
+
+        // Configuração do Filtro Dinâmico de Pesquisa em Tempo Real
+        filtroProdutos = new FilteredList<>(listaProdutos, b -> true);
+
+        if (txt_pesquisa != null) {
+            txt_pesquisa.textProperty().addListener((observable, oldValue, newValue) -> {
+                filtroProdutos.setPredicate(produto -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+
+                    String lowerCaseFilter = newValue.toLowerCase();
+
+                    if (produto.getId() != null && produto.getId().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (produto.getNome() != null && produto.getNome().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (produto.getFornecedor() != null && produto.getFornecedor().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (produto.getTipo() != null && produto.getTipo().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (String.valueOf(produto.getQuantidade()).contains(lowerCaseFilter)) {
+                        return true;
+                    }
+                    return false;
+                });
+            });
+        }
+
+        SortedList<Produto> produtosOrdenados = new SortedList<>(filtroProdutos);
+        produtosOrdenados.comparatorProperty().bind(table_view.comparatorProperty());
+        table_view.setItems(produtosOrdenados);
     }
 
     private void carregarProdutosDoBanco() {
@@ -152,8 +211,6 @@ public class tela_controle_visualizacao implements Initializable {
                 listaProdutos.add(new Produto(id, nome, fornecedor, tipo, quantidade, validade));
             }
 
-            table_view.setItems(listaProdutos);
-
         } catch (Exception e) {
             e.printStackTrace();
             carregarDadosDeTeste();
@@ -165,6 +222,5 @@ public class tela_controle_visualizacao implements Initializable {
         Produto p2 = new Produto("2", "Detergente Neutro", "Fornecedor Beta", "Limpeza", 30, null);
         
         listaProdutos.addAll(p1, p2);
-        table_view.setItems(listaProdutos);
     }
 }

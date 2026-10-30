@@ -1,35 +1,69 @@
-/* Arredonda a tabela inteira e remove o fundo padrão */
+/* Arredondamento e limpeza geral da TableView em qualquer estado */
 .table-view {
     -fx-background-radius: 15px;
     -fx-border-radius: 15px;
     -fx-background-color: transparent;
     -fx-padding: 0;
+    -fx-background-insets: 0;
 }
 
-/* Deixa o fundo da área de conteúdo interno da tabela branco e arredondado embaixo */
+/* Remove a borda padrão de foco do JavaFX que estraga os cantos arredondados */
+.table-view:focused {
+    -fx-background-color: transparent;
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
+}
+
+/* Fundo da área de conteúdo interno da tabela com cantos inferiores arredondados */
 .table-view .virtual-flow {
     -fx-background-color: white;
     -fx-background-radius: 0 0 15px 15px;
 }
 
-/* Fundo e arredondamento perfeito do topo do cabeçalho */
+/* Fundo e arredondamento rigoroso do topo do cabeçalho */
 .table-view .column-header-background {
     -fx-background-color: #f4f4f4;
     -fx-background-radius: 15px 15px 0 0;
     -fx-border-radius: 15px 15px 0 0;
+    -fx-background-insets: 0;
 }
 
-/* Arredonda rigorosamente o canto superior esquerdo da primeira coluna */
-.table-view .column-header:first-child {
-    -fx-background-radius: 15px 0 0 0;
-}
-
-/* Arredonda rigorosamente o canto superior direito da última coluna */
-.table-view .column-header:last-child {
-    -fx-background-radius: 0 15px 0 0;
-}
-
-/* Remove fundos internos indesejados dos cabeçalhos individuais */
+/* Remove fundos extras dos cabeçalhos individuais */
 .table-view .column-header {
     -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* Arredondamento do canto superior esquerdo da primeira coluna */
+.table-view .column-header:first-child {
+    -fx-background-radius: 15px 0 0 0;
+    -fx-border-radius: 15px 0 0 0;
+}
+
+/* Arredondamento do canto superior direito da última coluna */
+.table-view .column-header:last-child {
+    -fx-background-radius: 0 15px 0 0;
+    -fx-border-radius: 0 15px 0 0;
+}
+
+/* Efeito Dinâmico (Hover) nas linhas da tabela */
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #f0f0f0 transparent;
+    -fx-transition: -fx-background-color 0.2s ease-in-out;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #e6f4ea !important;
+    -fx-cursor: hand;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #06A110 !important;
+}
+
+.table-row-cell:selected .text {
+    -fx-fill: white;
 }
