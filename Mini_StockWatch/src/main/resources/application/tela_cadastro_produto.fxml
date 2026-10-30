@@ -61,7 +61,7 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <TextField fx:id="campo_quantidade" layoutX="1230.0" layoutY="285.0" prefHeight="50.0" prefWidth="550.0" promptText="Quantidade de produtos" style="-fx-background-color: #FFFFFF; -fx-border-color: #06A110; -fx-background-radius: 15; -fx-border-radius: 15; -fx-padding: 0 15 0 15;">
+      <TextField fx:id="campo_quantidade" layoutX="1230.0" layoutY="285.0" prefHeight="50.0" prefWidth="550.0" promptText="Quantidade de produtos (Unidades)" style="-fx-background-color: #FFFFFF; -fx-border-color: #06A110; -fx-background-radius: 15; -fx-border-radius: 15; -fx-padding: 0 15 0 15;">
          <font>
             <Font size="16.0" />
          </font>
