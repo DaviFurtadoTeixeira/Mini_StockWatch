@@ -3,8 +3,7 @@ package application;
 import java.sql.Date;
 
 public class Produto {
-	// Campos do banco de dados
-    private int id;
+    private String id; // Alterado para String (UUID do banco)
     private String nome;
     private String fornecedor;
     private String tipo;
@@ -14,7 +13,7 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(int id, String nome, String fornecedor, String tipo, int quantidade, Date validade) {
+    public Produto(String id, String nome, String fornecedor, String tipo, int quantidade, Date validade) {
         this.id = id;
         this.nome = nome;
         this.fornecedor = fornecedor;
@@ -23,8 +22,8 @@ public class Produto {
         this.validade = validade;
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }

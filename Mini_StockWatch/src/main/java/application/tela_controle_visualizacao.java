@@ -1,26 +1,39 @@
 package application;
 
+import java.net.URL;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ResourceBundle;
+
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
-public class tela_controle_visualizacao {
+public class tela_controle_visualizacao implements Initializable {
 
-	@FXML
+    @FXML
     private AnchorPane anchor_visualizacao;
 
     @FXML
     private TableColumn<Produto, String> column_fornecedor;
 
     @FXML
-    private TableColumn<Produto, Integer> column_id;
+    private TableColumn<Produto, String> column_id;
 
     @FXML
     private TableColumn<Produto, String> column_nome;
@@ -49,8 +62,48 @@ public class tela_controle_visualizacao {
     @FXML
     private ImageView tela_escurecida;
 
-    @FXML
-    public void initialize() {
+    private final ObservableList<Produto> listaProdutos = FXCollections.observableArrayList();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // Aplica o arredondamento na tabela inteira
+        table_view.setStyle(
+            "-fx-background-radius: 15px; " +
+            "-fx-border-radius: 15px; " +
+            "-fx-background-color: white; " +
+            "-fx-padding: 0px;"
+        );
+
+        // Força os componentes internos do cabeçalho a acompanharem o arredondamento
+        Platform.runLater(() -> {
+            Node headerBackground = table_view.lookup(".column-header-background");
+            if (headerBackground != null) {
+                headerBackground.setStyle(
+                    "-fx-background-color: #e8e8e8; " +
+                    "-fx-background-radius: 15px 15px 0 0; " +
+                    "-fx-border-radius: 15px 15px 0 0;"
+                );
+            }
+            
+            // Arredonda a primeira coluna (canto superior esquerdo)
+            Node firstHeader = table_view.lookup(".column-header:first-child");
+            if (firstHeader != null) {
+                firstHeader.setStyle(
+                    "-fx-background-color: transparent; " +
+                    "-fx-background-radius: 15px 0 0 0;"
+                );
+            }
+            
+            // Arredonda a última coluna (canto superior direito)
+            Node lastHeader = table_view.lookup(".column-header:last-child");
+            if (lastHeader != null) {
+                lastHeader.setStyle(
+                    "-fx-background-color: transparent; " +
+                    "-fx-background-radius: 0 15px 0 0;"
+                );
+            }
+        });
+
         column_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         column_nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         column_fornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
@@ -58,11 +111,60 @@ public class tela_controle_visualizacao {
         column_quantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
         column_validade.setCellValueFactory(new PropertyValueFactory<>("validade"));
         
-        Produto p1 = new Produto(1, "Arroz Integral", "Fornecedor Alfa", "Alimento", 50, Date.valueOf("2027-10-22"));
-        Produto p2 = new Produto(2, "Detergente Neutro", "Fornecedor Beta", "Limpeza", 30, null);
+        // Formata a data para o padrão brasileiro (DD/MM/AAAA)
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        column_validade.setCellFactory(column -> new TableCell<Produto, Date>() {
+            @Override
+            protected void updateItem(Date date, boolean empty) {
+                super.updateItem(date, empty);
+                if (empty || date == null) {
+                    setText(null);
+                } else {
+                    LocalDate localDate = date.toLocalDate();
+                    setText(localDate.format(formatter));
+                }
+            }
+        });
+
+        carregarProdutosDoBanco();
+    }
+
+    private void carregarProdutosDoBanco() {
+        listaProdutos.clear();
         
-        ObservableList<Produto> listaDeTeste = FXCollections.observableArrayList(p1, p2);
+        String url = "jdbc:mysql://10.0.30.179:3306/stockwatch";
+        String user = "stockwatch_user";
+        String password = "senha123";
+        String sql = "SELECT id, nome, fornecedor, tipo, quantidade, validade FROM produtos";
+
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                String id = rs.getString("id");
+                String nome = rs.getString("nome");
+                String fornecedor = rs.getString("fornecedor");
+                String tipo = rs.getString("tipo");
+                int quantidade = rs.getInt("quantidade");
+                Date validade = rs.getDate("validade");
+
+                listaProdutos.add(new Produto(id, nome, fornecedor, tipo, quantidade, validade));
+            }
+
+            table_view.setItems(listaProdutos);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            carregarDadosDeTeste();
+        }
+    }
+
+    private void carregarDadosDeTeste() {
+        Produto p1 = new Produto("1", "Arroz Integral", "Fornecedor Alfa", "Alimento", 50, Date.valueOf("2027-10-22"));
+        Produto p2 = new Produto("2", "Detergente Neutro", "Fornecedor Beta", "Limpeza", 30, null);
         
-        table_view.setItems(listaDeTeste);
+        listaProdutos.addAll(p1, p2);
+        table_view.setItems(listaProdutos);
     }
 }
