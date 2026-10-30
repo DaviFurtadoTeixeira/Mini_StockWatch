@@ -11,67 +11,85 @@
 
 <AnchorPane fx:id="anchor_produto" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.tela_controle_cadastro_produto">
    <children>
-      <ImageView fx:id="background_tela_produto" fitHeight="1080.0" fitWidth="1928.0" layoutX="-2.0">
+      <!-- Fundo da Tela -->
+      <ImageView fx:id="background_tela_produto" fitHeight="1080.0" fitWidth="1928.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../imagens/Logo%20Stock%20Watch%20em%20Fundo%20Escuro.png" />
          </image>
       </ImageView>
-      <Label fx:id="label_titulo" layoutX="702.0" layoutY="59.0" prefHeight="83.0" prefWidth="511.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF; -fx-border-radius: 15; -fx-background-radius: 15;" text=" Cadastro Produtos" textFill="WHITE">
+
+      <!-- Título Principal -->
+      <Label fx:id="label_titulo" alignment="CENTER" layoutX="702.0" layoutY="59.0" prefHeight="83.0" prefWidth="511.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF; -fx-border-radius: 15; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 4);" text="Cadastro Produtos" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="55.0" />
+            <Font name="System Bold" size="45.0" />
          </font>
       </Label>
-      <Label fx:id="label_nome" layoutX="140.0" layoutY="240.0" prefHeight="60.0" prefWidth="308.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF; -fx-background-radius: 30; -fx-border-radius: 30;" text=" Nome Produto" textFill="WHITE">
+
+      <!-- Coluna Esquerda: Nome, Fornecedor e Tipo -->
+      <Label fx:id="label_nome" alignment="CENTER" layoutX="140.0" layoutY="220.0" prefHeight="55.0" prefWidth="320.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF; -fx-background-radius: 25; -fx-border-radius: 25;" text="Nome Produto" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="40.0" />
+            <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <Label fx:id="label_fornecedor" layoutX="140.0" layoutY="381.0" prefHeight="60.0" prefWidth="240.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF; -fx-background-radius: 30; -fx-border-radius: 30;" text=" Fornecedor" textFill="WHITE">
+      <TextField fx:id="campo_nome" layoutX="140.0" layoutY="285.0" prefHeight="50.0" prefWidth="550.0" promptText="Ex: Bolacha Maria" style="-fx-background-color: #FFFFFF; -fx-border-color: #06A110; -fx-background-radius: 15; -fx-border-radius: 15; -fx-padding: 0 15 0 15;">
          <font>
-            <Font name="System Bold" size="40.0" />
+            <Font size="16.0" />
+         </font>
+      </TextField>
+
+      <Label fx:id="label_fornecedor" alignment="CENTER" layoutX="140.0" layoutY="375.0" prefHeight="55.0" prefWidth="250.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF; -fx-background-radius: 25; -fx-border-radius: 25;" text="Fornecedor" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <Label fx:id="label_tipo" layoutX="140.0" layoutY="519.0" prefHeight="60.0" prefWidth="108.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF; -fx-background-radius: 30; -fx-border-radius: 30;" text=" Tipo" textFill="WHITE">
+      <TextField fx:id="campo_fornecedor" layoutX="140.0" layoutY="440.0" prefHeight="50.0" prefWidth="550.0" promptText="Ex: Richester" style="-fx-background-color: #FFFFFF; -fx-border-color: #06A110; -fx-background-radius: 15; -fx-border-radius: 15; -fx-padding: 0 15 0 15;">
          <font>
-            <Font name="System Bold" size="40.0" />
+            <Font size="16.0" />
+         </font>
+      </TextField>
+
+      <Label fx:id="label_tipo" alignment="CENTER" layoutX="140.0" layoutY="530.0" prefHeight="55.0" prefWidth="150.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF; -fx-background-radius: 25; -fx-border-radius: 25;" text="Tipo" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <TextField fx:id="campo_nome" layoutX="140.0" layoutY="310.0" prefHeight="44.0" prefWidth="490.0" promptText="Ex: Bolacha Maria" style="-fx-background-color: #FFFFFF; -fx-border-color: #06A110; -fx-background-radius: 15; -fx-border-radius: 15;">
+      <ComboBox fx:id="combobox_tipo_produto" layoutX="140.0" layoutY="595.0" prefHeight="50.0" prefWidth="550.0" promptText="Escolha o tipo de produto..." style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #FFFFFF; -fx-border-color: #06A110;" />
+
+      <!-- Coluna Direita: Quantidade, Validade e Botão Cadastrar -->
+      <Label fx:id="label_quantidade" alignment="CENTER" layoutX="1230.0" layoutY="220.0" prefHeight="55.0" prefWidth="260.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF; -fx-border-radius: 25; -fx-background-radius: 25;" text="Quantidade" textFill="WHITE">
          <font>
-            <Font size="15.0" />
-         </font></TextField>
-      <TextField fx:id="campo_fornecedor" layoutX="140.0" layoutY="454.0" prefHeight="44.0" prefWidth="490.0" promptText="Ex: Richester" style="-fx-background-color: #FFFFFF; -fx-border-color: #06A110; -fx-background-radius: 15; -fx-border-radius: 15;">
-         <font>
-            <Font size="15.0" />
-         </font></TextField>
-      <Label fx:id="label_quantidade" layoutX="1200.0" layoutY="239.0" prefHeight="60.0" prefWidth="248.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF; -fx-border-radius: 30; -fx-background-radius: 30;" text=" Quantidade" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="40.0" />
+            <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <TextField fx:id="campo_quantidade" layoutX="1200.0" layoutY="310.0" prefHeight="44.0" prefWidth="490.0" promptText="Quantidade de produtos" style="-fx-background-color: #FFFFFF; -fx-border-color: #06A110; -fx-background-radius: 15; -fx-border-radius: 15;">
+      <TextField fx:id="campo_quantidade" layoutX="1230.0" layoutY="285.0" prefHeight="50.0" prefWidth="550.0" promptText="Quantidade de produtos" style="-fx-background-color: #FFFFFF; -fx-border-color: #06A110; -fx-background-radius: 15; -fx-border-radius: 15; -fx-padding: 0 15 0 15;">
          <font>
-            <Font size="15.0" />
-         </font></TextField>
-      <Label fx:id="label_validade" layoutX="1200.0" layoutY="381.0" prefHeight="60.0" prefWidth="191.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF; -fx-background-radius: 30; -fx-border-radius: 30;" text=" Validade" textFill="WHITE">
+            <Font size="16.0" />
+         </font>
+      </TextField>
+
+      <Label fx:id="label_validade" alignment="CENTER" layoutX="1230.0" layoutY="375.0" prefHeight="55.0" prefWidth="200.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF; -fx-background-radius: 25; -fx-border-radius: 25;" text="Validade" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="40.0" />
+            <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <TextField fx:id="campo_validade" layoutX="1200.0" layoutY="454.0" prefHeight="44.0" prefWidth="490.0" promptText="Ex: 24/10/2028" style="-fx-background-color: #FFFFFF; -fx-border-color: #06A110; -fx-background-radius: 15; -fx-border-radius: 15;">
+      <TextField fx:id="campo_validade" layoutX="1230.0" layoutY="440.0" prefHeight="50.0" prefWidth="550.0" promptText="Ex: 24/10/2028" style="-fx-background-color: #FFFFFF; -fx-border-color: #06A110; -fx-background-radius: 15; -fx-border-radius: 15; -fx-padding: 0 15 0 15;">
          <font>
-            <Font size="15.0" />
-         </font></TextField>
-      <Button fx:id="button_cadastrar" layoutX="1517.0" layoutY="510.0" mnemonicParsing="false" onAction="#CadastrarProduto" prefHeight="58.0" prefWidth="173.0" style="-fx-background-color: #000000; -fx-border-color: #06A110; -fx-background-radius: 20; -fx-border-radius: 20;" text="Cadastrar" textFill="WHITE">
+            <Font size="16.0" />
+         </font>
+      </TextField>
+
+      <!-- Botão Cadastrar perfeitamente alinhado à direita com a caixa de validade -->
+      <Button fx:id="button_cadastrar" layoutX="1530.0" layoutY="525.0" mnemonicParsing="false" onAction="#CadastrarProduto" prefHeight="58.0" prefWidth="250.0" style="-fx-background-color: #000000; -fx-border-color: #06A110; -fx-border-width: 2px; -fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(6,161,16,0.4), 10, 0, 0, 4);" text="Cadastrar" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="28.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-      <ImageView fx:id="logo_stockwatch" fitHeight="150.0" fitWidth="200.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+
+      <!-- Logo StockWatch Superior Esquerdo -->
+      <ImageView fx:id="logo_stockwatch" fitHeight="120.0" fitWidth="160.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../imagens/Logo%20moderno%20StockWatch.png" />
          </image>
       </ImageView>
-      <ComboBox fx:id="combobox_tipo_produto" layoutX="140.0" layoutY="591.0" prefHeight="44.0" prefWidth="490.0" promptText="Escolha o tipo de produto: " style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #FFFFFF; -fx-border-color: #06A110;" />
    </children>
 </AnchorPane>

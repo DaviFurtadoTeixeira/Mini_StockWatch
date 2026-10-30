@@ -31,7 +31,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class tela_controle_cadastro_produto implements Initializable {
 
-	@FXML
+    @FXML
     private AnchorPane anchor_produto;
 
     @FXML
@@ -81,6 +81,7 @@ public class tela_controle_cadastro_produto implements Initializable {
 
     // Flag para evitar loop infinito ao atualizar o texto programaticamente no listener
     private boolean formatandoData = false;
+    private boolean filtrandoCombo = false;
     
     // Lista base de tipos para o autocompletar
     private final ObservableList<String> listaTipos = FXCollections.observableArrayList(
@@ -168,17 +169,41 @@ public class tela_controle_cadastro_produto implements Initializable {
             // Aplica o estilo limpo imediatamente ao iniciar a tela
             Platform.runLater(() -> aplicarEstiloCombo(""));
 
-            // Lógica de Autocompletar (Filtra enquanto digita)
-            combobox_tipo_produto.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+            // Tratamento robusto para seleção de itens no ComboBox editável
+            combobox_tipo_produto.valueProperty().addListener((obs, oldValue, newValue) -> {
+                if (filtrandoCombo) return;
                 Platform.runLater(() -> {
+                    if (newValue != null && !newValue.trim().isEmpty()) {
+                        aplicarEstiloCombo("#2ecc71");
+                    } else if (combobox_tipo_produto.isFocused()) {
+                        aplicarEstiloCombo("red");
+                    } else {
+                        aplicarEstiloCombo("");
+                    }
+                });
+            });
+
+            // Lógica de Autocompletar com suporte a limpeza total imediata (Ctrl+A / Backspace)
+            combobox_tipo_produto.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+                if (filtrandoCombo) return;
+                
+                Platform.runLater(() -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        filtrandoCombo = true;
+                        combobox_tipo_produto.setValue(null);
+                        combobox_tipo_produto.getItems().setAll(listaTipos);
+                        aplicarEstiloCombo(combobox_tipo_produto.isFocused() ? "red" : "");
+                        filtrandoCombo = false;
+                        return;
+                    }
+
                     String corAtual = (combobox_tipo_produto.getValue() != null && !combobox_tipo_produto.getValue().trim().isEmpty()) ? "#2ecc71" : (combobox_tipo_produto.isFocused() ? "red" : "");
                     aplicarEstiloCombo(corAtual);
                     
-                    if (newValue == null || newValue.isEmpty()) {
-                        combobox_tipo_produto.getItems().setAll(listaTipos);
+                    if (listaTipos.contains(newValue)) {
                         return;
                     }
-                    
+
                     String filtro = newValue.toLowerCase();
                     ObservableList<String> filtrados = FXCollections.observableArrayList();
                     for (String tipo : listaTipos) {
@@ -187,7 +212,10 @@ public class tela_controle_cadastro_produto implements Initializable {
                         }
                     }
                     
+                    filtrandoCombo = true;
                     combobox_tipo_produto.getItems().setAll(filtrados);
+                    filtrandoCombo = false;
+
                     if (!combobox_tipo_produto.isShowing() && !filtrados.isEmpty()) {
                         combobox_tipo_produto.show();
                     }
@@ -226,6 +254,52 @@ public class tela_controle_cadastro_produto implements Initializable {
             return null;
         };
         campo_quantidade.setTextFormatter(new TextFormatter<>(filtroQuantidade));
+
+        // 4. FILTRO DA VALIDADE (Bloqueio estricto em tempo real de dias > 31 e meses > 12)
+        UnaryOperator<TextFormatter.Change> filtroValidade = change -> {
+            String novoTexto = change.getControlNewText();
+            
+            if (novoTexto.isEmpty()) {
+                return change;
+            }
+            
+            if (novoTexto.length() > 10) {
+                return null;
+            }
+
+            // Remove barras para analisar apenas os números introduzidos até ao momento
+            String numeros = novoTexto.replaceAll("[^0-9]", "");
+
+            // Validações em tempo real à medida que o utilizador digita:
+            // - Máximo de 8 dígitos numéricos
+            if (numeros.length() > 8) {
+                return null;
+            }
+
+            // Valida o Dia (primeiros 2 dígitos): não pode começar com > 3, nem ser "00", nem passar de "31"
+            if (numeros.length() >= 1) {
+                int d1 = numeros.charAt(0) - '0';
+                if (d1 > 3) return null;
+            }
+            if (numeros.length() >= 2) {
+                int dia = Integer.parseInt(numeros.substring(0, 2));
+                if (dia < 1 || dia > 31) return null;
+            }
+
+            // Valida o Mês (seguintes 2 dígitos): não pode começar com > 1, nem ser "00", nem passar de "12"
+            if (numeros.length() >= 3) {
+                int m1 = numeros.charAt(2) - '0';
+                if (m1 > 1) return null;
+            }
+            if (numeros.length() >= 4) {
+                int mes = Integer.parseInt(numeros.substring(2, 4));
+                if (mes < 1 || mes > 12) return null;
+            }
+
+            return change;
+        };
+        
+        campo_validade.setTextFormatter(new TextFormatter<>(filtroValidade));
     }
 
     private void configurarValidadoresVisuais() {
@@ -295,7 +369,7 @@ public class tela_controle_cadastro_produto implements Initializable {
             }
         });
 
-        // --- 4. CAMPO VALIDADE ---
+        // --- 4. CAMPO VALIDADE (Formatação automática com barras e validação estricta) ---
         campo_validade.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 if (campo_validade.getText() == null || campo_validade.getText().trim().length() < 10) {
@@ -319,13 +393,13 @@ public class tela_controle_cadastro_produto implements Initializable {
                 return;
             }
 
-            // Remove tudo o que não for número
+            // Remove tudo o que não for número e limita a 8 dígitos
             String numeros = newValue.replaceAll("[^0-9]", "");
             if (numeros.length() > 8) {
                 numeros = numeros.substring(0, 8);
             }
 
-            // Reconstrói a formatação DD/MM/AAAA mantendo a naturalidade
+            // Reconstrói a formatação DD/MM/AAAA de forma fluida
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < numeros.length(); i++) {
                 if (i == 2 || i == 4) {
@@ -344,7 +418,7 @@ public class tela_controle_cadastro_produto implements Initializable {
                 formatandoData = false;
             }
 
-            // Validação visual da borda
+            // Validação visual da borda quando atinge 10 caracteres verificando se a data é real e válida
             if (formatado.length() == 10) {
                 try {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
@@ -373,18 +447,6 @@ public class tela_controle_cadastro_produto implements Initializable {
                     if (combobox_tipo_produto.getValue() == null || combobox_tipo_produto.getValue().trim().isEmpty()) {
                         aplicarEstiloCombo("");
                     }
-                }
-            });
-        });
-
-        combobox_tipo_produto.valueProperty().addListener((observable, oldValue, newValue) -> {
-            Platform.runLater(() -> {
-                if (newValue != null && !newValue.trim().isEmpty()) {
-                    aplicarEstiloCombo("#2ecc71");
-                } else if (combobox_tipo_produto.isFocused()) {
-                    aplicarEstiloCombo("red");
-                } else {
-                    aplicarEstiloCombo("");
                 }
             });
         });
@@ -424,7 +486,7 @@ public class tela_controle_cadastro_produto implements Initializable {
                         return;
                     }
                     
-                    validade = Date.valueOf(localDate);
+                    validas_ou_nao: validade = Date.valueOf(localDate);
                 } catch (DateTimeParseException e) {
                     exibirAlerta("Data Inválida", "A data informada não existe no calendário (verifique dias e meses).", Alert.AlertType.ERROR);
                     return;
