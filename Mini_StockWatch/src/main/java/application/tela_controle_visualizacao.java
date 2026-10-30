@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.Date;
@@ -16,9 +17,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -27,6 +33,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class tela_controle_visualizacao implements Initializable {
 
@@ -71,6 +78,14 @@ public class tela_controle_visualizacao implements Initializable {
 
     private final ObservableList<Produto> listaProdutos = FXCollections.observableArrayList();
     private FilteredList<Produto> filtroProdutos;
+
+    private void exibirAlerta(String titulo, String mensagem, Alert.AlertType tipo) {
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -191,6 +206,8 @@ public class tela_controle_visualizacao implements Initializable {
     private void carregarProdutosDoBanco() {
         listaProdutos.clear();
         
+        // Se estiver testando localmente e o IP 10.0.30.179 recusar conexão, 
+        // altere para "jdbc:mysql://localhost:3306/stockwatch"
         String url = "jdbc:mysql://10.0.30.179:3306/stockwatch";
         String user = "stockwatch_user";
         String password = "senha123";
@@ -222,5 +239,24 @@ public class tela_controle_visualizacao implements Initializable {
         Produto p2 = new Produto("2", "Detergente Neutro", "Fornecedor Beta", "Limpeza", 30, null);
         
         listaProdutos.addAll(p1, p2);
+    }
+
+    @FXML
+    void CadastroDeProduto(ActionEvent event) {
+        try {
+            // Carrega de volta o FXML da tela de cadastro
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("tela_cadastro_produto.fxml")); // Ajuste o nome do fxml de cadastro se necessário
+            Parent root = loader.load();
+            
+            Stage stage = (Stage) anchor_visualizacao.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("StockWatch - Cadastro de Produtos");
+            stage.centerOnScreen();
+            stage.show();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+            exibirAlerta("Erro", "Não foi possível retornar à tela de cadastro.", Alert.AlertType.ERROR);
+        }
     }
 }

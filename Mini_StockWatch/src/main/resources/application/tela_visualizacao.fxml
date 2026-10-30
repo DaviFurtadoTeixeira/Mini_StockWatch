@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -21,7 +22,7 @@
             <Image url="@../imagens/tela_preta.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="label_titulo" alignment="CENTER" layoutX="710.0" layoutY="45.0" prefHeight="70.0" prefWidth="500.0" style="-fx-background-color: #06A110; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 4);" text="Controle e Visualização" textFill="WHITE">
+      <Label fx:id="label_titulo" alignment="CENTER" layoutX="710.0" layoutY="45.0" prefHeight="70.0" prefWidth="500.0" style="-fx-background-color: #06A110; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 4); -fx-border-color: #FFFFFF; -fx-border-radius: 15;" text="Controle e Visualização" textFill="WHITE">
          <font>
             <Font name="System Bold" size="32.0" />
          </font>
@@ -50,5 +51,10 @@
             <Image url="@../imagens/Logo%20moderno%20StockWatch.png" />
          </image>
       </ImageView>
+      <Button fx:id="button_cadastrar_produto" layoutX="1614.0" layoutY="1008.0" mnemonicParsing="false" onAction="#CadastroDeProduto" prefHeight="58.0" prefWidth="286.0" style="-fx-background-color: #000000; -fx-border-color: #FFFFFF; -fx-border-width: 2px; -fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(6,161,16,0.4), 10, 0, 0, 4);" text="Cadastro de Produtos" textFill="#21ff21">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
