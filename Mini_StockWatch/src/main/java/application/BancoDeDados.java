@@ -8,7 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
-
+import java.util.ArrayList;
+import java.util.List;
 public class BancoDeDados {
 	public Connection connection = null;
 	public Statement statement = null;
@@ -137,4 +138,54 @@ public class BancoDeDados {
 	        desconectar();
 	    }
 	}
+
+public List<Produto> listarProdutos() {
+    List<Produto> produtos = new ArrayList<>();
+
+    String sql = """
+        SELECT id, nome, fornecedor, tipo, quantidade, validade
+        FROM produtos
+        """;
+
+    conectar();
+
+    if (!estaConectado()) {
+        desconectar();
+        return null;
+    }
+
+    try (PreparedStatement stmt = connection.prepareStatement(sql);
+         ResultSet rs = stmt.executeQuery()) {
+
+        while (rs.next()) {
+            String id = rs.getString("id");
+            String nome = rs.getString("nome");
+            String fornecedor = rs.getString("fornecedor");
+            String tipo = rs.getString("tipo");
+            int quantidade = rs.getInt("quantidade");
+            Date validade = rs.getDate("validade");
+
+            Produto produto = new Produto(
+                id,
+                nome,
+                fornecedor,
+                tipo,
+                quantidade,
+                validade
+            );
+
+            produtos.add(produto);
+        }
+
+        return produtos;
+
+    } catch (Exception e) {
+        System.out.println("Erro ao carregar produtos: " + e.getMessage());
+        return null;
+
+    } finally {
+        desconectar();
+    }
+}
+
 }

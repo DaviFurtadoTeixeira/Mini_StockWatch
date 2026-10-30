@@ -2,16 +2,13 @@ package application;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.ResourceBundle;
-
+import java.util.List;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -203,36 +200,28 @@ public class tela_controle_visualizacao implements Initializable {
         table_view.setItems(produtosOrdenados);
     }
 
-    private void carregarProdutosDoBanco() {
-        listaProdutos.clear();
-        
-        // Se estiver testando localmente e o IP 10.0.30.179 recusar conexão, 
-        // altere para "jdbc:mysql://localhost:3306/stockwatch"
-        String url = "jdbc:mysql://10.0.30.179:3306/stockwatch";
-        String user = "stockwatch_user";
-        String password = "senha123";
-        String sql = "SELECT id, nome, fornecedor, tipo, quantidade, validade FROM produtos";
 
-        try (Connection conn = DriverManager.getConnection(url, user, password);
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+private void carregarProdutosDoBanco() {
 
-            while (rs.next()) {
-                String id = rs.getString("id");
-                String nome = rs.getString("nome");
-                String fornecedor = rs.getString("fornecedor");
-                String tipo = rs.getString("tipo");
-                int quantidade = rs.getInt("quantidade");
-                Date validade = rs.getDate("validade");
+    listaProdutos.clear();
 
-                listaProdutos.add(new Produto(id, nome, fornecedor, tipo, quantidade, validade));
-            }
+    BancoDeDados banco = new BancoDeDados();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            carregarDadosDeTeste();
-        }
+    List<Produto> produtos = banco.listarProdutos();
+
+    if (produtos == null) {
+        exibirAlerta(
+            "Erro ao carregar produtos",
+            "Não foi possível carregar os produtos do banco de dados.",
+            Alert.AlertType.ERROR
+        );
+
+        return;
     }
+
+    listaProdutos.addAll(produtos);
+}
+
 
     private void carregarDadosDeTeste() {
         Produto p1 = new Produto("1", "Arroz Integral", "Fornecedor Alfa", "Alimento", 50, Date.valueOf("2027-10-22"));
