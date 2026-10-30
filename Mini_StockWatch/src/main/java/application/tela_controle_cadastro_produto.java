@@ -33,7 +33,7 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
+import java.util.Random;
 public class tela_controle_cadastro_produto implements Initializable {
 
     @FXML
@@ -457,119 +457,139 @@ public class tela_controle_cadastro_produto implements Initializable {
         });
     }
 
+    private String gerarIdProduto() {
+        String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        Random random = new Random();
 
-@FXML
-void CadastrarProduto(ActionEvent event) {
+        StringBuilder id = new StringBuilder();
 
-    if (campo_nome.getText().trim().isEmpty() ||
-        campo_quantidade.getText().trim().isEmpty()) {
+        // Gera quatro letras aleatórias
+        for (int i = 0; i < 4; i++) {
+            id.append(letras.charAt(random.nextInt(letras.length())));
+        }
 
-        exibirAlerta(
-            "Atenção",
-            "Preencha corretamente os campos obrigatórios (Nome e Quantidade)!",
-            Alert.AlertType.WARNING
-        );
-        return;
+        id.append("-");
+
+        // Gera dois números aleatórios
+        for (int i = 0; i < 2; i++) {
+            id.append(random.nextInt(10));
+        }
+
+        return id.toString();
     }
+    @FXML
+    void CadastrarProduto(ActionEvent event) {
 
-    try {
-        String idAleatorio = UUID.randomUUID().toString();
+        if (campo_nome.getText().trim().isEmpty() ||
+            campo_quantidade.getText().trim().isEmpty()) {
 
-        String nome = campo_nome.getText().trim();
+            exibirAlerta(
+                "Atenção",
+                "Preencha corretamente os campos obrigatórios (Nome e Quantidade)!",
+                Alert.AlertType.WARNING
+            );
+            return;
+        }
 
-        String fornecedor = campo_fornecedor.getText() != null
-                ? campo_fornecedor.getText().trim() : "";
+        try {
+            // Gera ID no padrão XXXX-00
+            String idAleatorio = gerarIdProduto();
 
-        String tipo = combobox_tipo_produto.getValue() != null
-                ? combobox_tipo_produto.getValue().trim() : "";
+            String nome = campo_nome.getText().trim();
 
-        int quantidade = Integer.parseInt(
-            campo_quantidade.getText().trim()
-        );
+            String fornecedor = campo_fornecedor.getText() != null
+                    ? campo_fornecedor.getText().trim() : "";
 
-        Date validade = null;
+            String tipo = combobox_tipo_produto.getValue() != null
+                    ? combobox_tipo_produto.getValue().trim() : "";
 
-        String textoValidade = campo_validade.getText().trim();
+            int quantidade = Integer.parseInt(
+                campo_quantidade.getText().trim()
+            );
 
-        // Validação da data de validade
-        if (!textoValidade.isEmpty()) {
+            Date validade = null;
 
-            if (textoValidade.length() < 10) {
-                exibirAlerta(
-                    "Data Incompleta",
-                    "Preencha a data inteira no formato DD/MM/AAAA.",
-                    Alert.AlertType.ERROR
-                );
-                return;
-            }
+            String textoValidade = campo_validade.getText().trim();
 
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter
-                    .ofPattern("dd/MM/uuuu")
-                    .withResolverStyle(ResolverStyle.STRICT);
+            // Validação da data de validade
+            if (!textoValidade.isEmpty()) {
 
-                LocalDate localDate = LocalDate.parse(
-                    textoValidade, formatter
-                );
-
-                if (localDate.isBefore(LocalDate.now())) {
+                if (textoValidade.length() < 10) {
                     exibirAlerta(
-                        "Data Inválida",
-                        "A data de validade não pode ser anterior ao dia de hoje!",
+                        "Data Incompleta",
+                        "Preencha a data inteira no formato DD/MM/AAAA.",
                         Alert.AlertType.ERROR
                     );
                     return;
                 }
 
-                validade = Date.valueOf(localDate);
+                try {
+                    DateTimeFormatter formatter = DateTimeFormatter
+                        .ofPattern("dd/MM/uuuu")
+                        .withResolverStyle(ResolverStyle.STRICT);
 
-            } catch (DateTimeParseException e) {
-                exibirAlerta(
-                    "Data Inválida",
-                    "A data informada não existe no calendário.",
-                    Alert.AlertType.ERROR
-                );
-                return;
+                    LocalDate localDate = LocalDate.parse(
+                        textoValidade, formatter
+                    );
+
+                    if (localDate.isBefore(LocalDate.now())) {
+                        exibirAlerta(
+                            "Data Inválida",
+                            "A data de validade não pode ser anterior ao dia de hoje!",
+                            Alert.AlertType.ERROR
+                        );
+                        return;
+                    }
+
+                    validade = Date.valueOf(localDate);
+
+                } catch (DateTimeParseException e) {
+                    exibirAlerta(
+                        "Data Inválida",
+                        "A data informada não existe no calendário.",
+                        Alert.AlertType.ERROR
+                    );
+                    return;
+                }
             }
-        }
 
-        // Utiliza a classe BancoDeDados para cadastrar o produto
-        BancoDeDados banco = new BancoDeDados();
+            // Cadastro utilizando a classe BancoDeDados
+            BancoDeDados banco = new BancoDeDados();
 
-        boolean sucesso = banco.inserirProduto(
-            idAleatorio,
-            nome,
-            fornecedor,
-            tipo,
-            quantidade,
-            validade
-        );
-
-        if (sucesso) {
-            exibirAlerta(
-                "Sucesso",
-                "Produto cadastrado com sucesso!",
-                Alert.AlertType.INFORMATION
+            boolean sucesso = banco.inserirProduto(
+                idAleatorio,
+                nome,
+                fornecedor,
+                tipo,
+                quantidade,
+                validade
             );
 
-            limparCampos();
+            if (sucesso) {
+                exibirAlerta(
+                    "Sucesso",
+                    "Produto cadastrado com sucesso!\nID do produto: " + idAleatorio,
+                    Alert.AlertType.INFORMATION
+                );
 
-        } else {
+                limparCampos();
+
+            } else {
+                exibirAlerta(
+                    "Erro de Banco de Dados",
+                    "Não foi possível cadastrar o produto. Verifique a conexão com o banco de dados.",
+                    Alert.AlertType.ERROR
+                );
+            }
+
+        } catch (NumberFormatException e) {
             exibirAlerta(
-                "Erro de Banco de Dados",
-                "Não foi possível cadastrar o produto. Verifique a conexão com o banco de dados.",
+                "Erro de Formato",
+                "O campo Quantidade deve conter apenas números inteiros.",
                 Alert.AlertType.ERROR
             );
         }
-
-    } catch (NumberFormatException e) {
-        exibirAlerta(
-            "Erro de Formato",
-            "O campo Quantidade deve conter apenas números inteiros.",
-            Alert.AlertType.ERROR
-        );
     }
-}
 
 
     @FXML
