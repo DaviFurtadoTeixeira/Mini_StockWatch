@@ -6,6 +6,10 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ResourceBundle;
 import java.util.UUID;
 import java.util.function.UnaryOperator;
@@ -72,6 +76,9 @@ public class tela_controle_cadastro_produto implements Initializable {
     @FXML
     private ImageView logo_stockwatch1;
 
+    // Flag para evitar loop infinito ao atualizar o texto programaticamente no listener
+    private boolean formatandoData = false;
+
     private void exibirAlerta(String titulo, String mensagem, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);
@@ -81,16 +88,33 @@ public class tela_controle_cadastro_produto implements Initializable {
     }
 
     private void limparCampos() {
-        if (campo_nome != null) campo_nome.clear();
-        if (campo_fornecedor != null) campo_fornecedor.clear();
-        if (combobox_tipo_produto != null) combobox_tipo_produto.setValue(null);
-        if (campo_quantidade != null) campo_quantidade.clear();
-        if (campo_validade != null) campo_validade.clear();
+        if (campo_nome != null) {
+            campo_nome.clear();
+            campo_nome.setStyle("");
+        }
+        if (campo_fornecedor != null) {
+            campo_fornecedor.clear();
+            campo_fornecedor.setStyle("");
+        }
+        if (combobox_tipo_produto != null) {
+            combobox_tipo_produto.setValue(null);
+            combobox_tipo_produto.setStyle("");
+        }
+        if (campo_quantidade != null) {
+            campo_quantidade.clear();
+            campo_quantidade.setStyle("");
+        }
+        if (campo_validade != null) {
+            campo_validade.clear();
+            campo_validade.setStyle("");
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        aplicarMascaraData();
+        aplicarFiltrosEspeciais();
+        configurarValidadoresVisuais();
+        
         if (combobox_tipo_produto != null) {
         	combobox_tipo_produto.getItems().addAll(
         		    "Biscoitos",
@@ -117,72 +141,161 @@ public class tela_controle_cadastro_produto implements Initializable {
         }
     }
 
-    private void aplicarMascaraData() {
-        UnaryOperator<TextFormatter.Change> filtro = change -> {
-            String novoTexto = change.getControlNewText().replaceAll("[^0-9]", "");
-            if (novoTexto.length() > 8) {
-                novoTexto = novoTexto.substring(0, 8);
+    private void aplicarFiltrosEspeciais() {
+        // 1. FILTRO DO NOME: Apenas letras, espaços e hífens
+        UnaryOperator<TextFormatter.Change> filtroNome = change -> {
+            String texto = change.getControlNewText();
+            if (texto.matches("[\\p{L}\\s\\-]*")) {
+                return change;
             }
+            return null;
+        };
+        campo_nome.setTextFormatter(new TextFormatter<>(filtroNome));
+
+        // 2. FILTRO DA QUANTIDADE: Apenas números inteiros
+        UnaryOperator<TextFormatter.Change> filtroQuantidade = change -> {
+            String texto = change.getControlNewText();
+            if (texto.matches("\\d*")) {
+                return change;
+            }
+            return null;
+        };
+        campo_quantidade.setTextFormatter(new TextFormatter<>(filtroQuantidade));
+    }
+
+    private void configurarValidadoresVisuais() {
+        campo_nome.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.trim().isEmpty()) {
+                campo_nome.setStyle("-fx-border-color: red; -fx-border-width: 2px; -fx-border-radius: 4px;");
+            } else {
+                campo_nome.setStyle("-fx-border-color: #2ecc71; -fx-border-width: 2px; -fx-border-radius: 4px;");
+            }
+        });
+
+        campo_quantidade.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.trim().isEmpty() || !newValue.matches("\\d+")) {
+                campo_quantidade.setStyle("-fx-border-color: red; -fx-border-width: 2px; -fx-border-radius: 4px;");
+            } else {
+                campo_quantidade.setStyle("-fx-border-color: #2ecc71; -fx-border-width: 2px; -fx-border-radius: 4px;");
+            }
+        });
+
+        // 3. MÁSCARA E VALIDAÇÃO DA VALIDADE VIA LISTENER (Permite clicar e editar em qualquer lugar livremente)
+        campo_validade.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (formatandoData) return;
+            if (newValue == null || newValue.isEmpty()) {
+                campo_validade.setStyle("");
+                return;
+            }
+
+            // Remove tudo o que não for número
+            String numeros = newValue.replaceAll("[^0-9]", "");
+            if (numeros.length() > 8) {
+                numeros = numeros.substring(0, 8);
+            }
+
+            // Reconstrói a formatação DD/MM/AAAA mantendo a naturalidade
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < novoTexto.length(); i++) {
+            for (int i = 0; i < numeros.length(); i++) {
                 if (i == 2 || i == 4) {
                     sb.append('/');
                 }
-                sb.append(novoTexto.charAt(i));
+                sb.append(numeros.charAt(i));
             }
+
             String formatado = sb.toString();
-            change.setRange(0, change.getControlText().length());
-            change.setText(formatado);
-            change.selectRange(formatado.length(), formatado.length());
-            return change;
-        };
-        campo_validade.setTextFormatter(new TextFormatter<>(filtro));
+            
+            if (!formatado.equals(newValue)) {
+                formatandoData = true;
+                int posicaoCursor = campo_validade.getCaretPosition();
+                campo_validade.setText(formatado);
+                // Restaura a posição do cursor para que o usuário possa editar onde quiser
+                campo_validade.positionCaret(Math.min(posicaoCursor, formatado.length()));
+                formatandoData = false;
+            }
+
+            // Validação visual da borda (Vermelho se incompleto/passado, Verde se correto)
+            if (formatado.length() < 10) {
+                campo_validade.setStyle("-fx-border-color: red; -fx-border-width: 2px; -fx-border-radius: 4px;");
+            } else {
+                try {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
+                    LocalDate localDate = LocalDate.parse(formatado, formatter);
+                    if (localDate.isBefore(LocalDate.now())) {
+                        campo_validade.setStyle("-fx-border-color: red; -fx-border-width: 2px; -fx-border-radius: 4px;");
+                    } else {
+                        campo_validade.setStyle("-fx-border-color: #2ecc71; -fx-border-width: 2px; -fx-border-radius: 4px;");
+                    }
+                } catch (Exception e) {
+                    campo_validade.setStyle("-fx-border-color: red; -fx-border-width: 2px; -fx-border-radius: 4px;");
+                }
+            }
+        });
     }
 
     @FXML
     void CadastrarProduto(ActionEvent event) {
         if (campo_nome.getText().trim().isEmpty() || campo_quantidade.getText().trim().isEmpty()) {
-            exibirAlerta("Atenção", "Preencha pelo menos o Nome e a Quantidade do produto!", Alert.AlertType.WARNING);
+            exibirAlerta("Atenção", "Preencha corretamente os campos obrigatórios (Nome e Quantidade)!", Alert.AlertType.WARNING);
             return;
         }
         
         try {
             String idAleatorio = UUID.randomUUID().toString();
-            String nome = campo_nome.getText();
-            String fornecedor = campo_fornecedor.getText();
+            String nome = campo_nome.getText().trim();
+            String fornecedor = campo_fornecedor.getText() != null ? campo_fornecedor.getText().trim() : "";
             String tipo = (combobox_tipo_produto.getValue() != null) ? combobox_tipo_produto.getValue() : "";
             int quantidade = Integer.parseInt(campo_quantidade.getText().trim());
             Date validade = null;
             String textoValidade = campo_validade.getText().trim();
             
             if (!textoValidade.isEmpty()) {
+                if (textoValidade.length() < 10) {
+                    exibirAlerta("Data Incompleta", "Por favor, preencha a data de validade inteira no formato DD/MM/AAAA.", Alert.AlertType.ERROR);
+                    return;
+                }
+
                 try {
-                    java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter
+                    DateTimeFormatter formatter = DateTimeFormatter
                             .ofPattern("dd/MM/uuuu")
-                            .withResolverStyle(java.time.format.ResolverStyle.STRICT);
-                    java.time.LocalDate localDate = java.time.LocalDate.parse(textoValidade, formatter);
+                            .withResolverStyle(ResolverStyle.STRICT);
                     
-                    if (localDate.isBefore(java.time.LocalDate.now())) {
+                    LocalDate localDate = LocalDate.parse(textoValidade, formatter);
+                    
+                    if (localDate.isBefore(LocalDate.now())) {
                         exibirAlerta("Data Inválida", "A data de validade não pode ser anterior ao dia de hoje!", Alert.AlertType.ERROR);
                         return;
                     }
                     
                     validade = Date.valueOf(localDate);
-                } catch (java.time.format.DateTimeParseException e) {
-                    exibirAlerta("Erro de Formato", "A validade deve ser uma data válida no formato DD/MM/AAAA (ex: 15/08/2026).", Alert.AlertType.ERROR);
+                } catch (DateTimeParseException e) {
+                    exibirAlerta("Data Inválida", "A data informada não existe no calendário (verifique dias e meses).", Alert.AlertType.ERROR);
                     return;
                 }
             }
             
-            // Chama a classe BancoDeDados para fazer o cadastro de forma limpa
-            BancoDeDados db = new BancoDeDados();
-            boolean sucesso = db.inserirProduto(idAleatorio, nome, fornecedor, tipo, quantidade, validade);
+            String url = "jdbc:mysql://10.0.30.179:3306/stockwatch";
+            String user = "stockwatch_user";
+            String password = "senha123";
             
-            if (sucesso) {
+            String sql = "INSERT INTO produtos (id, nome, fornecedor, tipo, quantidade, validade) VALUES (?, ?, ?, ?, ?, ?)";
+            
+            try (Connection conn = DriverManager.getConnection(url, user, password);
+                 PreparedStatement stmt = conn.prepareStatement(sql)) {
+                
+                stmt.setString(1, idAleatorio);
+                stmt.setString(2, nome);
+                stmt.setString(3, fornecedor);
+                stmt.setString(4, tipo);
+                stmt.setInt(5, quantidade);
+                stmt.setDate(6, validade);
+                
+                stmt.executeUpdate();
                 exibirAlerta("Sucesso", "Produto cadastrado com sucesso!", Alert.AlertType.INFORMATION);
                 limparCampos();
-            } else {
-                exibirAlerta("Erro de Banco de Dados", "Não foi possível salvar o produto. Verifique a conexão com o servidor.", Alert.AlertType.ERROR);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                exibirAlerta("Erro de Banco de Dados", "Não foi possível salvar no banco: " + e.getMessage(), Alert.AlertType.ERROR);
             }
             
         } catch (NumberFormatException e) {
