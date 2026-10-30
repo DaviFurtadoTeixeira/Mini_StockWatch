@@ -7,7 +7,7 @@
     -fx-background-insets: 0;
 }
 
-/* Remove a borda padrão de foco do JavaFX que estraga os cantos arredondados */
+/* Remove a borda padrão de foco do JavaFX */
 .table-view:focused {
     -fx-background-color: transparent;
     -fx-background-radius: 15px;
@@ -16,7 +16,7 @@
     -fx-focus-color: transparent;
 }
 
-/* Fundo da área de conteúdo interno da tabela com cantos inferiores arredondados */
+/* Fundo da área de conteúdo interno da tabela */
 .table-view .virtual-flow {
     -fx-background-color: white;
     -fx-background-radius: 0 0 15px 15px;
@@ -36,16 +36,25 @@
     -fx-border-color: transparent;
 }
 
-/* Arredondamento do canto superior esquerdo da primeira coluna */
+/* Canto superior esquerdo */
 .table-view .column-header:first-child {
     -fx-background-radius: 15px 0 0 0;
     -fx-border-radius: 15px 0 0 0;
 }
 
-/* Arredondamento do canto superior direito da última coluna */
+/* Canto superior direito - Garante o corte perfeito na última coluna */
 .table-view .column-header:last-child {
     -fx-background-radius: 0 15px 0 0;
     -fx-border-radius: 0 15px 0 0;
+}
+
+/* Remove o espaço reservado para o menu de opções de colunas que causa a saliência à direita */
+.table-view .column-header-background .show-hide-column-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-max-width: 0;
+    -fx-pref-width: 0;
 }
 
 /* Efeito Dinâmico (Hover) nas linhas da tabela */
