@@ -91,5 +91,10 @@
             <Image url="@../imagens/Logo%20moderno%20StockWatch.png" />
          </image>
       </ImageView>
+      <Button fx:id="button_visualizar_estoque" layoutX="1530.0" layoutY="616.0" mnemonicParsing="false" onAction="#VisualizarEstoque" prefHeight="58.0" prefWidth="250.0" style="-fx-background-color: #000000; -fx-border-color: #06A110; -fx-border-width: 2px; -fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(6,161,16,0.4), 10, 0, 0, 4);" text="Visualizar Estoque" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

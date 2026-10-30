@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.Date;
@@ -19,7 +20,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -28,6 +32,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class tela_controle_cadastro_produto implements Initializable {
 
@@ -486,7 +491,7 @@ public class tela_controle_cadastro_produto implements Initializable {
                         return;
                     }
                     
-                    validas_ou_nao: validade = Date.valueOf(localDate);
+                    validade = Date.valueOf(localDate);
                 } catch (DateTimeParseException e) {
                     exibirAlerta("Data Inválida", "A data informada não existe no calendário (verifique dias e meses).", Alert.AlertType.ERROR);
                     return;
@@ -519,6 +524,25 @@ public class tela_controle_cadastro_produto implements Initializable {
             
         } catch (NumberFormatException e) {
             exibirAlerta("Erro de Formato", "O campo Quantidade deve conter apenas números inteiros.", Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    void VisualizarEstoque(ActionEvent event) {
+        try {
+            // Substitua "tela_visualizacao_produtos.fxml" pelo nome exato do seu arquivo FXML da tabela
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("tela_visualizacao.fxml"));
+            Parent root = loader.load();
+            
+            Stage stage = (Stage) anchor_produto.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("StockWatch - Visualização de Produtos");
+            stage.centerOnScreen();
+            stage.show();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+            exibirAlerta("Erro", "Não foi possível carregar a tela de visualização. Verifique o nome do arquivo FXML.", Alert.AlertType.ERROR);
         }
     }
 }

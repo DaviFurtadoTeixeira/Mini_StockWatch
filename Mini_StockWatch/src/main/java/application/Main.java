@@ -14,7 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("tela_cadastro_produto.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("tela_visualizaçao.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setTitle("StockWatch - Cadastro de Produtos");
             primaryStage.setScene(scene);
