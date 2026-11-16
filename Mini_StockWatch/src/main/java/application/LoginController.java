@@ -1,5 +1,15 @@
  package application;
 
+ import java.sql.Connection;
+ import java.sql.PreparedStatement;
+ import java.sql.ResultSet;
+ import java.sql.SQLException;
+ import java.util.Optional;
+
+ import javafx.event.ActionEvent;
+ import javafx.fxml.FXML;
+ import javafx.scene.control.Alert;
+ import javafx.scene.control.TextInputDialog;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -84,8 +94,66 @@ public class LoginController {
     
 
     @FXML
-    void recuperarSenha(ActionEvent event) {
+    private void recuperarSenha(ActionEvent event) {
+    	Optional<String> resultado = TextInputPersonalizado.mostrar(
+    		    "Recuperação de senha",
+    		    "Digite seu e-mail cadastrado:"
+    		);
 
+        if (resultado.isEmpty()) {
+            return;
+        }
+
+        String email = resultado.get().trim();
+
+        if (!email.matches("^[\\w.+-]+@[\\w.-]+\\.[A-Za-z]{2,}$")) {
+            AlertPersonalizado.mostrar(
+                Alert.AlertType.ERROR,
+                "E-mail inválido!",
+                "Digite um endereço de e-mail válido."
+            );
+            return;
+        }
+
+        BancoDeDados banco = new BancoDeDados();
+        banco.conectar();
+
+        if (banco.connection == null) {
+            AlertPersonalizado.mostrar(
+                Alert.AlertType.ERROR,
+                "Erro de conexão!",
+                "Não foi possível conectar ao banco de dados."
+            );
+            return;
+        }
+
+        String sql = "SELECT id FROM usuarios WHERE email = ?";
+
+        try (Connection conexao = banco.connection;
+             PreparedStatement stmt = conexao.prepareStatement(sql)) {
+
+            stmt.setString(1, email);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+
+                AlertPersonalizado.mostrar(
+                    Alert.AlertType.INFORMATION,
+                    "Solicitação recebida!",
+                    "Se o e-mail estiver cadastrado, você receberá "
+                    + "instruções para recuperar sua senha."
+                );
+            }
+
+        } catch (SQLException e) {
+
+            AlertPersonalizado.mostrar(
+                Alert.AlertType.ERROR,
+                "Erro ao recuperar senha!",
+                "Não foi possível verificar o e-mail."
+            );
+
+            e.printStackTrace();
+        }
     }
 
 }

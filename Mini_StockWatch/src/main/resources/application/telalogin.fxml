@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -23,22 +25,17 @@
                 <padding>
                     <Insets bottom="40" left="35" right="35" top="40" />
                 </padding>
-
-                <Region VBox.vgrow="ALWAYS" />
-
-                <Label text="StockWatch" textFill="#42e878">
-                    <font>
-                        <Font name="System Bold" size="34" />
-                    </font>
-                </Label>
+            <ImageView fitHeight="231.0" fitWidth="222.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../imagens/Logo%20moderno%20StockWatch.png" />
+               </image>
+            </ImageView>
 
                 <Label alignment="CENTER" text="CONTROLE INTELIGENTE DE ESTOQUE" textFill="#a2b5a7" wrapText="true">
                     <font>
                         <Font size="12" />
                     </font>
                 </Label>
-
-                <Region prefHeight="10.0" />
 
                 <Label alignment="CENTER" text="Seu estoque, sob controle." textFill="#ffffff" wrapText="true">
                     <font>
@@ -51,8 +48,6 @@
                         <Font size="14" />
                     </font>
                 </Label>
-
-                <Region VBox.vgrow="ALWAYS" />
 
                 <Label text="STOCKWATCH • GESTÃO DE ESTOQUE" textFill="#607568">
                     <font>
@@ -105,6 +100,11 @@
                     </Label>
 
                     <PasswordField fx:id="txtSenha" maxWidth="420.0" prefHeight="46.0" promptText="Digite sua senha" style="-fx-background-color: #1b251f;                                           -fx-text-fill: white;                                           -fx-prompt-text-fill: #718077;                                           -fx-border-color: #35453a;                                           -fx-border-radius: 6;                                           -fx-background-radius: 6;                                           -fx-padding: 0 12;" />
+               <Label text="Combinação mínima entre 6 numeros ou letras e 1 caractere especial" textFill="#dce7df">
+                  <font>
+                     <Font name="System Bold" size="11.0" />
+                  </font>
+               </Label>
                 </VBox>
 
                 <!-- LEMBRAR E RECUPERAR SENHA -->

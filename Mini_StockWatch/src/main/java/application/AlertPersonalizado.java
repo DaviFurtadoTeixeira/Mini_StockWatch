@@ -10,38 +10,52 @@ import javafx.scene.paint.Color;
 
 public class AlertPersonalizado {
 
-    public static void mostrar(
-            Alert.AlertType tipo,
-            String titulo,
-            String mensagem) {
+	public static void mostrar(
+	        Alert.AlertType tipo,
+	        String titulo,
+	        String mensagem) {
 
-        Alert alert = new Alert(tipo);
+	    Alert alert = new Alert(tipo);
 
-        alert.setTitle("StockWatch");
-        alert.setHeaderText(titulo);
-        alert.setContentText(mensagem);
+	    alert.setTitle("StockWatch");
+	    alert.setHeaderText(titulo);
 
-      
-        alert.setGraphic(criarIcone(tipo));
+	    alert.setGraphic(criarIcone(tipo));
 
-      
-        DialogPane dialog = alert.getDialogPane();
+	    DialogPane dialog = alert.getDialogPane();
 
-        dialog.setStyle(
-            "-fx-background-color: #101512;" +
-            "-fx-border-color: #35453a;" +
-            "-fx-border-width: 1px;"
-        );
 
-        
-        var css = AlertPersonalizado.class.getResource("style.css");
+	    Label lblMensagem = new Label(mensagem);
+	    lblMensagem.setWrapText(true);
+	    lblMensagem.setMaxWidth(Double.MAX_VALUE);
 
-        if (css != null) {
-            dialog.getStylesheets().add(css.toExternalForm());
-        }
 
-        alert.showAndWait();
-    }
+	    dialog.setContent(lblMensagem);
+
+
+	    dialog.setMinWidth(450);
+	    dialog.setPrefWidth(450);
+	    dialog.setMinHeight(220);
+
+	    dialog.setStyle(
+	        "-fx-background-color: #101512;" +
+	        "-fx-border-color: #35453a;" +
+	        "-fx-border-width: 1px;"
+	    );
+
+	    lblMensagem.setStyle(
+	        "-fx-text-fill: white;" +
+	        "-fx-font-size: 13px;"
+	    );
+
+	    var css = AlertPersonalizado.class.getResource("style.css");
+
+	    if (css != null) {
+	        dialog.getStylesheets().add(css.toExternalForm());
+	    }
+
+	    alert.showAndWait();
+	}
 
     private static StackPane criarIcone(Alert.AlertType tipo) {
 
