@@ -1,5 +1,7 @@
 package application;
 
+import org.mindrot.jbcrypt.BCrypt;
+import java.security.SecureRandom;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Date;
@@ -79,7 +81,7 @@ public class BancoDeDados {
 		}
 	}
 	public boolean inserirUsuario(String nome, String email, String senha) {
-	    String sql = "INSERT INTO usuario (nome, email, senha) VALUES (?, ?, ?)";
+	    String sql = "INSERT INTO usuario (id, nome, email, senha) VALUES (?, ?, ?, ?)";
 
 	    conectar();
 
@@ -92,11 +94,48 @@ public class BancoDeDados {
 	        stmt.setString(1, nome.trim());
 	        stmt.setString(2, email.trim().toLowerCase());
 	        stmt.setString(3, SenhaUtil.gerarHash(senha));
+	        
+	        for (int tentativa = 0; tentativa < 10; tentativa++) {
 
-	        return stmt.executeUpdate() == 1;
+	            int id = gerarIdAleatorio();
+
+	            try (PreparedStatement verificar =
+	                    this.connection.prepareStatement(
+	                        "SELECT id FROM usuario WHERE id = ?")) {
+
+	                verificar.setInt(1, id);
+
+	                try (ResultSet rs = verificar.executeQuery()) {
+	                    if (rs.next()) {
+	                        continue;
+	                    }
+	                }
+	            }
+
+	            stmt.setInt(1, id);
+	            stmt.setString(2, nome.trim());
+	            stmt.setString(3, email.trim().toLowerCase());
+	            stmt.setString(4, SenhaUtil.gerarHash(senha));
+
+	            try {
+	                return stmt.executeUpdate() == 1;
+
+	            } catch (java.sql.SQLIntegrityConstraintViolationException e) {
+	                // Pode ocorrer uma colisão do ID ou outro
+	                // problema de restrição (como e-mail duplicado).
+	                // Não repetir automaticamente nesse caso.
+	                throw e;
+	            }
+	        }
+
+	        return false;
 
 	    } catch (Exception e) {
-	        System.out.println("Erro ao inserir usuário: " + e.getMessage());
+
+	        System.out.println(
+	            "Erro ao inserir usuário: " + e.getMessage()
+	        );
+
 	        return false;
 
 	    } finally {
@@ -186,6 +225,11 @@ public List<Produto> listarProdutos() {
     } finally {
         desconectar();
     }
+}
+private static final SecureRandom random = new SecureRandom();
+
+private int gerarIdAleatorio() {
+    return 100000000 + random.nextInt(900000000);
 }
 
 }

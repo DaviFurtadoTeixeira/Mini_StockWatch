@@ -5,7 +5,7 @@
  import java.sql.ResultSet;
  import java.sql.SQLException;
  import java.util.Optional;
-
+ import org.mindrot.jbcrypt.BCrypt;
  import javafx.event.ActionEvent;
  import javafx.fxml.FXML;
  import javafx.scene.control.Alert;
@@ -95,65 +95,125 @@ public class LoginController {
 
     @FXML
     private void recuperarSenha(ActionEvent event) {
-    	Optional<String> resultado = TextInputPersonalizado.mostrar(
-    		    "Recuperação de senha",
-    		    "Digite seu e-mail cadastrado:"
-    		);
 
-        if (resultado.isEmpty()) {
+
+        Optional<String> resultadoEmail =
+            TextInputPersonalizado.mostrar(
+                "Recuperação de senha",
+                "Digite seu e-mail cadastrado:"
+            );
+
+        if (resultadoEmail.isEmpty()) {
             return;
         }
 
-        String email = resultado.get().trim();
+        String email = resultadoEmail.get().trim();
 
-        if (!email.matches("^[\\w.+-]+@[\\w.-]+\\.[A-Za-z]{2,}$")) {
+        if (!email.matches(
+            "^[\\w.+-]+@[\\w.-]+\\.[A-Za-z]{2,}$"
+        )) {
+
             AlertPersonalizado.mostrar(
                 Alert.AlertType.ERROR,
                 "E-mail inválido!",
-                "Digite um endereço de e-mail válido."
+                "Digite um e-mail válido."
             );
             return;
         }
 
-        BancoDeDados banco = new BancoDeDados();
-        banco.conectar();
+        try {
+            RecuperacaoSenhaService.solicitarCodigo(email);
 
-        if (banco.connection == null) {
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
             AlertPersonalizado.mostrar(
                 Alert.AlertType.ERROR,
-                "Erro de conexão!",
-                "Não foi possível conectar ao banco de dados."
+                "Erro na solicitação!",
+                "Não foi possível processar a recuperação. " +
+                "Tente novamente mais tarde."
             );
             return;
         }
 
-        String sql = "SELECT id FROM usuarios WHERE email = ?";
+        AlertPersonalizado.mostrar(
+            Alert.AlertType.INFORMATION,
+            "Solicitação recebida!",
+            "Se este e-mail estiver cadastrado, um código " +
+            "de recuperação será enviado. Verifique também " +
+            "a caixa de spam."
+        );
 
-        try (Connection conexao = banco.connection;
-             PreparedStatement stmt = conexao.prepareStatement(sql)) {
 
-            stmt.setString(1, email);
+        Optional<String> resultadoCodigo =
+            TextInputPersonalizado.mostrar(
+                "Verificar código",
+                "Digite o código de 8 dígitos recebido:"
+            );
 
-            try (ResultSet rs = stmt.executeQuery()) {
+        if (resultadoCodigo.isEmpty()) {
+            return;
+        }
+
+        String codigo = resultadoCodigo.get().trim();
+
+        if (!codigo.matches("\\d{8}")) {
+
+            AlertPersonalizado.mostrar(
+                Alert.AlertType.ERROR,
+                "Código inválido!",
+                "O código deve conter 8 números."
+            );
+            return;
+        }
+
+        Optional<String> resultadoSenha =
+            SenhaPersonalizada.mostrar();
+
+        if (resultadoSenha.isEmpty()) {
+            return;
+        }
+
+    
+        try {
+
+            boolean alterada =
+                RecuperacaoSenhaService.redefinirSenha(
+                    email,
+                    codigo,
+                    resultadoSenha.get()
+                );
+
+            if (alterada) {
 
                 AlertPersonalizado.mostrar(
                     Alert.AlertType.INFORMATION,
-                    "Solicitação recebida!",
-                    "Se o e-mail estiver cadastrado, você receberá "
-                    + "instruções para recuperar sua senha."
+                    "Senha alterada!",
+                    "Sua senha foi redefinida com sucesso. " +
+                    "Você já pode entrar no StockWatch."
+                );
+
+            } else {
+
+                AlertPersonalizado.mostrar(
+                    Alert.AlertType.ERROR,
+                    "Recuperação não concluída!",
+                    "Código incorreto, expirado ou com " +
+                    "limite de tentativas atingido. " +
+                    "Verifique o código ou solicite outro."
                 );
             }
 
         } catch (SQLException e) {
 
+            e.printStackTrace();
+
             AlertPersonalizado.mostrar(
                 Alert.AlertType.ERROR,
-                "Erro ao recuperar senha!",
-                "Não foi possível verificar o e-mail."
+                "Erro ao alterar senha!",
+                "Não foi possível atualizar sua senha."
             );
-
-            e.printStackTrace();
         }
     }
-
 }

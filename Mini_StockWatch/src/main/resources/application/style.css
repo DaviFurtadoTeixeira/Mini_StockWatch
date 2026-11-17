@@ -106,3 +106,50 @@
     -fx-border-radius: 6px;
 }
 
+.stockwatch-dialog {
+    -fx-background-color: #101512;
+    -fx-border-color: #35453a;
+    -fx-border-width: 1px;
+}
+
+.stockwatch-dialog .header-panel {
+    -fx-background-color: #19251d;
+}
+
+.stockwatch-dialog .header-panel .label {
+    -fx-text-fill: #42e878;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-wrap-text: true;
+}
+
+.stockwatch-dialog .content .label {
+    -fx-text-fill: white;
+}
+
+.stockwatch-dialog .password-field {
+    -fx-background-color: #1e2922;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #88958c;
+    -fx-border-color: #35453a;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 10px;
+}
+
+.stockwatch-dialog .button {
+    -fx-background-color: #29352d;
+    -fx-text-fill: white;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.stockwatch-dialog .button:default {
+    -fx-background-color: #42e878;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
+.stockwatch-dialog .button:hover {
+    -fx-opacity: 0.85;
+}

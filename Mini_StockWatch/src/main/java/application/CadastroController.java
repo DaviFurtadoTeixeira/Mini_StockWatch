@@ -1,5 +1,6 @@
 package application;
 
+import org.mindrot.jbcrypt.BCrypt;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -71,6 +72,7 @@ public class CadastroController {
     		AlertPersonalizado.mostrar(Alert.AlertType.WARNING, "Erro nas senhas", "As senhas digitadas devem ser iguais.");
     	    return;
     	}
+    	
     	
     	BancoDeDados bd = new BancoDeDados();
     	bd.conectar();
