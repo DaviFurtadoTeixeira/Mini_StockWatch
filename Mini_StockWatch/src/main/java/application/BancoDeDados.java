@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 import java.util.ArrayList;
@@ -230,6 +231,53 @@ private static final SecureRandom random = new SecureRandom();
 
 private int gerarIdAleatorio() {
     return 100000000 + random.nextInt(900000000);
+}
+
+
+public void criarTabelaRecuperacao() {
+
+    String sql = """
+        CREATE TABLE IF NOT EXISTS recuperacao_senha (
+            usuario_id INT NOT NULL PRIMARY KEY,
+            codigo_hash CHAR(64) NOT NULL,
+            expira_em BIGINT NOT NULL,
+            criado_em BIGINT NOT NULL,
+            tentativas INT NOT NULL DEFAULT 0,
+
+            CONSTRAINT fk_recuperacao_usuario
+            FOREIGN KEY (usuario_id)
+            REFERENCES usuario(id)
+            ON DELETE CASCADE
+        )
+        """;
+
+    conectar();
+
+    if (!estaConectado()) {
+        System.out.println("Erro ao conectar ao banco!");
+        desconectar();
+        return;
+    }
+
+    try (Statement stmt = connection.createStatement()) {
+
+        stmt.executeUpdate(sql);
+
+        System.out.println(
+            "Tabela recuperacao_senha criada ou já existente!"
+        );
+
+    } catch (SQLException e) {
+
+        System.err.println(
+            "Erro ao criar tabela: " + e.getMessage()
+        );
+
+        e.printStackTrace();
+
+    } finally {
+        desconectar();
+    }
 }
 
 }

@@ -27,20 +27,34 @@ public class SenhaPersonalizada {
         txtConfirmar.setPromptText("Confirmar senha");
 
         Label lblMensagem = new Label(
-            "A senha deve conter no mínimo 8 caracteres, " +
-            "letras maiúsculas, minúsculas, números " +
-            "e caracteres especiais."
-        );
+        	    "A senha deve conter no mínimo 8 caracteres, " +
+        	    "letras maiúsculas, minúsculas, números " +
+        	    "e caracteres especiais."
+        	);
 
-        lblMensagem.setWrapText(true);
+        	lblMensagem.setWrapText(true);
+        	lblMensagem.setMinHeight(
+        	    javafx.scene.layout.Region.USE_PREF_SIZE
+        	);
+        	lblMensagem.setMaxWidth(Double.MAX_VALUE);
+        	lblMensagem.setPrefWidth(390);
 
         Label lblErro = new Label();
         lblErro.setWrapText(true);
         lblErro.setStyle("-fx-text-fill: #ff5252;");
 
         VBox conteudo = new VBox(
-            12, lblMensagem, txtSenha, txtConfirmar, lblErro
-        );
+        	    12,
+        	    lblMensagem,
+        	    txtSenha,
+        	    txtConfirmar,
+        	    lblErro
+        	);
+
+        	conteudo.setPadding(new Insets(10));
+        	conteudo.setFillWidth(true);
+        	txtSenha.setMaxWidth(Double.MAX_VALUE);
+        	txtConfirmar.setMaxWidth(Double.MAX_VALUE);
 
         conteudo.setPadding(new Insets(10));
 
@@ -50,7 +64,10 @@ public class SenhaPersonalizada {
             ButtonType.OK, ButtonType.CANCEL
         );
 
-        painel.setPrefWidth(450);
+        painel.setPrefWidth(480);
+        painel.setMinWidth(480);
+
+        painel.setPrefHeight(330);
 
         var css = SenhaPersonalizada.class
             .getResource("style.css");
