@@ -14,7 +14,11 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
+<<<<<<< HEAD
             Parent root = FXMLLoader.load(getClass().getResource("/application/telalogin.fxml"));
+=======
+            Parent root = FXMLLoader.load(getClass().getResource("/application/telacad.fxml"));
+>>>>>>> branch 'master' of https://github.com/DaviFurtadoTeixeira/Mini_StockWatch.git
             Scene scene = new Scene(root);
             primaryStage.setTitle("StockWatch - Cadastro de Produtos");
             primaryStage.setScene(scene);
