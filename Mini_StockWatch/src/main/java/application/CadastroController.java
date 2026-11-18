@@ -72,8 +72,38 @@ public class CadastroController {
     		AlertPersonalizado.mostrar(Alert.AlertType.WARNING, "Erro nas senhas", "As senhas digitadas devem ser iguais.");
     	    return;
     	}
-    	
-    	
+
+    	try {
+
+    	    boolean emailVerificado =
+    	        VerificacaoEmailService.verificarEmail(email);
+
+    	    if (!emailVerificado) {
+
+    	        AlertPersonalizado.mostrar(
+    	            Alert.AlertType.WARNING,
+    	            "Cadastro cancelado!",
+    	            "O e-mail não foi confirmado."
+    	        );
+
+    	        return;
+    	    }
+
+    	} catch (Exception e) {
+    		
+    		System.err.println("ERRO AO ENVIAR EMAIL:");
+    	    e.printStackTrace();
+
+    	    AlertPersonalizado.mostrar(
+    	        Alert.AlertType.ERROR,
+    	        "Erro na verificação!",
+    	        "Não foi possível enviar o código de confirmação."
+    	        		+ "Consulte o console do Eclipse."
+    	    );
+
+    	    return;
+    	}
+
     	BancoDeDados bd = new BancoDeDados();
     	bd.conectar();
     	if(bd.estaConectado()) {
