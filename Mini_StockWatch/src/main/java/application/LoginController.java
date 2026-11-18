@@ -10,6 +10,11 @@
  import javafx.fxml.FXML;
  import javafx.scene.control.Alert;
  import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,13 +24,59 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import application.AlertPersonalizado;
 
 public class LoginController {
+	
+	@FXML
+	private AnchorPane anchor01;
+	
+	@FXML
+    private ImageView background_usuario;
+	
+	@FXML
+    private HBox hbox01;
 
+    @FXML
+    private HBox hbox02;
+
+    @FXML
+    private HBox hbox_principal;
+	
+	@FXML
+    private Label label07;
+
+    @FXML
+    private Label label08;
+
+    @FXML
+    private Label label09;
+
+    @FXML
+    private Label label10;
+
+    @FXML
+    private Label label_01;
+
+    @FXML
+    private Label label_02;
+
+    @FXML
+    private Label label_03;
+
+    @FXML
+    private Label label_04;
+
+    @FXML
+    private Label label_05;
+
+    @FXML
+    private Label label_06;
+    
     @FXML
     private Button btnEntrar;
 
@@ -40,6 +91,30 @@ public class LoginController {
 
     @FXML
     private TextField txtUsuario;
+    
+    @FXML
+    private Region region01;
+
+    @FXML
+    private Region region02;
+    
+    @FXML
+    private VBox vbox01;
+
+    @FXML
+    private VBox vbox02;
+
+    @FXML
+    private VBox vbox03;
+
+    @FXML
+    private VBox vbox04;
+
+    @FXML
+    private VBox vbox05;
+    
+    @FXML
+    private ImageView logo_stockwatch;
 
     @FXML
     void abrirCadastro(ActionEvent event) {

@@ -12,11 +12,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import application.AlertPersonalizado;
 
 public class CadastroController {
-
+	
+	@FXML
+    private ImageView background_usuario;
+	
     @FXML
     private Button btnCadastrar;
 

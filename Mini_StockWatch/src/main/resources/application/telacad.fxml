@@ -14,13 +14,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #101512;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CadastroController">
+<AnchorPane prefHeight="650.0" prefWidth="1000.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CadastroController">
 
     <children>
+      <ImageView fx:id="background_usuario" fitHeight="651.0" fitWidth="1000.0">
+         <image>
+            <Image url="@../imagens/background_usuario.png" />
+         </image>
+      </ImageView>
         <HBox alignment="CENTER" spacing="0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
             <!-- Painel lateral -->
-            <VBox alignment="CENTER" minWidth="390.0" prefWidth="390.0" spacing="22.0" style="-fx-background-color: #17231c;" HBox.hgrow="NEVER">
+            <VBox alignment="CENTER" minWidth="390.0" prefWidth="390.0" spacing="22.0" HBox.hgrow="NEVER">
 
                 <padding>
                     <Insets bottom="40" left="35" right="35" top="40" />
