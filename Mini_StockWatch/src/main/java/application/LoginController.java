@@ -37,45 +37,6 @@ public class LoginController {
 	
 	@FXML
     private ImageView background_usuario;
-	
-	@FXML
-    private HBox hbox01;
-
-    @FXML
-    private HBox hbox02;
-
-    @FXML
-    private HBox hbox_principal;
-	
-	@FXML
-    private Label label07;
-
-    @FXML
-    private Label label08;
-
-    @FXML
-    private Label label09;
-
-    @FXML
-    private Label label10;
-
-    @FXML
-    private Label label_01;
-
-    @FXML
-    private Label label_02;
-
-    @FXML
-    private Label label_03;
-
-    @FXML
-    private Label label_04;
-
-    @FXML
-    private Label label_05;
-
-    @FXML
-    private Label label_06;
     
     @FXML
     private Button btnEntrar;
@@ -91,27 +52,6 @@ public class LoginController {
 
     @FXML
     private TextField txtUsuario;
-    
-    @FXML
-    private Region region01;
-
-    @FXML
-    private Region region02;
-    
-    @FXML
-    private VBox vbox01;
-
-    @FXML
-    private VBox vbox02;
-
-    @FXML
-    private VBox vbox03;
-
-    @FXML
-    private VBox vbox04;
-
-    @FXML
-    private VBox vbox05;
     
     @FXML
     private ImageView logo_stockwatch;
