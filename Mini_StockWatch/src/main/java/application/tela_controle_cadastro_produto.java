@@ -90,14 +90,19 @@ public class tela_controle_cadastro_produto implements Initializable {
     
     // Lista base de tipos para o autocompletar
     private final ObservableList<String> listaTipos = FXCollections.observableArrayList(
-        "Biscoitos", "Bolachas", "Massas e Macarrão", "Arroz e Feijão",
-        "Farinhas e Fubá", "Açúcar e Adoçantes", "Café e Chás",
-        "Óleos e Vinagres", "Molhos e Condimentos", "Conservas e Enlatados",
-        "Temperos e Especiarias", "Cereais e Granola", "Salgadinhos e Snacks",
-        "Doces e Guloseimas", "Chocolates e Bombons", "Bebidas Não Alcoólicas",
-        "Produtos de Limpeza", "Higiene Pessoal", "Utensílios Domésticos",
-        "Papelaria e Descartáveis"
-    );
+    	    "Arroz, Feijão e Farinha",
+    	    "Massas e Macarrão",
+    	    "Vinagres e Enlatados",
+    	    "Temperos e Especiarias",
+    	    "Guloseimas e Doces",
+    	    "Chocolates e Cereais",
+    	    "Bebidas",
+    	    "Biscoitos e Bolachas",
+    	    "Café e Açúcar",
+    	    "Utensílios",
+    	    "Produtos de Limpeza",
+    	    "Higiene"
+    	);
 
     private void exibirAlerta(String titulo, String mensagem, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
