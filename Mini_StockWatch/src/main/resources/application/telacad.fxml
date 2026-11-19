@@ -14,18 +14,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #101512;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CadastroController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CadastroController">
 
     <children>
+      <ImageView fitHeight="1080.0" fitWidth="1920.0">
+         <image>
+            <Image url="@../imagens/background_usuario.png" />
+         </image>
+      </ImageView>
         <HBox alignment="CENTER" spacing="0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
             <!-- Painel lateral -->
-            <VBox alignment="CENTER" minWidth="390.0" prefWidth="390.0" spacing="22.0" style="-fx-background-color: #17231c;" HBox.hgrow="NEVER">
+            <VBox alignment="CENTER" minWidth="390.0" prefHeight="1080.0" prefWidth="1019.0" spacing="22.0" HBox.hgrow="NEVER">
 
                 <padding>
                     <Insets bottom="40" left="35" right="35" top="40" />
                 </padding>
-            <ImageView fitHeight="231.0" fitWidth="229.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="350.0" fitWidth="340.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../imagens/Logo%20moderno%20StockWatch.png" />
                </image>
@@ -33,31 +38,31 @@
 
                 <Label alignment="CENTER" text="CONTROLE INTELIGENTE DE ESTOQUE" textFill="#a2b5a7" wrapText="true">
                     <font>
-                        <Font size="12" />
+                        <Font size="19.0" />
                     </font>
                 </Label>
 
                 <Label alignment="CENTER" text="Organize. Monitore. Cresça." textFill="#ffffff" wrapText="true">
                     <font>
-                        <Font name="System Bold" size="22" />
+                        <Font name="System Bold" size="33.0" />
                     </font>
                 </Label>
 
                 <Label alignment="CENTER" lineSpacing="6.0" text="Gerencie produtos, acompanhe validades e mantenha seu estoque sob controle." textAlignment="CENTER" textFill="#a2b5a7" wrapText="true">
                     <font>
-                        <Font size="14" />
+                        <Font size="19.0" />
                     </font>
                 </Label>
 
                 <Label text="STOCKWATCH • GESTÃO DE ESTOQUE" textFill="#607568">
                     <font>
-                        <Font size="10" />
+                        <Font size="15.0" />
                     </font>
                 </Label>
             </VBox>
 
             <!-- Formulário de cadastro -->
-            <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="ALWAYS">
+            <VBox alignment="CENTER" prefHeight="1080.0" prefWidth="1438.0" spacing="15.0" HBox.hgrow="ALWAYS">
 
                 <padding>
                     <Insets bottom="35" left="65" right="65" top="35" />
@@ -67,13 +72,13 @@
 
                     <Label text="Criar conta" textFill="#ffffff">
                         <font>
-                            <Font name="System Bold" size="30" />
+                            <Font name="System Bold" size="40.0" />
                         </font>
                     </Label>
 
                     <Label text="Preencha seus dados para começar." textFill="#9ba89e">
                         <font>
-                            <Font size="14" />
+                            <Font size="16.0" />
                         </font>
                     </Label>
                 </VBox>
@@ -81,12 +86,18 @@
                 <Region prefHeight="2.0" />
 
                 <VBox maxWidth="420.0" spacing="6.0">
-                    <Label text="Nome de usuário" textFill="#dce7df" />
+                    <Label text="Nome de usuário" textFill="#dce7df">
+                  <font>
+                     <Font size="16.0" />
+                  </font></Label>
                     <TextField fx:id="txtUsuario" prefHeight="43.0" promptText="Escolha um usuário" style="-fx-background-color: #1b251f;                                       -fx-text-fill: white;                                       -fx-prompt-text-fill: #718077;                                       -fx-border-color: #35453a;                                       -fx-border-radius: 6;                                       -fx-background-radius: 6;                                       -fx-padding: 0 12;" />
                 </VBox>
 
                 <VBox maxWidth="420.0" spacing="6.0">
-                    <Label text="E-mail" textFill="#dce7df" />
+                    <Label text="E-mail" textFill="#dce7df">
+                  <font>
+                     <Font size="16.0" />
+                  </font></Label>
                     <TextField fx:id="txtEmail" prefHeight="43.0" promptText="exemplo@email.com" style="-fx-background-color: #1b251f;                                       -fx-text-fill: white;                                       -fx-prompt-text-fill: #718077;                                       -fx-border-color: #35453a;                                       -fx-border-radius: 6;                                       -fx-background-radius: 6;                                       -fx-padding: 0 12;" />
                 </VBox>
 
@@ -94,12 +105,18 @@
 
                 <HBox maxWidth="420.0" spacing="12.0">
                     <VBox spacing="6.0" HBox.hgrow="ALWAYS">
-                        <Label text="Senha" textFill="#dce7df" />
+                        <Label text="Senha" textFill="#dce7df">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Label>
                         <PasswordField fx:id="txtSenha" prefHeight="43.0" promptText="Crie uma senha" style="-fx-background-color: #1b251f;                                               -fx-text-fill: white;                                               -fx-prompt-text-fill: #718077;                                               -fx-border-color: #35453a;                                               -fx-border-radius: 6;                                               -fx-background-radius: 6;                                               -fx-padding: 0 10;" />
                     </VBox>
 
                     <VBox spacing="6.0" HBox.hgrow="ALWAYS">
-                        <Label text="Confirmar senha" textFill="#dce7df" />
+                        <Label text="Confirmar senha" textFill="#dce7df">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Label>
                         <PasswordField fx:id="txtConfirmarSenha" prefHeight="43.0" promptText="Repita a senha" style="-fx-background-color: #1b251f;                                               -fx-text-fill: white;                                               -fx-prompt-text-fill: #718077;                                               -fx-border-color: #35453a;                                               -fx-border-radius: 6;                                               -fx-background-radius: 6;                                               -fx-padding: 0 10;" />
                     </VBox>
                 </HBox>
@@ -107,8 +124,14 @@
                 <Button fx:id="btnCadastrar" maxWidth="420.0" onAction="#cadastrar" prefHeight="47.0" style="-fx-background-color: #42e878;                                -fx-text-fill: #101512;                                -fx-font-weight: bold;                                -fx-font-size: 13px;                                -fx-background-radius: 6;                                -fx-cursor: hand;" text="CRIAR MINHA CONTA" HBox.hgrow="ALWAYS" />
 
                 <HBox alignment="CENTER" spacing="5.0">
-                    <Label text="Já possui uma conta?" textFill="#9ba89e" />
-                    <Hyperlink fx:id="linkLogin" onAction="#voltarLogin" style="-fx-text-fill: #42e878;                                       -fx-border-color: transparent;" text="Fazer login" />
+                    <Label text="Já possui uma conta?" textFill="#9ba89e">
+                  <font>
+                     <Font size="15.0" />
+                  </font></Label>
+                    <Hyperlink fx:id="linkLogin" onAction="#voltarLogin" style="-fx-text-fill: #42e878;                                       -fx-border-color: transparent;" text="Fazer login">
+                  <font>
+                     <Font size="15.0" />
+                  </font></Hyperlink>
                 </HBox>
 
             </VBox>
