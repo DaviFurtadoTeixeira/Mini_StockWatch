@@ -15,7 +15,7 @@ public final class Async {
     private static final ExecutorService POOL =
         Executors.newCachedThreadPool(r -> {
             Thread t = new Thread(r, "stockwatch-worker");
-            t.setDaemon(true);
+            t.setDaemon(true); 
             return t;
         });
 
