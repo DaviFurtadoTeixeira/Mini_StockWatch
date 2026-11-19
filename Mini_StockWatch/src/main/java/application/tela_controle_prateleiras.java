@@ -89,6 +89,9 @@ public class tela_controle_prateleiras {
     @FXML private VBox vbox_informacoes;
     @FXML private VBox vbox_principal;
     @FXML private VBox vbox_produtos;
+    
+    @FXML
+    private Button button_voltar_tela_produto;
 
 
     // =====================================================
