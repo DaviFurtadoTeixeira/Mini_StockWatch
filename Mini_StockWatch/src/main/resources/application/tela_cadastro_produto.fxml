@@ -104,7 +104,9 @@
       </Label>
       <ComboBox fx:id="combobox_setor" layoutX="1230.0" layoutY="595.0" prefHeight="50.0" prefWidth="550.0" promptText="Escolha o setor" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #FFFFFF; -fx-border-color: #06A110;" />
 
+
       <Button fx:id="button_visualizar_prateleiras" layoutX="1264.0" layoutY="662.0" mnemonicParsing="false" onAction="#VisualizarPrateleira" prefHeight="58.0" prefWidth="250.0" style="-fx-background-color: #000000; -fx-border-color: #06A110; -fx-border-width: 2px; -fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(6,161,16,0.4), 10, 0, 0, 4);" text="Prateleiras" textFill="WHITE">
+
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
