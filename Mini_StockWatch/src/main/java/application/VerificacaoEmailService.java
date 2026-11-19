@@ -1,33 +1,50 @@
-
 package application;
 
 import java.security.SecureRandom;
 
+import javafx.scene.control.Alert;
+
+/**
+ * Verificação de e-mail no cadastro, dividida em duas etapas:
+ *
+ * 1) enviarCodigo(...)      -> lento (SMTP). Chamar em SEGUNDO PLANO (Async).
+ * 2) confirmarNaTela(...)   -> abre diálogos. Chamar na thread do JavaFX.
+ *
+ * Antes, as duas coisas ficavam juntas e o envio do e-mail congelava a tela.
+ */
 public class VerificacaoEmailService {
 
-    private static final SecureRandom random =
-        new SecureRandom();
+    private static final SecureRandom random = new SecureRandom();
 
-    public static String gerarCodigo() {
-        return String.format(
-            "%08d",
-            random.nextInt(100_000_000)
-        );
+    private static final long VALIDADE_MS = 600_000;
+    private static final int MAX_TENTATIVAS = 5;
+
+    public record CodigoEnviado(String codigo, long expiracao) {
     }
 
-    public static boolean verificarEmail(String email)
-            throws Exception {
+    public static String gerarCodigo() {
+        return String.format("%08d", random.nextInt(100_000_000));
+    }
+
+    /** Gera o código e envia por e-mail. BLOQUEANTE: não chamar na thread do JavaFX. */
+    public static CodigoEnviado enviarCodigo(String email) throws Exception {
 
         String codigo = gerarCodigo();
 
         EmailService.enviarCodigoCadastro(email, codigo);
 
-        long expiracao =
-            System.currentTimeMillis() + 600_000;
+        return new CodigoEnviado(
+            codigo,
+            System.currentTimeMillis() + VALIDADE_MS
+        );
+    }
+
+    /** Pede o código ao usuário. Deve rodar na thread do JavaFX. */
+    public static boolean confirmarNaTela(String email, CodigoEnviado enviado) {
 
         int tentativas = 0;
 
-        while (tentativas < 5) {
+        while (tentativas < MAX_TENTATIVAS) {
 
             var resultado = TextInputPersonalizado.mostrar(
                 "Verificação de e-mail",
@@ -38,21 +55,21 @@ public class VerificacaoEmailService {
                 return false;
             }
 
-            if (System.currentTimeMillis() > expiracao) {
+            if (System.currentTimeMillis() > enviado.expiracao()) {
                 return false;
             }
 
-            if (codigo.equals(resultado.get().trim())) {
+            if (enviado.codigo().equals(resultado.get().trim())) {
                 return true;
             }
 
             tentativas++;
 
             AlertPersonalizado.mostrar(
-                javafx.scene.control.Alert.AlertType.ERROR,
+                Alert.AlertType.ERROR,
                 "Código inválido!",
                 "Código incorreto. Tentativas restantes: "
-                    + (5 - tentativas)
+                    + (MAX_TENTATIVAS - tentativas)
             );
         }
 

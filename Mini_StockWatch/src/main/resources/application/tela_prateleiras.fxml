@@ -1658,6 +1658,7 @@
 
 
       </HBox>
+      <Button fx:id="button_voltar_tela_produto" layoutX="1554.0" layoutY="934.0" mnemonicParsing="false" onAction="#Voltar_tela" prefHeight="64.0" prefWidth="131.0" styleClass="btn-voltar" stylesheets="@style.css" text="Voltar" />
 
 
 

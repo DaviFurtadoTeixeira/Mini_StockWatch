@@ -248,4 +248,5 @@ private void carregarProdutosDoBanco() {
             exibirAlerta("Erro", "Não foi possível retornar à tela de cadastro.", Alert.AlertType.ERROR);
         }
     }
+
 }
