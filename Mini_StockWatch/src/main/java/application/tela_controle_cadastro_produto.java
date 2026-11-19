@@ -43,11 +43,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
 import javafx.fxml.Initializable;
-<<<<<<< HEAD
 
-=======
 import javafx.scene.Node;
->>>>>>> branch 'master' of https://github.com/DaviFurtadoTeixeira/Mini_StockWatch.git
+
 import javafx.scene.Parent;
 
 import javafx.scene.Scene;
@@ -1237,15 +1235,10 @@ public class tela_controle_cadastro_produto implements Initializable {
 
                        "A data informada não existe no calendário.",
 
-<<<<<<< HEAD
-                       Alert.AlertType.ERROR
-=======
-    @FXML
-    private Button button_visualizar_prateleiras;
 
-    @FXML
-    private Button button_cadastrar;
->>>>>>> branch 'master' of https://github.com/DaviFurtadoTeixeira/Mini_StockWatch.git
+                       Alert.AlertType.ERROR
+
+
 
                    );
 
@@ -1263,9 +1256,7 @@ public class tela_controle_cadastro_produto implements Initializable {
 
 
 
-           boolean sucesso = banco.inserirProduto(
-
-               idAleatorio,
+           boolean sucesso = banco.inserirProduto(idAleatorio,
 
                nome,
 
@@ -1335,41 +1326,7 @@ public class tela_controle_cadastro_produto implements Initializable {
 
 
 
-   @FXML
-
-   void VisualizarEstoque(ActionEvent event) {
-
-       try {
-
-           // Substitua "tela_visualizacao_produtos.fxml" pelo nome exato do seu arquivo FXML da tabela
-
-           FXMLLoader loader = new FXMLLoader(getClass().getResource("tela_visualizacao.fxml"));
-
-           Parent root = loader.load();
-
-
-
-           Stage stage = (Stage) anchor_produto.getScene().getWindow();
-
-           stage.setScene(new Scene(root));
-
-           stage.setTitle("StockWatch - Visualização de Produtos");
-
-           stage.centerOnScreen();
-
-           stage.show();
-
-
-
-       } catch (IOException e) {
-
-           e.printStackTrace();
-
-           exibirAlerta("Erro", "Não foi possível carregar a tela de visualização. Verifique o nome do arquivo FXML.", Alert.AlertType.ERROR);
-
-       }
-
-   }
+   
 
     @FXML
     void VisualizarEstoque(ActionEvent event) {
