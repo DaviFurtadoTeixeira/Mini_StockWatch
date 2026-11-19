@@ -10,6 +10,11 @@
  import javafx.fxml.FXML;
  import javafx.scene.control.Alert;
  import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,13 +24,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import application.AlertPersonalizado;
 
 public class LoginController {
-
+	
+	@FXML
+	private AnchorPane anchor01;
+	
+	@FXML
+    private ImageView background_usuario;
+    
     @FXML
     private Button btnEntrar;
 
@@ -40,6 +52,9 @@ public class LoginController {
 
     @FXML
     private TextField txtUsuario;
+    
+    @FXML
+    private ImageView logo_stockwatch;
 
     @FXML
     void abrirCadastro(ActionEvent event) {
