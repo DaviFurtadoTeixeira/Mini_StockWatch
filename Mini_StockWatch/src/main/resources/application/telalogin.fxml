@@ -14,18 +14,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #101512;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
 
     <children>
+      <ImageView fitHeight="1080.0" fitWidth="1920.0">
+         <image>
+            <Image url="@../imagens/background_usuario.png" />
+         </image>
+      </ImageView>
         <HBox spacing="0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
             <!-- PAINEL LATERAL -->
-            <VBox alignment="CENTER" minWidth="390.0" prefWidth="390.0" spacing="22.0" style="-fx-background-color: #17231c;">
+            <VBox alignment="CENTER" minWidth="390.0" prefHeight="1080.0" prefWidth="764.0" spacing="22.0">
 
                 <padding>
                     <Insets bottom="40" left="35" right="35" top="40" />
                 </padding>
-            <ImageView fitHeight="231.0" fitWidth="222.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="350.0" fitWidth="340.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../imagens/Logo%20moderno%20StockWatch.png" />
                </image>
@@ -33,31 +38,31 @@
 
                 <Label alignment="CENTER" text="CONTROLE INTELIGENTE DE ESTOQUE" textFill="#a2b5a7" wrapText="true">
                     <font>
-                        <Font size="12" />
+                        <Font size="19.0" />
                     </font>
                 </Label>
 
                 <Label alignment="CENTER" text="Seu estoque, sob controle." textFill="#ffffff" wrapText="true">
                     <font>
-                        <Font name="System Bold" size="22" />
+                        <Font name="System Bold" size="33.0" />
                     </font>
                 </Label>
 
                 <Label alignment="CENTER" lineSpacing="6.0" text="Acompanhe produtos, monitore validades e organize suas operações em um só lugar." textAlignment="CENTER" textFill="#a2b5a7" wrapText="true">
                     <font>
-                        <Font size="14" />
+                        <Font size="21.0" />
                     </font>
                 </Label>
 
                 <Label text="STOCKWATCH • GESTÃO DE ESTOQUE" textFill="#607568">
                     <font>
-                        <Font size="10" />
+                        <Font size="15.0" />
                     </font>
                 </Label>
             </VBox>
 
             <!-- FORMULÁRIO DE LOGIN -->
-            <VBox alignment="CENTER" spacing="20.0" HBox.hgrow="ALWAYS">
+            <VBox alignment="CENTER" prefHeight="1080.0" prefWidth="1179.0" spacing="15.0" HBox.hgrow="ALWAYS">
 
                 <padding>
                     <Insets bottom="45" left="65" right="65" top="45" />
@@ -67,13 +72,13 @@
 
                     <Label text="Bem-vindo de volta!" textFill="#ffffff">
                         <font>
-                            <Font name="System Bold" size="30" />
+                            <Font name="System Bold" size="40.0" />
                         </font>
                     </Label>
 
                     <Label text="Entre com seus dados para continuar." textFill="#9ba89e">
                         <font>
-                            <Font size="14" />
+                            <Font size="16.0" />
                         </font>
                     </Label>
                 </VBox>
@@ -84,7 +89,7 @@
                 <VBox maxWidth="420.0" spacing="8.0">
                     <Label text="E-mail ou usuário" textFill="#dce7df">
                         <font>
-                            <Font name="System Bold" size="13" />
+                            <Font name="System Bold" size="16.0" />
                         </font>
                     </Label>
 
@@ -95,14 +100,14 @@
                 <VBox maxWidth="420.0" spacing="8.0">
                     <Label text="Senha" textFill="#dce7df">
                         <font>
-                            <Font name="System Bold" size="13" />
+                            <Font name="System Bold" size="16.0" />
                         </font>
                     </Label>
 
                     <PasswordField fx:id="txtSenha" maxWidth="420.0" prefHeight="46.0" promptText="Digite sua senha" style="-fx-background-color: #1b251f;                                           -fx-text-fill: white;                                           -fx-prompt-text-fill: #718077;                                           -fx-border-color: #35453a;                                           -fx-border-radius: 6;                                           -fx-background-radius: 6;                                           -fx-padding: 0 12;" />
                <Label text="Combinação mínima entre 6 numeros ou letras e 1 caractere especial" textFill="#dce7df">
                   <font>
-                     <Font name="System Bold" size="11.0" />
+                     <Font name="System Bold" size="16.0" />
                   </font>
                </Label>
                 </VBox>
@@ -110,19 +115,32 @@
                 <!-- LEMBRAR E RECUPERAR SENHA -->
                 <HBox alignment="CENTER_LEFT" maxWidth="420.0" spacing="5.0">
 
-                    <Region HBox.hgrow="ALWAYS" />
-
-                    <Hyperlink fx:id="linkRecuperarSenha" onAction="#recuperarSenha" style="-fx-text-fill: #42e878;                                       -fx-border-color: transparent;                                       -fx-padding: 3 0 3 0;" text="Esqueci a senha" />
+                    <Region prefHeight="33.0" prefWidth="241.0" HBox.hgrow="ALWAYS" />
+   
+                    <Hyperlink fx:id="linkRecuperarSenha" layoutY="6.0" onAction="#recuperarSenha" style="-fx-text-fill: #42e878;                                       -fx-border-color: transparent;                                       -fx-padding: 3 0 3 0;" text="Esqueci a senha">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Hyperlink>
                 </HBox>
 
                 <!-- BOTÃO ENTRAR -->
-                <Button fx:id="btnEntrar" maxWidth="420.0" onAction="#entrar" prefHeight="48.0" style="-fx-background-color: #42e878;                                -fx-text-fill: #101512;                                -fx-font-weight: bold;                                -fx-font-size: 14px;                                -fx-background-radius: 6;                                -fx-cursor: hand;" text="ENTRAR" HBox.hgrow="ALWAYS" />
+                <Button fx:id="btnEntrar" maxWidth="420.0" onAction="#entrar" prefHeight="48.0" style="-fx-background-color: #42e878;                                -fx-text-fill: #101512;                                -fx-font-weight: bold;                                -fx-font-size: 14px;                                -fx-background-radius: 6;                                -fx-cursor: hand;" text="ENTRAR" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="15.0" />
+               </font></Button>
 
                 <!-- LINK PARA CADASTRO -->
                 <HBox alignment="CENTER" spacing="5.0">
-                    <Label text="Ainda não tem uma conta?" textFill="#9ba89e" />
+                    <Label text="Ainda não tem uma conta?" textFill="#9ba89e">
+                  <font>
+                     <Font size="16.0" />
+                  </font></Label>
 
-                    <Hyperlink fx:id="linkCadastro" onAction="#abrirCadastro" style="-fx-text-fill: #42e878;                                       -fx-border-color: transparent;" text="Cadastre-se" />
+                    <Hyperlink fx:id="linkCadastro" onAction="#abrirCadastro" style="-fx-text-fill: #42e878;                                       -fx-border-color: transparent;" text="Cadastre-se">
+                  <font>
+                     <Font size="16.0" />
+                  </font></Hyperlink>
                 </HBox>
 
             </VBox>
