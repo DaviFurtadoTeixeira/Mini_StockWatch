@@ -235,7 +235,7 @@ public class tela_controle_prateleiras {
     @FXML
     void Voltar_tela(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/application/tela_controle_visualizacao.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/application/tela_cadastro_produto.fxml"));
             Scene scene = new Scene(root, 1920, 1080);
             Stage janela = (Stage) ((Node) event.getSource()).getScene().getWindow();
             janela.setScene(scene);

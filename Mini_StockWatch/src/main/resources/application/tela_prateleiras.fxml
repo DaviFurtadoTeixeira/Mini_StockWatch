@@ -13,467 +13,275 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchor01"
-            maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="1080.0" prefWidth="1920.0"
-            xmlns="http://javafx.com/javafx/26"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="application.tela_controle_prateleiras">
+<AnchorPane fx:id="anchor01" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.tela_controle_prateleiras">
 
     <children>
 
         <!-- FUNDO -->
-        <ImageView fx:id="background_prateleiras"
-                   fitHeight="1080.0" fitWidth="1927.0"
-                   layoutX="-6.0">
+        <ImageView fx:id="background_prateleiras" fitHeight="1080.0" fitWidth="1927.0" layoutX="-6.0">
             <image>
-                <Image url="@../imagens/imagem_armazem_stockwatch.png"/>
+                <Image url="@../imagens/imagem_armazem_stockwatch.png" />
             </image>
         </ImageView>
 
-        <ImageView fx:id="background_escurecido"
-                   fitHeight="1094.0" fitWidth="1934.0"
-                   layoutX="-9.0" layoutY="-7.0"
-                   opacity="0.25">
+        <ImageView fx:id="background_escurecido" fitHeight="1094.0" fitWidth="1934.0" layoutX="-9.0" layoutY="-7.0" opacity="0.25">
             <image>
-                <Image url="@../imagens/tela_preta.jpg"/>
+                <Image url="@../imagens/tela_preta.jpg" />
             </image>
         </ImageView>
 
         <!-- CABEÇALHO -->
-        <VBox alignment="CENTER_LEFT"
-               layoutX="0.0" layoutY="0.0"
-               prefHeight="94.0" prefWidth="1920.0"
-               style="-fx-background-color: linear-gradient(to right, #123B2A, #0B2A1D); -fx-padding: 0 56 0 56; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.28), 14, 0.18, 0, 4);">
+        <VBox alignment="CENTER_LEFT" layoutX="0.0" layoutY="0.0" prefHeight="94.0" prefWidth="1920.0" style="-fx-background-color: linear-gradient(to right, #123B2A, #0B2A1D); -fx-padding: 0 56 0 56; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.28), 14, 0.18, 0, 4);">
 
-            <HBox alignment="CENTER_LEFT"
-                   prefHeight="94.0" prefWidth="1808.0"
-                   spacing="20.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="94.0" prefWidth="1808.0" spacing="20.0">
 
-                <VBox alignment="CENTER_LEFT" spacing="4.0"
-                       HBox.hgrow="ALWAYS">
+                <VBox alignment="CENTER_LEFT" spacing="4.0" HBox.hgrow="ALWAYS">
 
-                    <Label style="-fx-text-fill: white; -fx-font-family: Arial; -fx-font-size: 27px; -fx-font-weight: bold; -fx-letter-spacing: 1px;"
-                           text="STOCKWATCH  |  GESTÃO DE ESTOQUE"/>
+                    <Label style="-fx-text-fill: white; -fx-font-family: Arial; -fx-font-size: 27px; -fx-font-weight: bold; -fx-letter-spacing: 1px;" text="STOCKWATCH  |  GESTÃO DE ESTOQUE" />
 
-                    <Label style="-fx-text-fill: #D5E3EE; -fx-font-family: Arial; -fx-font-size: 14px;"
-                           text="Visualize os setores, acompanhe os produtos e mantenha seu armazém sempre organizado."/>
+                    <Label style="-fx-text-fill: #D5E3EE; -fx-font-family: Arial; -fx-font-size: 14px;" text="Visualize os setores, acompanhe os produtos e mantenha seu armazém sempre organizado." />
 
                 </VBox>
 
                 <VBox alignment="CENTER_RIGHT" spacing="4.0">
 
-                    <Label style="-fx-text-fill: #B8D8E8; -fx-font-size: 11px; -fx-font-weight: bold;"
-                           text="MAPA DO ARMAZÉM"/>
+                    <Label style="-fx-text-fill: #B8D8E8; -fx-font-size: 11px; -fx-font-weight: bold;" text="MAPA DO ARMAZÉM" />
 
-                    <Label style="-fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold;"
-                           text="12 SETORES  •  VISÃO GERAL"/>
+                    <Label style="-fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold;" text="12 SETORES  •  VISÃO GERAL" />
 
                 </VBox>
             </HBox>
         </VBox>
 
         <!-- SETOR 001 -->
-        <Rectangle fx:id="fundo_icon01" arcHeight="5.0" arcWidth="5.0"
-                  fill="#1fbf34" height="99.0"
-                  layoutX="116.0" layoutY="121.0"
-                  stroke="WHITE" strokeType="INSIDE" width="104.0"/>
+        <Rectangle fx:id="fundo_icon01" arcHeight="5.0" arcWidth="5.0" fill="#1fbf34" height="99.0" layoutX="116.0" layoutY="121.0" stroke="WHITE" strokeType="INSIDE" width="104.0" />
 
-        <Label fx:id="label_setor01" alignment="CENTER"
-               layoutX="116.0" layoutY="217.0"
-               prefHeight="45.0" prefWidth="104.0"
-               style="-fx-background-color: #1A9621; -fx-border-color: #ffffff;"
-               text="S001" textFill="WHITE">
+        <Label fx:id="label_setor01" alignment="CENTER" layoutX="116.0" layoutY="217.0" prefHeight="45.0" prefWidth="104.0" style="-fx-background-color: #1A9621; -fx-border-color: #ffffff;" text="S001" textFill="WHITE">
             <font>
-                <Font size="29.0"/>
+                <Font size="29.0" />
             </font>
         </Label>
 
-        <ImageView fx:id="icon_arroz_feijao"
-                   fitHeight="82.0" fitWidth="94.0"
-                   layoutX="122.0" layoutY="129.0
-                   " pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="icon_arroz_feijao" fitHeight="82.0" fitWidth="94.0" layoutX="122.0" layoutY="129.0                    " pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../imagens/icon_feijao&amp;farinha.png"/>
+                <Image url="@../imagens/icon_feijao&amp;farinha.png" />
             </image>
         </ImageView>
 
-        <Button fx:id="button_setor01"
-                layoutX="116.0" layoutY="121.0"
-                mnemonicParsing="false" onAction="#AcessarS001"
-                opacity="0.0" prefHeight="140.0" prefWidth="104.0"
-                text="S001"/>
+        <Button fx:id="button_setor01" layoutX="116.0" layoutY="121.0" mnemonicParsing="false" onAction="#AcessarS001" opacity="0.0" prefHeight="140.0" prefWidth="104.0" text="S001" />
 
         <!-- SETOR 002 -->
-        <Rectangle fx:id="fundo_icon02" arcHeight="5.0" arcWidth="5.0"
-                  fill="#1fbf34" height="99.0"
-                  layoutX="108.0" layoutY="359.0"
-                  stroke="WHITE" strokeType="INSIDE" width="104.0"/>
+        <Rectangle fx:id="fundo_icon02" arcHeight="5.0" arcWidth="5.0" fill="#1fbf34" height="99.0" layoutX="108.0" layoutY="359.0" stroke="WHITE" strokeType="INSIDE" width="104.0" />
 
-        <Label fx:id="label_setor02" alignment="CENTER"
-               layoutX="108.0" layoutY="455.0"
-               prefHeight="45.0" prefWidth="104.0"
-               style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;"
-               text="S002" textFill="WHITE">
+        <Label fx:id="label_setor02" alignment="CENTER" layoutX="108.0" layoutY="455.0" prefHeight="45.0" prefWidth="104.0" style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;" text="S002" textFill="WHITE">
             <font>
-                <Font size="29.0"/>
+                <Font size="29.0" />
             </font>
         </Label>
 
-        <ImageView fx:id="icon_macarrao_massa"
-                   fitHeight="90.0" fitWidth="98.0"
-                   layoutX="111.0" layoutY="359.0">
+        <ImageView fx:id="icon_macarrao_massa" fitHeight="90.0" fitWidth="98.0" layoutX="111.0" layoutY="359.0">
             <image>
-                <Image url="@../imagens/icon_massas&amp;macarrao.png"/>
+                <Image url="@../imagens/icon_massas&amp;macarrao.png" />
             </image>
         </ImageView>
 
-        <Button fx:id="button_setor02"
-                layoutX="108.0" layoutY="360.0"
-                mnemonicParsing="false" onAction="#AcessarS002"
-                opacity="0.0" prefHeight="140.0" prefWidth="104.0"
-                text="S002"/>
+        <Button fx:id="button_setor02" layoutX="108.0" layoutY="360.0" mnemonicParsing="false" onAction="#AcessarS002" opacity="0.0" prefHeight="140.0" prefWidth="104.0" text="S002" />
 
         <!-- SETOR 003 -->
-        <Rectangle fx:id="fundo_icon03" arcHeight="5.0" arcWidth="5.0"
-                  fill="#1fbf34" height="99.0"
-                  layoutX="122.0" layoutY="549.0"
-                  stroke="WHITE" strokeType="INSIDE" width="104.0"/>
+        <Rectangle fx:id="fundo_icon03" arcHeight="5.0" arcWidth="5.0" fill="#1fbf34" height="99.0" layoutX="122.0" layoutY="549.0" stroke="WHITE" strokeType="INSIDE" width="104.0" />
 
-        <Label fx:id="label_setor03" alignment="CENTER"
-               layoutX="122.0" layoutY="645.0"
-               prefHeight="45.0" prefWidth="104.0"
-               style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;"
-               text="S003" textFill="WHITE">
+        <Label fx:id="label_setor03" alignment="CENTER" layoutX="122.0" layoutY="645.0" prefHeight="45.0" prefWidth="104.0" style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;" text="S003" textFill="WHITE">
             <font>
-                <Font size="29.0"/>
+                <Font size="29.0" />
             </font>
         </Label>
 
-        <ImageView fx:id="icon_oleo_enlatado"
-                   fitHeight="90.0" fitWidth="89.0"
-                   layoutX="128.0" layoutY="555.0">
+        <ImageView fx:id="icon_oleo_enlatado" fitHeight="90.0" fitWidth="89.0" layoutX="128.0" layoutY="555.0">
             <image>
-                <Image url="@../imagens/icon_vinagre&amp;enlatados.png"/>
+                <Image url="@../imagens/icon_vinagre&amp;enlatados.png" />
             </image>
         </ImageView>
 
-        <Button fx:id="button_setor03"
-                layoutX="122.0" layoutY="549.0"
-                mnemonicParsing="false" onAction="#AcessarS003"
-                opacity="0.0" prefHeight="140.0" prefWidth="104.0"
-                text="S003"/>
+        <Button fx:id="button_setor03" layoutX="122.0" layoutY="549.0" mnemonicParsing="false" onAction="#AcessarS003" opacity="0.0" prefHeight="140.0" prefWidth="104.0" text="S003" />
 
         <!-- SETOR 004 -->
-        <Rectangle fx:id="fundo_icon04" arcHeight="5.0" arcWidth="5.0"
-                  fill="#1fbf34" height="99.0"
-                  layoutX="121.0" layoutY="740.0"
-                  stroke="WHITE" strokeType="INSIDE" width="104.0"/>
+        <Rectangle fx:id="fundo_icon04" arcHeight="5.0" arcWidth="5.0" fill="#1fbf34" height="99.0" layoutX="121.0" layoutY="740.0" stroke="WHITE" strokeType="INSIDE" width="104.0" />
 
-        <Label fx:id="label_setor04" alignment="CENTER"
-               layoutX="121.0" layoutY="836.0"
-               prefHeight="45.0" prefWidth="104.0"
-               style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;"
-               text="S004" textFill="WHITE">
+        <Label fx:id="label_setor04" alignment="CENTER" layoutX="121.0" layoutY="836.0" prefHeight="45.0" prefWidth="104.0" style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;" text="S004" textFill="WHITE">
             <font>
-                <Font size="29.0"/>
+                <Font size="29.0" />
             </font>
         </Label>
 
-        <ImageView fx:id="icon_tempero"
-                   fitHeight="90.0" fitWidth="91.0"
-                   layoutX="128.0" layoutY="746.0">
+        <ImageView fx:id="icon_tempero" fitHeight="90.0" fitWidth="91.0" layoutX="128.0" layoutY="746.0">
             <image>
-                <Image url="@../imagens/icon_tempero&amp;especiaria.png"/>
+                <Image url="@../imagens/icon_tempero&amp;especiaria.png" />
             </image>
         </ImageView>
 
-        <Button fx:id="button_setor04"
-                layoutX="121.0" layoutY="740.0"
-                mnemonicParsing="false" onAction="#AcessarS004"
-                opacity="0.0" prefHeight="140.0" prefWidth="104.0"
-                text="S004"/>
+        <Button fx:id="button_setor04" layoutX="121.0" layoutY="740.0" mnemonicParsing="false" onAction="#AcessarS004" opacity="0.0" prefHeight="140.0" prefWidth="104.0" text="S004" />
 
         <!-- SETOR 005 -->
-        <Rectangle fx:id="fundo_icon05" arcHeight="5.0" arcWidth="5.0"
-                  fill="#1fbf34" height="99.0"
-                  layoutX="615.0" layoutY="183.0"
-                  stroke="WHITE" strokeType="INSIDE" width="104.0"/>
+        <Rectangle fx:id="fundo_icon05" arcHeight="5.0" arcWidth="5.0" fill="#1fbf34" height="99.0" layoutX="615.0" layoutY="183.0" stroke="WHITE" strokeType="INSIDE" width="104.0" />
 
-        <Label fx:id="label_setor05" alignment="CENTER"
-               layoutX="615.0" layoutY="279.0"
-               prefHeight="45.0" prefWidth="104.0"
-               style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;"
-               text="S005" textFill="WHITE">
+        <Label fx:id="label_setor05" alignment="CENTER" layoutX="615.0" layoutY="279.0" prefHeight="45.0" prefWidth="104.0" style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;" text="S005" textFill="WHITE">
             <font>
-                <Font size="29.0"/>
+                <Font size="29.0" />
             </font>
         </Label>
 
-        <ImageView fx:id="icon_doces_gulouseimas"
-                   fitHeight="90.0" fitWidth="92.0"
-                   layoutX="621.0" layoutY="189.0">
+        <ImageView fx:id="icon_doces_gulouseimas" fitHeight="90.0" fitWidth="92.0" layoutX="621.0" layoutY="189.0">
             <image>
-                <Image url="@../imagens/icon_gulouseimas&amp;doces.png"/>
+                <Image url="@../imagens/icon_gulouseimas&amp;doces.png" />
             </image>
         </ImageView>
 
-        <Button fx:id="button_setor05"
-                layoutX="615.0" layoutY="183.0"
-                mnemonicParsing="false" onAction="#AcessarS005"
-                opacity="0.0" prefHeight="140.0" prefWidth="104.0"
-                text="S005"/>
+        <Button fx:id="button_setor05" layoutX="615.0" layoutY="183.0" mnemonicParsing="false" onAction="#AcessarS005" opacity="0.0" prefHeight="140.0" prefWidth="104.0" text="S005" />
 
         <!-- SETOR 006 -->
-        <Rectangle fx:id="fundo_icon06" arcHeight="5.0" arcWidth="5.0"
-                  fill="#1fbf34" height="99.0"
-                  layoutX="628.0" layoutY="388.0"
-                  stroke="WHITE" strokeType="INSIDE" width="104.0"/>
+        <Rectangle fx:id="fundo_icon06" arcHeight="5.0" arcWidth="5.0" fill="#1fbf34" height="99.0" layoutX="628.0" layoutY="388.0" stroke="WHITE" strokeType="INSIDE" width="104.0" />
 
-        <Label fx:id="label_setor06" alignment="CENTER"
-               layoutX="628.0" layoutY="484.0"
-               prefHeight="45.0" prefWidth="104.0"
-               style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;"
-               text="S006" textFill="WHITE">
+        <Label fx:id="label_setor06" alignment="CENTER" layoutX="628.0" layoutY="484.0" prefHeight="45.0" prefWidth="104.0" style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;" text="S006" textFill="WHITE">
             <font>
-                <Font size="29.0"/>
+                <Font size="29.0" />
             </font>
         </Label>
 
-        <ImageView fx:id="icon_chocolate_cereal"
-                   fitHeight="90.0" fitWidth="96.0"
-                   layoutX="631.0" layoutY="396.0">
+        <ImageView fx:id="icon_chocolate_cereal" fitHeight="90.0" fitWidth="96.0" layoutX="631.0" layoutY="396.0">
             <image>
-                <Image url="@../imagens/icon_chocolate&amp;cereal.png"/>
+                <Image url="@../imagens/icon_chocolate&amp;cereal.png" />
             </image>
         </ImageView>
 
-        <Button fx:id="button_setor06"
-                layoutX="628.0" layoutY="388.0"
-                mnemonicParsing="false" onAction="#AcessarS006"
-                opacity="0.0" prefHeight="140.0" prefWidth="104.0"
-                text="S006"/>
+        <Button fx:id="button_setor06" layoutX="628.0" layoutY="388.0" mnemonicParsing="false" onAction="#AcessarS006" opacity="0.0" prefHeight="140.0" prefWidth="104.0" text="S006" />
 
         <!-- SETOR 007 -->
-        <Rectangle fx:id="fundo_icon07" arcHeight="5.0" arcWidth="5.0"
-                  fill="#1fbf34" height="99.0"
-                  layoutX="615.0" layoutY="571.0"
-                  stroke="WHITE" strokeType="INSIDE" width="104.0"/>
+        <Rectangle fx:id="fundo_icon07" arcHeight="5.0" arcWidth="5.0" fill="#1fbf34" height="99.0" layoutX="615.0" layoutY="571.0" stroke="WHITE" strokeType="INSIDE" width="104.0" />
 
-        <Label fx:id="label_setor07" alignment="CENTER"
-               layoutX="615.0" layoutY="667.0"
-               prefHeight="45.0" prefWidth="104.0"
-               style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;"
-               text="S007" textFill="WHITE">
+        <Label fx:id="label_setor07" alignment="CENTER" layoutX="615.0" layoutY="667.0" prefHeight="45.0" prefWidth="104.0" style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;" text="S007" textFill="WHITE">
             <font>
-                <Font size="29.0"/>
+                <Font size="29.0" />
             </font>
         </Label>
 
-        <ImageView fx:id="icon_bebidas"
-                   fitHeight="90.0" fitWidth="93.0"
-                   layoutX="620.0" layoutY="574.0">
+        <ImageView fx:id="icon_bebidas" fitHeight="90.0" fitWidth="93.0" layoutX="620.0" layoutY="574.0">
             <image>
-                <Image url="@../imagens/icon_bebidas.png"/>
+                <Image url="@../imagens/icon_bebidas.png" />
             </image>
         </ImageView>
 
-        <Button fx:id="button_setor07"
-                layoutX="615.0" layoutY="571.0"
-                mnemonicParsing="false" onAction="#AcessarS007"
-                opacity="0.0" prefHeight="140.0" prefWidth="104.0"
-                text="S007"/>
+        <Button fx:id="button_setor07" layoutX="615.0" layoutY="571.0" mnemonicParsing="false" onAction="#AcessarS007" opacity="0.0" prefHeight="140.0" prefWidth="104.0" text="S007" />
 
         <!-- SETOR 008 -->
-        <Rectangle fx:id="fundo_icon08" arcHeight="5.0" arcWidth="5.0"
-                  fill="#1fbf34" height="99.0"
-                  layoutX="627.0" layoutY="740.0"
-                  stroke="WHITE" strokeType="INSIDE" width="104.0"/>
+        <Rectangle fx:id="fundo_icon08" arcHeight="5.0" arcWidth="5.0" fill="#1fbf34" height="99.0" layoutX="627.0" layoutY="740.0" stroke="WHITE" strokeType="INSIDE" width="104.0" />
 
-        <Label fx:id="label_setor08" alignment="CENTER"
-               layoutX="627.0" layoutY="836.0"
-               prefHeight="45.0" prefWidth="104.0"
-               style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;"
-               text="S008" textFill="WHITE">
+        <Label fx:id="label_setor08" alignment="CENTER" layoutX="627.0" layoutY="836.0" prefHeight="45.0" prefWidth="104.0" style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;" text="S008" textFill="WHITE">
             <font>
-                <Font size="29.0"/>
+                <Font size="29.0" />
             </font>
         </Label>
 
-        <ImageView fx:id="icon_biscoitos_bolachas"
-                   fitHeight="90.0" fitWidth="121.0"
-                   layoutX="631.0" layoutY="745.0"
-                   pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="icon_biscoitos_bolachas" fitHeight="90.0" fitWidth="121.0" layoutX="631.0" layoutY="745.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../imagens/icon_biscoito&amp;bolacha.png"/>
+                <Image url="@../imagens/icon_biscoito&amp;bolacha.png" />
             </image>
         </ImageView>
 
-        <Button fx:id="button_setor08"
-                layoutX="627.0" layoutY="740.0"
-                mnemonicParsing="false" onAction="#AcessarS008"
-                opacity="0.0" prefHeight="140.0" prefWidth="104.0"
-                text="S008"/>
+        <Button fx:id="button_setor08" layoutX="627.0" layoutY="740.0" mnemonicParsing="false" onAction="#AcessarS008" opacity="0.0" prefHeight="140.0" prefWidth="104.0" text="S008" />
 
         <!-- SETOR 009 -->
-        <Rectangle fx:id="fundo_icon09" arcHeight="5.0" arcWidth="5.0"
-                  fill="#1fbf34" height="99.0"
-                  layoutX="1188.0" layoutY="183.0"
-                  stroke="WHITE" strokeType="INSIDE" width="104.0"/>
+        <Rectangle fx:id="fundo_icon09" arcHeight="5.0" arcWidth="5.0" fill="#1fbf34" height="99.0" layoutX="1188.0" layoutY="183.0" stroke="WHITE" strokeType="INSIDE" width="104.0" />
 
-        <Label fx:id="label_setor09" alignment="CENTER"
-               layoutX="1188.0" layoutY="279.0"
-               prefHeight="45.0" prefWidth="104.0"
-               style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;"
-               text="S009" textFill="WHITE">
+        <Label fx:id="label_setor09" alignment="CENTER" layoutX="1188.0" layoutY="279.0" prefHeight="45.0" prefWidth="104.0" style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;" text="S009" textFill="WHITE">
             <font>
-                <Font size="29.0"/>
+                <Font size="29.0" />
             </font>
         </Label>
 
-        <ImageView fx:id="icon_cafe_acucar"
-                   fitHeight="90.0" fitWidth="92.0"
-                   layoutX="1193.0" layoutY="188.0">
+        <ImageView fx:id="icon_cafe_acucar" fitHeight="90.0" fitWidth="92.0" layoutX="1193.0" layoutY="188.0">
             <image>
-                <Image url="@../imagens/icon_cafe&amp;açucar.png"/>
+                <Image url="@../imagens/icon_cafe&amp;açucar.png" />
             </image>
         </ImageView>
 
-        <Button fx:id="button_setor09"
-                layoutX="1188.0" layoutY="183.0"
-                mnemonicParsing="false" onAction="#AcessarS009"
-                opacity="0.0" prefHeight="140.0" prefWidth="104.0"
-                text="S009"/>
+        <Button fx:id="button_setor09" layoutX="1188.0" layoutY="183.0" mnemonicParsing="false" onAction="#AcessarS009" opacity="0.0" prefHeight="140.0" prefWidth="104.0" text="S009" />
 
         <!-- SETOR 010 -->
-        <Rectangle fx:id="fundo_icon10" arcHeight="5.0" arcWidth="5.0"
-                  fill="#1fbf34" height="99.0"
-                  layoutX="1181.0" layoutY="388.0"
-                  stroke="WHITE" strokeType="INSIDE" width="104.0"/>
+        <Rectangle fx:id="fundo_icon10" arcHeight="5.0" arcWidth="5.0" fill="#1fbf34" height="99.0" layoutX="1181.0" layoutY="388.0" stroke="WHITE" strokeType="INSIDE" width="104.0" />
 
-        <Label fx:id="label_setor10" alignment="CENTER"
-               layoutX="1181.0" layoutY="484.0"
-               prefHeight="45.0" prefWidth="104.0"
-               style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;"
-               text="S010" textFill="WHITE">
+        <Label fx:id="label_setor10" alignment="CENTER" layoutX="1181.0" layoutY="484.0" prefHeight="45.0" prefWidth="104.0" style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;" text="S010" textFill="WHITE">
             <font>
-                <Font size="29.0"/>
+                <Font size="29.0" />
             </font>
         </Label>
 
-        <ImageView fx:id="icon_utencilios"
-                   fitHeight="90.0" fitWidth="95.0"
-                   layoutX="1185.0" layoutY="394.0">
+        <ImageView fx:id="icon_utencilios" fitHeight="90.0" fitWidth="95.0" layoutX="1185.0" layoutY="394.0">
             <image>
-                <Image url="@../imagens/icon_utencilios.png"/>
+                <Image url="@../imagens/icon_utencilios.png" />
             </image>
         </ImageView>
 
-        <Button fx:id="button_setor10"
-                layoutX="1181.0" layoutY="388.0"
-                mnemonicParsing="false" onAction="#AcessarS010"
-                opacity="0.0" prefHeight="140.0" prefWidth="104.0"
-                text="S010"/>
+        <Button fx:id="button_setor10" layoutX="1181.0" layoutY="388.0" mnemonicParsing="false" onAction="#AcessarS010" opacity="0.0" prefHeight="140.0" prefWidth="104.0" text="S010" />
 
         <!-- SETOR 011 -->
-        <Rectangle fx:id="fundo_icon11" arcHeight="5.0" arcWidth="5.0"
-                  fill="#1fbf34" height="99.0"
-                  layoutX="1187.0" layoutY="571.0"
-                  stroke="WHITE" strokeType="INSIDE" width="104.0"/>
+        <Rectangle fx:id="fundo_icon11" arcHeight="5.0" arcWidth="5.0" fill="#1fbf34" height="99.0" layoutX="1187.0" layoutY="571.0" stroke="WHITE" strokeType="INSIDE" width="104.0" />
 
-        <Label fx:id="label_setor11" alignment="CENTER"
-               layoutX="1187.0" layoutY="667.0"
-               prefHeight="45.0" prefWidth="104.0"
-               style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;"
-               text="S011" textFill="WHITE">
+        <Label fx:id="label_setor11" alignment="CENTER" layoutX="1187.0" layoutY="667.0" prefHeight="45.0" prefWidth="104.0" style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;" text="S011" textFill="WHITE">
             <font>
-                <Font size="29.0"/>
+                <Font size="29.0" />
             </font>
         </Label>
 
-        <ImageView fx:id="icon_limpeza"
-                   fitHeight="82.0" fitWidth="90.0"
-                   layoutX="1193.0" layoutY="579.0">
+        <ImageView fx:id="icon_limpeza" fitHeight="82.0" fitWidth="90.0" layoutX="1193.0" layoutY="579.0">
             <image>
-                <Image url="@../imagens/icon_limpeza.png"/>
+                <Image url="@../imagens/icon_limpeza.png" />
             </image>
         </ImageView>
 
-        <Button fx:id="button_setor11"
-                layoutX="1187.0" layoutY="571.0"
-                mnemonicParsing="false" onAction="#AcessarS011"
-                opacity="0.0" prefHeight="140.0" prefWidth="104.0"
-                text="S011"/>
+        <Button fx:id="button_setor11" layoutX="1187.0" layoutY="571.0" mnemonicParsing="false" onAction="#AcessarS011" opacity="0.0" prefHeight="140.0" prefWidth="104.0" text="S011" />
 
         <!-- SETOR 012 -->
-        <Rectangle fx:id="fundo_icon12" arcHeight="5.0" arcWidth="5.0"
-                  fill="#1fbf34" height="99.0"
-                  layoutX="1186.0" layoutY="732.0"
-                  stroke="WHITE" strokeType="INSIDE" width="104.0"/>
+        <Rectangle fx:id="fundo_icon12" arcHeight="5.0" arcWidth="5.0" fill="#1fbf34" height="99.0" layoutX="1186.0" layoutY="732.0" stroke="WHITE" strokeType="INSIDE" width="104.0" />
 
-        <Label fx:id="label_setor12" alignment="CENTER"
-               layoutX="1186.0" layoutY="828.0"
-               prefHeight="45.0" prefWidth="104.0"
-               style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;"
-               text="S012" textFill="WHITE">
+        <Label fx:id="label_setor12" alignment="CENTER" layoutX="1186.0" layoutY="828.0" prefHeight="45.0" prefWidth="104.0" style="-fx-background-color: #1A9621; -fx-border-color: #FFFFFF;" text="S012" textFill="WHITE">
             <font>
-                <Font size="29.0"/>
+                <Font size="29.0" />
             </font>
         </Label>
 
-        <ImageView fx:id="icon_higiene"
-                   fitHeight="90.0" fitWidth="91.0"
-                   layoutX="1194.0" layoutY="738.0">
+        <ImageView fx:id="icon_higiene" fitHeight="90.0" fitWidth="91.0" layoutX="1194.0" layoutY="738.0">
             <image>
-                <Image url="@../imagens/icon_higiene.png"/>
+                <Image url="@../imagens/icon_higiene.png" />
             </image>
         </ImageView>
 
-        <Button fx:id="button_setor12"
-                layoutX="1186.0" layoutY="732.0"
-                mnemonicParsing="false" onAction="#AcessarS012"
-                opacity="0.0" prefHeight="140.0" prefWidth="104.0"
-                text="S012"/>
+        <Button fx:id="button_setor12" layoutX="1186.0" layoutY="732.0" mnemonicParsing="false" onAction="#AcessarS012" opacity="0.0" prefHeight="140.0" prefWidth="104.0" text="S012" />
 
         <!-- INFORMAÇÕES DO SETOR SELECIONADO -->
-        <VBox fx:id="vbox_principal"
-              alignment="TOP_CENTER"
-              layoutX="1329.0" layoutY="117.0
-              " prefHeight="254.0" prefWidth="580.0
-              "
-              style="-fx-background-color: #FFFFFF; -fx-background-radius: 16 16 0 0; -fx-padding: 12 18 16 18; -fx-effect: dropshadow(gaussian, rgba(15,35,55,0.24), 18, 0.15, 0, 5);">
+        <VBox fx:id="vbox_principal" alignment="TOP_CENTER" layoutX="1329.0" layoutY="117.0               " prefHeight="254.0" prefWidth="580.0               " style="-fx-background-color: #FFFFFF; -fx-background-radius: 16 16 0 0; -fx-padding: 12 18 16 18; -fx-effect: dropshadow(gaussian, rgba(15,35,55,0.24), 18, 0.15, 0, 5);">
 
             <children>
 
-                <HBox alignment="CENTER"
-                       prefHeight="150.0" prefWidth="501.0"
-                       style="-fx-spacing: 10; -fx-padding: 0; -fx-pref-width: 55;">
+                <HBox alignment="CENTER" prefHeight="150.0" prefWidth="501.0" style="-fx-spacing: 10; -fx-padding: 0; -fx-pref-width: 55;">
 
                     <children>
-                        <ImageView fx:id="imagem_setor"
-                                   fitHeight="144.0" fitWidth="228.0"
-                                   pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imagem_setor" fitHeight="144.0" fitWidth="228.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../imagens/icon_biscoito&amp;bolacha.png"/>
+                                <Image url="@../imagens/icon_biscoito&amp;bolacha.png" />
                             </image>
                         </ImageView>
                     </children>
                 </HBox>
 
-                <Label fx:id="label_codigo_setor"
-                       alignment="CENTER" text="S001">
+                <Label fx:id="label_codigo_setor" alignment="CENTER" text="S001">
                     <font>
-                        <Font name="Calibri Bold" size="45.0"/>
+                        <Font name="Calibri Bold" size="45.0" />
                     </font>
                 </Label>
 
-                <Label fx:id="label_nome_setor"
-                       alignment="TOP_CENTER"
-                       text="Biscoitos e Bolachas"
-                       textFill="#555555">
+                <Label fx:id="label_nome_setor" alignment="TOP_CENTER" text="Biscoitos e Bolachas" textFill="#555555">
                     <font>
-                        <Font name="System Bold Italic" size="17.0"/>
+                        <Font name="System Bold Italic" size="17.0" />
                     </font>
                 </Label>
 
@@ -481,113 +289,67 @@
         </VBox>
 
         <!-- TABELAS -->
-        <HBox fx:id="hbox_tabelas"
-              layoutX="1329.0" layoutY="371.0
-              " prefHeight="520.0" prefWidth="580.0
-              "
-              style="-fx-background-color: #F7F9FC; -fx-background-radius: 0 0 16 16; -fx-padding: 18 14 18 14; -fx-spacing: 12; -fx-effect: dropshadow(gaussian, rgba(15,35,55,0.20), 16, 0.12, 0, 5);">
+        <HBox fx:id="hbox_tabelas" layoutX="1329.0" layoutY="371.0               " prefHeight="520.0" prefWidth="580.0               " style="-fx-background-color: #F7F9FC; -fx-background-radius: 0 0 16 16; -fx-padding: 18 14 18 14; -fx-spacing: 12; -fx-effect: dropshadow(gaussian, rgba(15,35,55,0.20), 16, 0.12, 0, 5);">
 
             <children>
 
                 <!-- INFORMAÇÕES GERAIS -->
-                <VBox fx:id="vbox_informacoes"
-                      alignment="TOP_CENTER"
-                      prefHeight="412.0" prefWidth="290.0"
-                      spacing="12.0"
-                      style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-padding: 14 12 12 12;">
+                <VBox fx:id="vbox_informacoes" alignment="TOP_CENTER" prefHeight="412.0" prefWidth="290.0" spacing="12.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-padding: 14 12 12 12;">
 
                     <children>
 
-                        <Label fx:id="label_informacoes"
-                               text="Informações Gerais"
-                               style="-fx-text-fill: #183B56; -fx-font-family: Arial; -fx-font-size: 19px; -fx-font-weight: bold;"/>
+                        <Label fx:id="label_informacoes" style="-fx-text-fill: #183B56; -fx-font-family: Arial; -fx-font-size: 19px; -fx-font-weight: bold;" text="Informações Gerais" />
 
                         <!-- CARD: TOTAL DE PRODUTOS -->
-                        <VBox alignment="CENTER"
-                              spacing="10.0"
-                              VBox.vgrow="ALWAYS"
-                              style="-fx-background-color: #F5F8F6; -fx-background-radius: 10; -fx-padding: 12;">
+                        <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #F5F8F6; -fx-background-radius: 10; -fx-padding: 12;" VBox.vgrow="ALWAYS">
 
-                            <Label text="Quantidade total de produtos cadastrados"
-                                   wrapText="true"
-                                   alignment="CENTER"
-                                   style="-fx-text-fill: #374151; -fx-font-size: 15px; -fx-font-weight: bold;"/>
+                            <Label alignment="CENTER" style="-fx-text-fill: #374151; -fx-font-size: 15px; -fx-font-weight: bold;" text="Quantidade total de produtos cadastrados" wrapText="true" />
 
-                            <Label fx:id="label_total_produtos"
-                                   text="0"
-                                   style="-fx-text-fill: #123B2A; -fx-font-size: 30px; -fx-font-weight: bold;"/>
+                            <Label fx:id="label_total_produtos" style="-fx-text-fill: #123B2A; -fx-font-size: 30px; -fx-font-weight: bold;" text="0" />
 
                         </VBox>
 
                         <!-- CARD: PERCENTUAL OCUPADO -->
-                        <VBox alignment="CENTER"
-                              spacing="10.0"
-                              VBox.vgrow="ALWAYS"
-                              style="-fx-background-color: #F5F8F6; -fx-background-radius: 10; -fx-padding: 12;">
+                        <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #F5F8F6; -fx-background-radius: 10; -fx-padding: 12;" VBox.vgrow="ALWAYS">
 
-                            <Label text="Percentual ocupado de unidades"
-                                   wrapText="true"
-                                   alignment="CENTER"
-                                   style="-fx-text-fill: #374151; -fx-font-size: 15px; -fx-font-weight: bold;"/>
+                            <Label alignment="CENTER" style="-fx-text-fill: #374151; -fx-font-size: 15px; -fx-font-weight: bold;" text="Percentual ocupado de unidades" wrapText="true" />
 
-                            <Label fx:id="label_percentual_ocupado"
-                                   text="0%"
-                                   style="-fx-text-fill: #123B2A; -fx-font-size: 30px; -fx-font-weight: bold;"/>
+                            <Label fx:id="label_percentual_ocupado" style="-fx-text-fill: #123B2A; -fx-font-size: 30px; -fx-font-weight: bold;" text="0%" />
 
                         </VBox>
 
                     </children>
 
                     <padding>
-                        <Insets top="10.0"/>
+                        <Insets top="10.0" />
                     </padding>
 
                 </VBox>
 
                 <!-- PRODUTOS -->
-                <VBox fx:id="vbox_produtos"
-                      alignment="TOP_CENTER"
-                      prefHeight="412.0" prefWidth="290.0"
-                      spacing="14.0"
-                      style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-padding: 14 12 12 12;">
+                <VBox fx:id="vbox_produtos" alignment="TOP_CENTER" prefHeight="412.0" prefWidth="290.0" spacing="14.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-padding: 14 12 12 12;">
 
                     <padding>
-                        <Insets top="10.0"/>
+                        <Insets top="10.0" />
                     </padding>
 
                     <children>
 
-                        <Label fx:id="label_produto"
-                               text="Produtos"
-                               style="-fx-text-fill: #183B56; -fx-font-family: Arial; -fx-font-size: 19px; -fx-font-weight: bold;">
+                        <Label fx:id="label_produto" style="-fx-text-fill: #183B56; -fx-font-family: Arial; -fx-font-size: 19px; -fx-font-weight: bold;" text="Produtos">
                             <font>
-                                <Font name="Georgia Bold" size="22.0"/>
+                                <Font name="Georgia Bold" size="22.0" />
                             </font>
                         </Label>
 
-                        <TableView fx:id="tabela_produtos"
-           prefHeight="440.0"
-           prefWidth="280.0"
-           minWidth="280.0"
-           maxWidth="280.0"
-           VBox.vgrow="ALWAYS">
+                        <TableView fx:id="tabela_produtos" maxWidth="280.0" minWidth="280.0" prefHeight="440.0" prefWidth="280.0" VBox.vgrow="ALWAYS">
 
     <columns>
 
-        <TableColumn fx:id="coluna_nome_produto"
-                     prefWidth="115.0"
-                     minWidth="115.0"
-                     text="Produto" />
+        <TableColumn fx:id="coluna_nome_produto" minWidth="115.0" prefWidth="115.0" text="Produto" />
 
-        <TableColumn fx:id="coluna_quantidade"
-                     prefWidth="65.0"
-                     minWidth="65.0"
-                     text="Qtd." />
+        <TableColumn fx:id="coluna_quantidade" minWidth="65.0" prefWidth="65.0" text="Qtd." />
 
-        <TableColumn fx:id="coluna_validade"
-                     prefWidth="100.0"
-                     minWidth="100.0"
-                     text="Validade" />
+        <TableColumn fx:id="coluna_validade" minWidth="100.0" prefWidth="100.0" text="Validade" />
 
     </columns>
 
@@ -600,15 +362,7 @@
         </HBox>
 
         <!-- BOTÃO VOLTAR -->
-        <Button fx:id="button_voltar_tela_produto"
-                layoutX="1775.0" layoutY="985.0"
-                mnemonicParsing="false"
-                onAction="#Voltar_tela"
-                prefHeight="64.0" prefWidth="131.0"
-                style="-fx-background-color: #123B2A; -fx-text-fill: white;"
-                styleClass="btn-voltar"
-                stylesheets="@style.css"
-                text="Voltar"/>
+        <Button fx:id="button_voltar_tela_produto" layoutX="1733.0" layoutY="926.0" mnemonicParsing="false" onAction="#Voltar_tela" prefHeight="64.0" prefWidth="131.0" style="-fx-background-color: #123B2A; -fx-text-fill: white;" styleClass="btn-voltar" stylesheets="@style.css" text="Voltar" />
 
     </children>
 </AnchorPane>
