@@ -15,7 +15,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/application/telacad.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/application/tela_cadastro_produto.fxml"));
 
             Scene scene = new Scene(root);
             primaryStage.setTitle("StockWatch - Cadastro de Usuários");

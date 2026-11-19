@@ -22,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -41,6 +42,9 @@ public class tela_controle_cadastro_produto implements Initializable {
 
     @FXML
     private ImageView background_tela_produto;
+
+    @FXML
+    private Button button_visualizar_prateleiras;
 
     @FXML
     private Button button_cadastrar;
@@ -609,5 +613,21 @@ public class tela_controle_cadastro_produto implements Initializable {
             e.printStackTrace();
             exibirAlerta("Erro", "Não foi possível carregar a tela de visualização. Verifique o nome do arquivo FXML.", Alert.AlertType.ERROR);
         }
+    }
+
+    @FXML
+    void VisualizarPrateleira(ActionEvent event) {
+    	try {
+    		Parent root = FXMLLoader.load(getClass().getResource("/application/tela_prateleiras.fxml"));
+    		Scene scene = new Scene(root,1920,1080);
+    		Stage janela = (Stage) ((Node)
+    				event.getSource()).getScene().getWindow();
+    		janela.setScene(scene);
+    		janela.setTitle("Tela cadastro");
+    		janela.setMaximized(true);
+    		janela.show();
+    	}catch(Exception e) {
+    		e.getMessage();
+    }
     }
 }
