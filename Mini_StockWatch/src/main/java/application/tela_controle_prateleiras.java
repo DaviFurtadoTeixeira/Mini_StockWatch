@@ -111,6 +111,7 @@ public class tela_controle_prateleiras {
     private void initialize() {
         coluna_nome_produto.setCellValueFactory(new PropertyValueFactory<>("nome"));
         coluna_quantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+        coluna_validade.setCellValueFactory(new PropertyValueFactory<>("validade")); // <-- Faltava esta linha
 
         selecionarSetor(
             "S001",
