@@ -12,7 +12,7 @@ public class Main extends Application {
         try {
             BancoDeDados.preaquecer();
 
-            Parent root = FXMLLoader.load(getClass().getResource("/application/tela_cadastro_produto.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/application/telalogin.fxml"));
 
             Scene scene = new Scene(root);
             primaryStage.setTitle("StockWatch - Cadastro de Produtos");

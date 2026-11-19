@@ -79,7 +79,7 @@
       </TextField>
 
       <!-- Botão Cadastrar perfeitamente alinhado à direita com a caixa de validade -->
-      <Button fx:id="button_cadastrar" layoutX="1530.0" layoutY="665.0" mnemonicParsing="false" onAction="#CadastrarProduto" prefHeight="58.0" prefWidth="250.0" style="-fx-background-color: #000000; -fx-border-color: #06A110; -fx-border-width: 2px; -fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(6,161,16,0.4), 10, 0, 0, 4);" text="Cadastrar" textFill="WHITE">
+      <Button fx:id="button_cadastrar" layoutX="1530.0" layoutY="662.0" mnemonicParsing="false" onAction="#CadastrarProduto" prefHeight="58.0" prefWidth="250.0" style="-fx-background-color: #000000; -fx-border-color: #06A110; -fx-border-width: 2px; -fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(6,161,16,0.4), 10, 0, 0, 4);" text="Cadastrar" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -91,24 +91,23 @@
             <Image url="@../imagens/Logo%20moderno%20StockWatch.png" />
          </image>
       </ImageView>
-      <Button fx:id="button_visualizar_estoque" layoutX="1530.0" layoutY="745.0" mnemonicParsing="false" onAction="#VisualizarEstoque" prefHeight="58.0" prefWidth="250.0" style="-fx-background-color: #000000; -fx-border-color: #06A110; -fx-border-width: 2px; -fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(6,161,16,0.4), 10, 0, 0, 4);" text="Visualizar Estoque" textFill="WHITE">
+      <Button fx:id="button_visualizar_estoque" layoutX="1264.0" layoutY="737.0" mnemonicParsing="false" onAction="#VisualizarEstoque" prefHeight="58.0" prefWidth="250.0" style="-fx-background-color: #000000; -fx-border-color: #06A110; -fx-border-width: 2px; -fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(6,161,16,0.4), 10, 0, 0, 4);" text="Visualizar Estoque" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-<<<<<<< HEAD
+
       <Label fx:id="label_setor" alignment="CENTER" layoutX="1230.0" layoutY="530.0" prefHeight="55.0" prefWidth="200.0" style="-fx-background-color: #06A110; -fx-border-color: #FFFFFF; -fx-background-radius: 25; -fx-border-radius: 25;" text="Setor" textFill="WHITE">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
       <ComboBox fx:id="combobox_setor" layoutX="1230.0" layoutY="595.0" prefHeight="50.0" prefWidth="550.0" promptText="Escolha o setor" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #FFFFFF; -fx-border-color: #06A110;" />
-=======
-      <Button fx:id="button_visualizar_prateleiras" layoutX="1530.0" layoutY="706.0" mnemonicParsing="false" onAction="#VisualizarPrateleira" prefHeight="58.0" prefWidth="250.0" style="-fx-background-color: #000000; -fx-border-color: #06A110; -fx-border-width: 2px; -fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(6,161,16,0.4), 10, 0, 0, 4);" text="Prateleiras" textFill="WHITE">
+
+      <Button fx:id="button_visualizar_prateleiras" layoutX="1264.0" layoutY="662.0" mnemonicParsing="false" onAction="#VisualizarPrateleira" prefHeight="58.0" prefWidth="250.0" style="-fx-background-color: #000000; -fx-border-color: #06A110; -fx-border-width: 2px; -fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(6,161,16,0.4), 10, 0, 0, 4);" text="Prateleiras" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
->>>>>>> branch 'master' of https://github.com/DaviFurtadoTeixeira/Mini_StockWatch.git
    </children>
 </AnchorPane>
