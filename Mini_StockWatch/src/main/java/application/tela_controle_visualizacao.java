@@ -248,19 +248,5 @@ private void carregarProdutosDoBanco() {
             exibirAlerta("Erro", "Não foi possível retornar à tela de cadastro.", Alert.AlertType.ERROR);
         }
     }
-    @FXML
-    void VisualizarPrateleira(ActionEvent event) {
-    	try {
-    		Parent root = FXMLLoader.load(getClass().getResource("/application/tela_prateleiras.fxml"));
-    		Scene scene = new Scene(root,1920,1080);
-    		Stage janela = (Stage) ((Node)
-    				event.getSource()).getScene().getWindow();
-    		janela.setScene(scene);
-    		janela.setTitle("Tela cadastro");
-    		janela.setMaximized(true);
-    		janela.show();
-    	}catch(Exception e) {
-    		e.getMessage();
-    }
-    }
+
 }

@@ -3,6 +3,10 @@ package application;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -12,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 public class tela_controle_prateleiras {
 
@@ -266,4 +271,19 @@ public class tela_controle_prateleiras {
 
     }
 
+    @FXML
+    void Voltar_tela(ActionEvent event) {
+    	try {
+            Parent root = FXMLLoader.load(getClass().getResource("/application/tela_controle_visualizacao.fxml"));
+            Scene scene = new Scene(root, 1920, 1080);
+            Stage janela = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            janela.setScene(scene);
+            janela.setTitle("Tela login");
+            janela.setMaximized(true);
+            janela.centerOnScreen();
+            janela.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

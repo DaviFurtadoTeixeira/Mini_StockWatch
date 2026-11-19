@@ -614,6 +614,19 @@ public class tela_controle_cadastro_produto implements Initializable {
             exibirAlerta("Erro", "Não foi possível carregar a tela de visualização. Verifique o nome do arquivo FXML.", Alert.AlertType.ERROR);
         }
     }
+    @FXML
+    void VisualizarPrateleira(ActionEvent event) {
+    	try {
+            Parent root = FXMLLoader.load(getClass().getResource("/application/tela_prateleiras.fxml"));
+            Scene scene = new Scene(root, 1920, 1080);
+            Stage janela = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            janela.setScene(scene);
+            janela.setTitle("Tela cadastro");
+            janela.setMaximized(true);
+            janela.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    }
 
-
-}
